@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="format-detection" content="telephone=no" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/vite.svg" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/vite.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/vite.svg" />
+    <link rel="apple-touch-icon" sizes="167x167" href="/vite.svg" />
+    
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#002868" />
+    <meta name="msapplication-TileColor" content="#002868" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Comprehensive Dutch driving theory learning app with practice tests, mock exams, and progress tracking" />
+    <meta name="keywords" content="CBR, Dutch driving theory, driving test, practice tests, mock exam, Netherlands" />
+    <meta name="author" content="CBR Theory Learning" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="CBR Theory Learning" />
+    <meta property="og:description" content="Master Dutch driving theory with comprehensive practice tests and mock exams" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cbr-theory-learning.com" />
+    <meta property="og:image" content="/vite.svg" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CBR Theory Learning" />
+    <meta name="twitter:description" content="Master Dutch driving theory with comprehensive practice tests and mock exams" />
+    <meta name="twitter:image" content="/vite.svg" />
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/src/index.css" as="style" />
+    <link rel="preload" href="/src/main.tsx" as="script" />
+    
+    <!-- DNS Prefetch for External Resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    
+    <!-- Preconnect to External Domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Font Loading -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" /></noscript>
+    
+    <title>CBR Theory Learning App</title>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "CBR Theory Learning",
+      "description": "Comprehensive Dutch driving theory learning app with practice tests and mock exams",
+      "url": "https://cbr-theory-learning.com",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "CBR Theory Learning"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Offline Page -->
+    <template id="offline-template">
+      <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 2rem;
+        font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-align: center;
+      ">
+        <div style="font-size: 4rem; margin-bottom: 1rem;">📱</div>
+        <h1 style="font-size: 2rem; margin-bottom: 1rem; font-weight: 700;">You're Offline</h1>
+        <p style="font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;">
+          Don't worry! You can still access your saved progress and practice offline.
+        </p>
+        <button onclick="location.reload()" style="
+          background: rgba(255, 255, 255, 0.2);
+          color: white;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          padding: 1rem 2rem;
+          border-radius: 12px;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          backdrop-filter: blur(10px);
+        " onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+          Try Again
+        </button>
+      </div>
+    </template>
+    
+    <!-- Service Worker Registration Script -->
+    <script>
+      // Check if service worker is supported
+      if ('serviceWorker' in navigator) {
+        // Register service worker
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+              console.log('SW registered: ', registration);
+            })
+            .catch(registrationError => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+      
+      // Handle offline/online events
+      window.addEventListener('online', () => {
+        console.log('App is online');
+        // You can show a notification here
+      });
+      
+      window.addEventListener('offline', () => {
+        console.log('App is offline');
+        // You can show a notification here
+      });
+      
+      // Performance monitoring
+      if ('performance' in window) {
+        window.addEventListener('load', () => {
+          setTimeout(() => {
+            const perfData = performance.getEntriesByType('navigation')[0];
+            console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
+          }, 0);
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,487 @@
+/** SETTINGS PAGE: MATCH PRACTICE PAGE STYLES **/
+.settings-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: none !important;
+}
+
+.settings-header {
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.settings-header h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  color: var(--header-color, #002868);
+  font-weight: 900;
+  margin-bottom: 0 !important;
+  letter-spacing: -1px;
+  line-height: 1.13;
+  font-family: inherit;
+  position: relative;
+}
+.settings-header h2::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--secondary-color, #002868) 60%, var(--accent-color, #BF0A30) 100%);
+  border-radius: 2px;
+  margin: 0.5rem auto 2rem auto !important;
+}
+
+.settings-main-menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  box-sizing: border-box;
+  overflow-y: hidden !important;
+}
+
+.settings-btn-wrapper {
+  width: 100%;
+  display: block;
+}
+
+.settings-main-menu-btn {
+  width: 100%;
+  min-width: unset;
+  max-width: unset;
+  margin: 0;
+  background: #002868 !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 1.2rem 1.5rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  box-shadow: 0 2px 8px rgba(0, 40, 104, 0.15) !important;
+  min-height: 60px !important;
+  font-family: inherit;
+  transition: none !important;
+}
+.settings-main-menu-btn:active,
+.settings-main-menu-btn:focus,
+.settings-main-menu-btn:hover {
+  background: #002868 !important;
+  color: #fff !important;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0, 40, 104, 0.15) !important;
+  outline: none !important;
+  transform: none !important;
+}
+.settings-main-menu-btn .settings-icon {
+  font-size: 1.3rem !important;
+  margin-right: 1rem !important;
+  color: #fff !important;
+}
+.settings-main-menu-btn .settings-label {
+  flex: 1 !important;
+  text-align: left !important;
+  font-weight: 600 !important;
+}
+.settings-main-menu-btn .settings-arrow {
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+}
+
+/* FORCE BUTTON WIDTH TO MATCH PRACTICE PAGE */
+  .settings-main-menu {
+  max-width: 600px !important;
+  margin: 0 auto !important;
+  padding-left: 32px !important;
+  padding-right: 32px !important;
+}
+.settings-btn-wrapper {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  }
+  .settings-main-menu-btn {
+  width: 95% !important;
+  min-width: 220px !important;
+  max-width: 570px !important;
+  margin: 0 auto !important;
+}
+
+.account-page-simple {
+  min-height: 100vh !important;
+  height: auto !important;
+  box-sizing: border-box;
+  overflow: visible !important;
+}
+.account-header-row {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  background: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+.account-header-row.left-align {
+  flex-direction: row;
+  justify-content: flex-start;
+  text-align: left;
+}
+.account-header-row.account-header-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e6eaf3;
+  background: none !important;
+}
+.account-back-btn {
+  position: static !important;
+  margin-right: auto !important;
+  background: none !important;
+  border: none !important;
+  color: #002868 !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: background 0.2s, color 0.2s;
+  padding: 0.2rem 0.7rem 0.2rem 0.2rem !important;
+  border-radius: 8px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  letter-spacing: -0.5px;
+}
+.account-back-btn:hover,
+.account-back-btn:focus,
+.account-back-btn:active {
+  background: none !important;
+  color: #002868 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border: none !important;
+  transition: none !important;
+}
+.account-back-btn:focus {
+  outline: 2px solid #002868 !important;
+}
+.account-page-title {
+  margin: 0 auto !important;
+  text-align: center !important;
+  flex: 1 1 auto;
+  font-size: 1.4rem !important;
+  font-weight: 900 !important;
+  color: #002868 !important;
+  letter-spacing: -0.5px;
+  background: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+.account-content-left {
+  text-align: left !important;
+  margin-top: 1.5rem;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.account-content-right {
+  text-align: right !important;
+  background: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+.account-section, .settings-section {
+  margin-bottom: 2.2rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1.5px solid #e6eaf3;
+  background: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+.account-section:last-child, .settings-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.account-section h4, .settings-section h4 {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: #002868;
+  margin: 0 0 1.1rem 0;
+  letter-spacing: -0.5px;
+}
+.profile-field, .edit-field, .display-field, .data-actions, .danger-zone, .settings-qr-mobile {
+  margin-bottom: 1.2rem;
+}
+.profile-field label {
+  font-weight: 700;
+  color: #002868;
+  margin-bottom: 0.2rem;
+  display: block;
+  font-size: 1rem;
+}
+.edit-field input, .display-field input, .profile-field input, .profile-field select {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid #e6eaf3;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  margin-bottom: 0.5rem;
+  background: #f8f9fa;
+  color: #222b45;
+  box-sizing: border-box;
+  outline: none;
+  transition: border 0.2s;
+}
+.edit-field input:focus, .profile-field input:focus, .profile-field select:focus {
+  border: 1.5px solid #002868;
+  background: #fff;
+}
+.display-field {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.edit-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.save-btn, .cancel-btn, .edit-btn, .action-btn, .action-btn.secondary, .action-btn.danger {
+  transition: background 0.2s, color 0.2s;
+  box-shadow: none !important;
+  outline: none !important;
+  background: #f8f9fa !important;
+  color: #002868 !important;
+  border: 1px solid #e9ecef !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  padding: 0.6rem 1.2rem !important;
+  font-size: 1rem !important;
+}
+.save-btn:hover, .cancel-btn:hover, .edit-btn:hover, .action-btn:hover, .action-btn.secondary:hover, .action-btn.danger:hover,
+.save-btn:focus, .cancel-btn:focus, .edit-btn:focus, .action-btn:focus, .action-btn.secondary:focus, .action-btn.danger:focus,
+.save-btn:active, .cancel-btn:active, .edit-btn:active, .action-btn:active, .action-btn.secondary:active, .action-btn.danger:active {
+  background: #f8f9fa !important;
+  color: #002868 !important;
+  border: 1px solid #e9ecef !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: none !important;
+}
+.save-btn:focus, .cancel-btn:focus, .edit-btn:focus, .action-btn:focus, .action-btn.secondary:focus, .action-btn.danger:focus {
+  outline: 2px solid #002868 !important;
+}
+.premium-badge {
+  background: #e6eaf3;
+  color: #002868;
+  border-radius: 8px;
+  padding: 0.2rem 0.7rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-left: 0.5rem;
+}
+.qr-label {
+  font-size: 0.95rem;
+  color: #002868;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.language-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: #f8f9fa url('data:image/svg+xml;utf8,<svg fill="%23002868" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 1.2rem center/1.2em;
+  border: 2px solid #002868;
+  border-radius: 10px;
+  padding: 0.8rem 2.5rem 0.8rem 1.2rem;
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: #002868;
+  box-shadow: 0 2px 8px rgba(0,40,104,0.07);
+  cursor: pointer;
+  min-width: 160px;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.language-select:focus, .language-select:hover {
+  border: 2.5px solid #002868;
+  background-color: #fff;
+  outline: none;
+  box-shadow: 0 4px 12px rgba(0,40,104,0.13);
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 28px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #e6eaf3;
+  border-radius: 28px;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(0,40,104,0.07);
+}
+.toggle-switch input:checked + .toggle-slider {
+  background: #e53935;
+}
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  top: 4px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0,40,104,0.10);
+  transition: transform 0.2s;
+}
+.toggle-switch input:checked + .toggle-slider:before {
+  transform: translateX(20px);
+}
+.toggle-slider:active:before {
+  width: 22px;
+}
+
+/* FORCE LEFT ALIGNMENT ON ACCOUNT PAGE */
+.account-page-simple,
+.account-header-row,
+.account-header-row.left-align,
+.account-content-left,
+.account-section,
+.settings-section,
+.profile-field,
+.edit-field,
+.display-field,
+.data-actions,
+.danger-zone,
+.settings-qr-mobile {
+  text-align: left !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+}
+
+.account-page-simple, .settings-tab-content {
+  overflow-y: visible !important;
+  max-height: none !important;
+}
+
+@media (max-width: 1024px) {
+  .account-page-simple, .settings-tab-content {
+    overflow-y: visible !important;
+    max-height: none !important;
+  }
+}
+
+.support-content {
+  overflow: hidden !important;
+}
+
+@media (min-width: 1025px) {
+  .settings-page {
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 2.5rem 0 0 0;
+    padding-top: 3rem;
+  }
+  .settings-header h2 {
+    font-size: 2.2rem;
+    width: 100%;
+  }
+  .settings-main-menu {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  .settings-btn-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .settings-main-menu-btn {
+    width: 95%;
+    min-width: 220px;
+    max-width: 570px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .settings-header h2 {
+    font-size: 1.5rem;
+  }
+  .settings-main-menu {
+    padding-left: 12px;
+    padding-right: 12px;
+    max-width: 100vw;
+    gap: 1.2rem;
+  }
+  .settings-main-menu-btn {
+    padding: 1rem 1.2rem !important;
+    font-size: 1rem !important;
+    min-height: 56px !important;
+  }
+  .settings-main-menu-btn .settings-icon {
+    font-size: 1.2rem !important;
+    margin-right: 0.8rem !important;
+  }
+  .settings-main-menu-btn .settings-arrow {
+    font-size: 1.1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .settings-header h2 {
+    font-size: 1.2rem;
+  }
+  .settings-main-menu {
+    padding-left: 4px;
+    padding-right: 4px;
+    gap: 1rem;
+  }
+.settings-main-menu-btn {
+    padding: 0.8rem 1rem !important;
+    font-size: 0.95rem !important;
+    min-height: 52px !important;
+  }
+  .settings-main-menu-btn .settings-icon {
+    font-size: 1.1rem !important;
+    margin-right: 0.6rem !important;
+  }
+  .settings-main-menu-btn .settings-arrow {
+    font-size: 1rem !important;
+  }
+}

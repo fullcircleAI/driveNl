@@ -1,0 +1,43 @@
+{
+  "name": "cbr-ai-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "backend": "cd backend && npm run dev",
+    "start": "concurrently \"npm run dev\" \"npm run backend\""
+  },
+  "dependencies": {
+    "@clerk/clerk-react": "^5.32.2",
+    "@paypal/react-paypal-js": "^8.8.3",
+    "@types/react-router-dom": "^5.3.3",
+    "firebase": "^11.10.0",
+    "node-fetch": "^3.3.2",
+    "qrcode.react": "^4.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.5.0",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.6.2",
+    "react-tooltip": "^5.29.1"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.6.12",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@types/react-tooltip": "^4.2.4",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "typescript": "^5.2.2",
+    "vite": "^6.3.5"
+  }
+}
