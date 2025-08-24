@@ -111,7 +111,6 @@ export function Practice() {
     <div className="practice-page">
       <div className="practice-header">
         <h1 className="practice-title">{t_nested('practice.title')}</h1>
-        <p className="practice-subtitle">Choose a topic to practice</p>
       </div>
 
       <div className="practice-content">

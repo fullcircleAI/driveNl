@@ -8,27 +8,98 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  background: #FFFFFF !important;
+  color: var(--text-color, #1A1A1A);
+}
+
+/* Override any global background colors */
+html .practice-page,
+body .practice-page,
+.main-layout .practice-page,
+.main-content .practice-page,
+.scrollable-content .practice-page {
+  background: #FFFFFF !important;
+}
+
+/* Target the scrollable-content wrapper specifically */
+.scrollable-content {
+  background: #FFFFFF !important;
+}
+
+/* Ensure the practice page container is white */
+.scrollable-content .practice-page {
+  background: #FFFFFF !important;
+}
+
+/* Override main-content background for practice route */
+.main-content .scrollable-content {
+  background: #FFFFFF !important;
+}
+
+/* Force white background on all practice-related containers */
+.main-layout .main-content .scrollable-content,
+.main-layout .main-content .scrollable-content .practice-page {
+  background: #FFFFFF !important;
+}
+
+/* Additional aggressive overrides to remove any blue tint */
+.practice-page *,
+.practice-page *::before,
+.practice-page *::after {
+  background-color: transparent !important;
+}
+
+.practice-page {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+}
+
+/* Override any potential blue backgrounds from parent containers */
+body .practice-page,
+html .practice-page,
+#root .practice-page,
+.main-layout .practice-page,
+.main-content .practice-page {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
 }
 
 .practice-header {
   text-align: center;
   margin-bottom: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 .practice-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #002868;
+  margin-bottom: 0;
+  letter-spacing: -1px;
+  line-height: 1.13;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.practice-title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 4px;
+  background: #E1E5E9;
+  border-radius: 2px;
+  margin: 0.5rem auto 0 auto;
 }
 
 .practice-subtitle {
   font-size: 1.1rem;
-  color: #7f8c8d;
+  color: var(--text-color, #1A1A1A);
   margin: 0;
 }
 
@@ -54,8 +125,8 @@
   width: 100%;
   min-height: 80px;
   padding: 1.5rem;
-  background: #ffffff;
-  border: 2px solid #e9ecef;
+  background: var(--card-background, #FFFFFF);
+  border: 2px solid var(--border-color, #E1E5E9);
   border-radius: 16px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -66,16 +137,11 @@
   justify-content: space-between;
   text-align: left;
   font-family: inherit;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  /* Duolingo-style elevated shadow */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.test-button:hover,
-.test-button:focus {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-  border-color: var(--importance-color, #667eea);
-  outline: none;
-}
+/* Hover effects removed */
 
 .test-button:active {
   transform: translateY(0);
@@ -83,7 +149,7 @@
 }
 
 .test-button-hovered {
-  border-color: var(--importance-color, #667eea);
+  border-color: var(--primary-color, #1A3E7A);
   background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
 }
 
@@ -113,9 +179,7 @@
   transition: transform 0.3s ease;
 }
 
-.test-button:hover .test-button-icon {
-  transform: scale(1.1);
-}
+/* Hover effects removed */
 
 .test-button-text {
   flex: 1;
@@ -155,10 +219,7 @@
   flex-shrink: 0;
 }
 
-.test-button:hover .test-button-arrow {
-  color: var(--importance-color, #667eea);
-  transform: translateX(4px);
-}
+/* Hover effects removed */
 
 .test-button-loading-indicator {
   position: absolute;
@@ -374,9 +435,7 @@
     border-width: 3px;
   }
 
-  .test-button:hover {
-    border-width: 4px;
-  }
+  /* Hover effects removed */
 }
 
 /* Reduced Motion */
@@ -387,9 +446,7 @@
     transition: none;
   }
 
-  .test-button:hover {
-    transform: none;
-  }
+  /* Hover effects removed */
 
   .loading-spinner,
   .practice-loading-spinner {

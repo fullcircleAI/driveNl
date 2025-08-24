@@ -36,8 +36,8 @@ class AuthService {
     console.log('AuthService: Setting user ID in data persistence');
     dataPersistence.setUserId(userId);
 
-    // Temporarily skip Firebase operations due to connectivity issues
-    console.log('AuthService: Skipping Firebase operations due to connectivity issues');
+    // Temporarily skip cloud operations due to connectivity issues
+console.log('AuthService: Skipping cloud operations due to connectivity issues');
     
     // Save user profile to database (commented out for now)
     /*

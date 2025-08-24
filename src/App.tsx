@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
@@ -8,12 +8,12 @@ import { PracticeResult } from './components/PracticeResult';
 import { LanguageSelection } from './components/LanguageSelection';
 import { Navigation } from './components/Navigation';
 import { PracticeTest } from './components/PracticeTest';
+import { LoginPage } from './components/LoginModal';
 import './App.css';
 // import { ClerkProvider } from '@clerk/clerk-react';
 import { PremiumUpgrade } from './components/PremiumUpgrade';
 import { MockExamPage } from './components/MockExamPage';
 import { Settings } from './components/Settings';
-import React, { useRef } from 'react';
 import { QuizSelectionPage } from './components/QuizSelectionPage';
 import { EnhancedQuizPage } from './components/EnhancedQuizPage';
 
@@ -250,6 +250,63 @@ class ErrorBoundary extends React.Component<
   }
 }
 
+function AppContent() {
+  const { currentLanguage, setLanguage } = useLanguage();
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
+  
+  console.log('AppContent: user:', user, 'loading:', loading, 'currentLanguage:', currentLanguage);
+  
+  // Show loading while checking auth status
+  if (loading) {
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        minHeight: '100vh',
+        fontSize: '1.2rem'
+      }}>
+        Loading...
+      </div>
+    );
+  }
+  
+  // If user is not logged in, show login page first
+  if (!user) {
+    console.log('AppContent: No user found, showing LoginPage');
+    return <LoginPage onLoginSuccess={() => navigate('/dashboard')} />;
+  }
+  
+  // If user has a language preference but LanguageContext doesn't have it, sync it
+  if (user.language && !currentLanguage) {
+    console.log('AppContent: User has language preference, syncing to LanguageContext');
+    setLanguage(user.language);
+    // Return loading to allow the language to be set
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        minHeight: '100vh',
+        fontSize: '1.2rem'
+      }}>
+        Loading...
+      </div>
+    );
+  }
+  
+  // If user is logged in but has no language preference, show language selection
+  // Only for new users who haven't set a language yet
+  if (!currentLanguage) {
+    console.log('AppContent: User found but no language, showing LanguageSelection');
+    return <LanguageSelection />;
+  }
+  
+  console.log('AppContent: User and language found, showing AppRoutes');
+  return <AppRoutes />;
+}
+
 function App() {
   console.log('App: Rendering main App component');
   
@@ -258,7 +315,7 @@ function App() {
       <Router>
         <LanguageProvider>
           <AuthProvider>
-            <AppRoutes />
+            <AppContent />
           </AuthProvider>
         </LanguageProvider>
       </Router>

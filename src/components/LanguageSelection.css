@@ -1,14 +1,14 @@
-/* Modern Language Selection Design */
+/* Duolingo-style Language Selection Design */
 .language-selection {
   min-height: 100vh;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 0;
+  background: linear-gradient(135deg, #1A3E7A 0%, #002868 100%);
+  padding: 1rem;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Nunito', system-ui, -apple-system, sans-serif;
   margin: 0;
   position: fixed;
   top: 0;
@@ -17,81 +17,127 @@
   bottom: 0;
 }
 
-.language-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 2rem 1.5rem;
+.language-container {
+  background: #FFFFFF;
   border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  padding: 2.5rem 2rem;
   text-align: center;
-  max-width: 320px;
+  max-width: 400px;
   width: 100%;
   animation: slideInUp 0.6s ease-out;
-  border: 1px solid rgba(255, 255, 255, 0.2);
   margin: 0 auto;
 }
 
 .language-header {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.language-header h1 {
-  color: #2d3748;
-  margin: 0;
-  font-size: 1.8rem;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  line-height: 1.2;
+.back-button {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #1A3E7A;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.back-button:hover {
+  background: rgba(26, 62, 122, 0.1);
+  color: #002868;
+}
+
+.back-button:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.back-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+.language-subtitle {
+  font-size: var(--font-size-body);
+  color: #666;
+  margin: 0.5rem 0 0 0;
+  font-weight: 500;
 }
 
 .language-options {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .language-option {
   display: block;
   width: 100%;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #E1E5E9;
   border-radius: 16px;
-  background: white;
+  background: #FFFFFF;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 0;
   overflow: hidden;
   position: relative;
-}
-
-.language-option:hover {
-  border-color: #667eea;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
-}
-
-.language-option:active {
-  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .language-content {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  padding: 1rem 1.25rem;
-  min-height: 60px;
+  padding: 1.25rem 1.5rem;
+  min-height: 72px;
+  position: relative;
 }
 
-.flag {
-  font-size: 1.5rem;
+.language-flag {
+  font-size: 2rem;
+  margin-right: 1rem;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  flex-shrink: 0;
+}
+
+.language-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  text-align: left;
 }
 
 .language-name {
-  font-size: 1.1rem;
-  color: #2d3748;
-  font-weight: 600;
+  font-size: var(--font-size-h3);
+  color: #1A1A1A;
+  font-weight: 700;
   letter-spacing: -0.25px;
+  margin-bottom: 0.25rem;
+}
+
+.language-native {
+  font-size: var(--font-size-small);
+  color: #666;
+  font-weight: 500;
+}
+
+.language-check {
+  font-size: 1.25rem;
+  color: #1A3E7A;
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
 @keyframes slideInUp {
@@ -108,22 +154,13 @@
 /* Mobile Devices (320px - 480px) */
 @media (max-width: 480px) {
   .language-selection {
-    padding: 1rem;
-    min-height: 100vh;
-    height: 100vh;
-    margin: 0;
+    padding: 0.75rem;
   }
   
-  .language-card {
+  .language-container {
     padding: 2rem 1.5rem;
     border-radius: 20px;
     max-width: 100%;
-    margin: 0 auto;
-  }
-  
-  .language-header h1 {
-    font-size: 1.8rem;
-    margin-bottom: 0;
   }
   
   .language-header {
@@ -139,12 +176,17 @@
     min-height: 64px;
   }
   
-  .flag {
+  .language-flag {
     font-size: 1.75rem;
+    margin-right: 0.875rem;
   }
   
   .language-name {
-    font-size: 1.125rem;
+    font-size: var(--font-size-body);
+  }
+  
+  .language-native {
+    font-size: var(--font-size-xsmall);
   }
 }
 
@@ -152,17 +194,11 @@
 @media (max-width: 375px) {
   .language-selection {
     padding: 0.5rem;
-    margin: 0;
   }
   
-  .language-card {
+  .language-container {
     padding: 1.75rem 1.25rem;
     border-radius: 18px;
-    margin: 0 auto;
-  }
-  
-  .language-header h1 {
-    font-size: 1.6rem;
   }
   
   .language-header {
@@ -174,12 +210,9 @@
     min-height: 56px;
   }
   
-  .flag {
+  .language-flag {
     font-size: 1.5rem;
-  }
-  
-  .language-name {
-    font-size: 1rem;
+    margin-right: 0.75rem;
   }
 }
 
@@ -187,18 +220,12 @@
 @media (min-width: 481px) and (max-width: 768px) {
   .language-selection {
     padding: 1.5rem;
-    margin: 0;
   }
   
-  .language-card {
+  .language-container {
     padding: 3rem 2.5rem;
     border-radius: 28px;
     max-width: 480px;
-    margin: 0 auto;
-  }
-  
-  .language-header h1 {
-    font-size: 2.5rem;
   }
   
   .language-header {
@@ -214,12 +241,17 @@
     min-height: 80px;
   }
   
-  .flag {
+  .language-flag {
     font-size: 2.25rem;
+    margin-right: 1.25rem;
   }
   
   .language-name {
-    font-size: 1.375rem;
+    font-size: var(--font-size-h2);
+  }
+  
+  .language-native {
+    font-size: var(--font-size-small);
   }
 }
 
@@ -227,18 +259,12 @@
 @media (min-width: 769px) and (max-width: 1024px) {
   .language-selection {
     padding: 2rem;
-    margin: 0;
   }
   
-  .language-card {
+  .language-container {
     padding: 3.5rem 3rem;
     border-radius: 32px;
     max-width: 520px;
-    margin: 0 auto;
-  }
-  
-  .language-header h1 {
-    font-size: 2.8rem;
   }
   
   .language-header {
@@ -254,12 +280,9 @@
     min-height: 88px;
   }
   
-  .flag {
+  .language-flag {
     font-size: 2.5rem;
-  }
-  
-  .language-name {
-    font-size: 1.5rem;
+    margin-right: 1.5rem;
   }
 }
 
@@ -267,18 +290,12 @@
 @media (min-width: 1025px) and (max-width: 1366px) {
   .language-selection {
     padding: 2.5rem;
-    margin: 0;
   }
   
-  .language-card {
+  .language-container {
     padding: 4rem 3.5rem;
     border-radius: 36px;
     max-width: 560px;
-    margin: 0 auto;
-  }
-  
-  .language-header h1 {
-    font-size: 3rem;
   }
   
   .language-header {
@@ -294,12 +311,9 @@
     min-height: 96px;
   }
   
-  .flag {
+  .language-flag {
     font-size: 2.75rem;
-  }
-  
-  .language-name {
-    font-size: 1.625rem;
+    margin-right: 1.75rem;
   }
 }
 
@@ -307,18 +321,12 @@
 @media (min-width: 1367px) {
   .language-selection {
     padding: 3rem;
-    margin: 0;
   }
   
-  .language-card {
+  .language-container {
     padding: 4.5rem 4rem;
     border-radius: 40px;
     max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .language-header h1 {
-    font-size: 3.25rem;
   }
   
   .language-header {
@@ -334,12 +342,9 @@
     min-height: 104px;
   }
   
-  .flag {
+  .language-flag {
     font-size: 3rem;
-  }
-  
-  .language-name {
-    font-size: 1.75rem;
+    margin-right: 2rem;
   }
 }
 
@@ -347,17 +352,11 @@
 @media (min-width: 481px) and (max-width: 1024px) and (orientation: landscape) {
   .language-selection {
     padding: 1rem;
-    margin: 0;
   }
   
-  .language-card {
+  .language-container {
     padding: 2rem 2.5rem;
     max-width: 480px;
-    margin: 0 auto;
-  }
-  
-  .language-header h1 {
-    font-size: 2rem;
   }
   
   .language-header {
@@ -372,7 +371,7 @@
 
 /* High DPI Displays */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .language-card {
+  .language-container {
     border-width: 0.5px;
   }
   
@@ -383,36 +382,32 @@
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .language-card {
+  .language-container {
     animation: none;
-  }
-  
-  .language-option {
-    transition: none;
-  }
-  
-  .language-option:hover {
-    transform: none;
   }
 }
 
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
-  .language-card {
-    background: rgba(26, 32, 44, 0.95);
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  .language-header h1 {
-    color: #f7fafc;
+  .language-container {
+    background: #1A1A1A;
+    border: 1px solid #333;
   }
   
   .language-option {
-    background: rgba(45, 55, 72, 0.8);
-    border-color: rgba(255, 255, 255, 0.1);
+    background: #2A2A2A;
+    border-color: #444;
   }
   
   .language-name {
-    color: #f7fafc;
+    color: #FFFFFF;
+  }
+  
+  .language-native {
+    color: #AAA;
+  }
+  
+  .language-check {
+    color: #4A90E2;
   }
 } 

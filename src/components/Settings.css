@@ -17,7 +17,7 @@
 .settings-header h2 {
   text-align: center;
   font-size: 2.2rem;
-  color: var(--header-color, #002868);
+  color: #002868;
   font-weight: 900;
   margin-bottom: 0 !important;
   letter-spacing: -1px;

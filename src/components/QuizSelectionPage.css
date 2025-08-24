@@ -4,7 +4,7 @@
   margin: 0 auto;
   padding: 2rem 1rem;
   min-height: 100vh;
-  background: var(--background-color, #f9f6f2);
+  background: var(--neutral-color, #F5F7FA);
 }
 
 .quiz-selection-header {
@@ -13,19 +13,28 @@
 }
 
 .quiz-selection-header h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--text-color, #333);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #002868;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, var(--primary-color, #ffb300), #ffa000);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  letter-spacing: -1px;
+  line-height: 1.13;
+  position: relative;
+}
+
+.quiz-selection-header h1::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 4px;
+  background: linear-gradient(90deg, #002868 60%, #BF0A30 100%);
+  border-radius: 2px;
+  margin: 0.5rem auto 0 auto;
 }
 
 .quiz-selection-header p {
-  font-size: 1.2rem;
-  color: #666;
+  font-size: var(--font-size-h3);
+  color: var(--text-color, #1A1A1A);
   margin: 0;
   line-height: 1.6;
 }
@@ -38,11 +47,11 @@
 }
 
 .quiz-level-card {
-  background: white;
+  background: var(--card-background, #FFFFFF);
   border-radius: 1.5rem;
   padding: 2rem;
   box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-  border: 2px solid transparent;
+  border: 2px solid var(--border-color, #E1E5E9);
   transition: all 0.3s ease;
   cursor: pointer;
   position: relative;
@@ -56,15 +65,15 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--primary-color, #ffb300), #ffa000);
+  background: linear-gradient(90deg, var(--primary-color, #1A3E7A), var(--accent-color, #1A3E7A));
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
 
 .quiz-level-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.15);
-  border-color: var(--primary-color, #ffb300);
+  box-shadow: 0 16px 48px rgba(26, 62, 122, 0.15);
+  border-color: var(--primary-color, #1A3E7A);
 }
 
 .quiz-level-card:hover::before {
@@ -83,8 +92,8 @@
 }
 
 .quiz-level-card.completed {
-  border-color: #28a745;
-  background: linear-gradient(135deg, #f8fff9, #ffffff);
+  border-color: var(--success-color, #28A745);
+  background: linear-gradient(135deg, #f8fff9, var(--card-background, #FFFFFF));
 }
 
 .quiz-level-card.completed::before {
@@ -192,12 +201,12 @@
 
 .spec-value {
   font-weight: 700;
-  color: var(--primary-color, #ffb300);
+  color: var(--primary-color, #1A3E7A);
 }
 
 .start-quiz-btn {
   width: 100%;
-  background: var(--primary-color, #ffb300);
+  background: var(--primary-color, #1A3E7A);
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -269,7 +278,7 @@
 
 .practice-progress .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--primary-color, #ffb300), #ffa000);
+  background: linear-gradient(90deg, var(--primary-color, #1A3E7A), #002868);
   border-radius: 4px;
   transition: width 0.3s ease;
 }

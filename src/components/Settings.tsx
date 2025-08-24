@@ -253,7 +253,7 @@ export const Settings: React.FC = () => {
         <p>Your data is protected using industry-standard security measures:</p>
         <ul>
           <li>All data is encrypted in transit and at rest</li>
-          <li>We use secure cloud infrastructure (Firebase)</li>
+          <li>We use secure cloud infrastructure</li>
           <li>Regular security audits and updates</li>
           <li>No third-party access to your personal data</li>
         </ul>

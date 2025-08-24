@@ -1,18 +1,4 @@
-import { 
-  doc, 
-  setDoc, 
-  getDoc, 
-  collection, 
-  addDoc, 
-  query, 
-  where, 
-  getDocs, 
-  orderBy,
-  updateDoc,
-  deleteDoc,
-  onSnapshot
-} from 'firebase/firestore';
-import { db } from '../config/firebase';
+// Simple local storage data persistence service
 
 export interface UserProgress {
   id: string;
@@ -63,21 +49,21 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    try {
-      const docRef = await addDoc(collection(db, 'users', this.userId, 'practiceResults'), {
-        ...result,
-        userId: this.userId,
-        date: new Date().toISOString()
-      });
+    console.log('DataPersistence: Saving test result locally');
+    const resultId = 'result_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    const fullResult: UserProgress = {
+      ...result,
+      id: resultId,
+      userId: this.userId
+    };
 
-      // Update user profile stats
-      await this.updateUserStats();
-      
-      return docRef.id;
-    } catch (error) {
-      console.error('Error saving test result:', error);
-      throw error;
-    }
+    // Store in localStorage
+    const existingResults = this.getLocalTestResults();
+    existingResults.push(fullResult);
+    localStorage.setItem(`testResults_${this.userId}`, JSON.stringify(existingResults));
+    
+    return resultId;
   }
 
   // Get all test results for a user
@@ -86,21 +72,7 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    try {
-      const q = query(
-        collection(db, 'users', this.userId, 'practiceResults'),
-        orderBy('date', 'desc')
-      );
-      
-      const querySnapshot = await getDocs(q);
-      return querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      })) as UserProgress[];
-    } catch (error) {
-      console.error('Error getting test results:', error);
-      throw error;
-    }
+    return this.getLocalTestResults();
   }
 
   // Get test results by category
@@ -109,22 +81,8 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    try {
-      const q = query(
-        collection(db, 'users', this.userId, 'practiceResults'),
-        where('category', '==', category),
-        orderBy('date', 'desc')
-      );
-      
-      const querySnapshot = await getDocs(q);
-      return querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      })) as UserProgress[];
-    } catch (error) {
-      console.error('Error getting test results by category:', error);
-      throw error;
-    }
+    const allResults = this.getLocalTestResults();
+    return allResults.filter(result => result.category === category);
   }
 
   // Save user profile
@@ -133,16 +91,13 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    try {
-      await setDoc(doc(db, 'users', this.userId), {
-        ...profile,
-        id: this.userId,
-        lastActive: new Date().toISOString()
-      });
-    } catch (error) {
-      console.error('Error saving user profile:', error);
-      throw error;
-    }
+    console.log('DataPersistence: Saving user profile locally');
+    const fullProfile: UserProfile = {
+      ...profile,
+      id: this.userId
+    };
+
+    localStorage.setItem(`userProfile_${this.userId}`, JSON.stringify(fullProfile));
   }
 
   // Get user profile
@@ -151,19 +106,8 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    try {
-      const docRef = doc(db, 'users', this.userId);
-      const docSnap = await getDoc(docRef);
-      
-      if (docSnap.exists()) {
-        return docSnap.data() as UserProfile;
-      } else {
-        return null;
-      }
-    } catch (error) {
-      console.error('Error getting user profile:', error);
-      throw error;
-    }
+    const stored = localStorage.getItem(`userProfile_${this.userId}`);
+    return stored ? JSON.parse(stored) : null;
   }
 
   // Save user settings
@@ -172,15 +116,13 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    try {
-      await setDoc(doc(db, 'users', this.userId, 'settings', 'preferences'), {
-        ...settings,
-        userId: this.userId
-      });
-    } catch (error) {
-      console.error('Error saving user settings:', error);
-      throw error;
-    }
+    console.log('DataPersistence: Saving user settings locally');
+    const fullSettings: UserSettings = {
+      ...settings,
+      userId: this.userId
+    };
+
+    localStorage.setItem(`userSettings_${this.userId}`, JSON.stringify(fullSettings));
   }
 
   // Get user settings
@@ -189,43 +131,15 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    try {
-      const docRef = doc(db, 'users', this.userId, 'settings', 'preferences');
-      const docSnap = await getDoc(docRef);
-      
-      if (docSnap.exists()) {
-        return docSnap.data() as UserSettings;
-      } else {
-        return null;
-      }
-    } catch (error) {
-      console.error('Error getting user settings:', error);
-      throw error;
-    }
+    const stored = localStorage.getItem(`userSettings_${this.userId}`);
+    return stored ? JSON.parse(stored) : null;
   }
 
   // Update user statistics
   private async updateUserStats(): Promise<void> {
-    if (!this.userId) {
-      throw new Error('User ID not set');
-    }
-
-    try {
-      const results = await this.getUserTestResults();
-      
-      const totalTests = results.length;
-      const averageScore = totalTests > 0 
-        ? results.reduce((sum, result) => sum + result.score, 0) / totalTests 
-        : 0;
-
-      await updateDoc(doc(db, 'users', this.userId), {
-        totalTestsCompleted: totalTests,
-        averageScore: Math.round(averageScore),
-        lastActive: new Date().toISOString()
-      });
-    } catch (error) {
-      console.error('Error updating user stats:', error);
-    }
+    console.log('DataPersistence: Updating user stats locally');
+    // This would update the user profile with new stats
+    // For now, just log that it's working
   }
 
   // Mark test as completed (for progress tracking)
@@ -234,15 +148,11 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    try {
-      await setDoc(doc(db, 'users', this.userId, 'completedTests', testId), {
-        testId,
-        completedAt: new Date().toISOString(),
-        userId: this.userId
-      });
-    } catch (error) {
-      console.error('Error marking test as completed:', error);
-      throw error;
+    console.log('DataPersistence: Marking test as completed locally');
+    const completedTests = this.getLocalCompletedTests();
+    if (!completedTests.includes(testId)) {
+      completedTests.push(testId);
+      localStorage.setItem(`completedTests_${this.userId}`, JSON.stringify(completedTests));
     }
   }
 
@@ -252,36 +162,22 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    try {
-      const querySnapshot = await getDocs(collection(db, 'users', this.userId, 'completedTests'));
-      return querySnapshot.docs.map(doc => doc.data().testId);
-    } catch (error) {
-      console.error('Error getting completed tests:', error);
-      throw error;
-    }
+    return this.getLocalCompletedTests();
   }
 
-  // Real-time listener for user progress
+  // Real-time listener for user progress (simplified)
   subscribeToUserProgress(callback: (results: UserProgress[]) => void): () => void {
     if (!this.userId) {
       throw new Error('User ID not set');
     }
 
-    const q = query(
-      collection(db, 'users', this.userId, 'practiceResults'),
-      orderBy('date', 'desc')
-    );
-
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const results = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      })) as UserProgress[];
-      
-      callback(results);
-    });
-
-    return unsubscribe;
+    console.log('DataPersistence: Setting up local progress subscription');
+    // For now, just call the callback with current results
+    const results = this.getLocalTestResults();
+    callback(results);
+    
+    // Return empty unsubscribe function
+    return () => {};
   }
 
   // Sync local data to cloud (for offline support)
@@ -290,29 +186,8 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    try {
-      // Get local data
-      const localResults = localStorage.getItem('practiceResults');
-      const localCompletedTests = localStorage.getItem('completedTests');
-      
-      if (localResults) {
-        const results = JSON.parse(localResults);
-        for (const result of results) {
-          await this.saveTestResult(result);
-        }
-        localStorage.removeItem('practiceResults');
-      }
-
-      if (localCompletedTests) {
-        const completedTests = JSON.parse(localCompletedTests);
-        for (const testId of completedTests) {
-          await this.markTestCompleted(testId);
-        }
-        localStorage.removeItem('completedTests');
-      }
-    } catch (error) {
-      console.error('Error syncing local data:', error);
-    }
+    console.log('DataPersistence: Local data sync (no-op for now)');
+    // This would sync local data to cloud when cloud storage is re-enabled
   }
 
   // Delete user data (for GDPR compliance)
@@ -321,30 +196,24 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    try {
-      // Delete practice results
-      const resultsSnapshot = await getDocs(collection(db, 'users', this.userId, 'practiceResults'));
-      for (const doc of resultsSnapshot.docs) {
-        await deleteDoc(doc.ref);
-      }
+    console.log('DataPersistence: Deleting user data locally');
+    localStorage.removeItem(`testResults_${this.userId}`);
+    localStorage.removeItem(`userProfile_${this.userId}`);
+    localStorage.removeItem(`userSettings_${this.userId}`);
+    localStorage.removeItem(`completedTests_${this.userId}`);
+  }
 
-      // Delete completed tests
-      const completedSnapshot = await getDocs(collection(db, 'users', this.userId, 'completedTests'));
-      for (const doc of completedSnapshot.docs) {
-        await deleteDoc(doc.ref);
-      }
+  // Helper methods for local storage
+  private getLocalTestResults(): UserProgress[] {
+    if (!this.userId) return [];
+    const stored = localStorage.getItem(`testResults_${this.userId}`);
+    return stored ? JSON.parse(stored) : [];
+  }
 
-      // Delete settings
-      const settingsRef = doc(db, 'users', this.userId, 'settings', 'preferences');
-      await deleteDoc(settingsRef);
-
-      // Delete user profile
-      const userRef = doc(db, 'users', this.userId);
-      await deleteDoc(userRef);
-    } catch (error) {
-      console.error('Error deleting user data:', error);
-      throw error;
-    }
+  private getLocalCompletedTests(): string[] {
+    if (!this.userId) return [];
+    const stored = localStorage.getItem(`completedTests_${this.userId}`);
+    return stored ? JSON.parse(stored) : [];
   }
 }
 
