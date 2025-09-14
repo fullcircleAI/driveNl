@@ -60,3 +60,4 @@ class SocialAuthService {
 }
 
 export default SocialAuthService;
+

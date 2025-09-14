@@ -1,60 +1,236 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { useLanguage } from '../contexts/LanguageContext';
-import { ProgressTracker } from './ProgressTracker';
+import { useAuthStore } from '../stores/authStore';
 import { Mascot } from './Mascot';
+import { SimpleLogin } from './SimpleLogin';
+import { Navigation } from './Navigation';
+import { studyScheduler } from '../services/studyScheduler';
+import type { StudyTracker, StudyProgress, PracticeSession } from '../services/studyScheduler';
+
 import './Dashboard.css';
 import './Mascot.css';
 
-
 export const Dashboard: React.FC = () => {
-  const { user } = useAuth();
-  const { t_nested } = useLanguage();
+  const { user } = useAuthStore();
   const navigate = useNavigate();
+  // No initialization screen - instant access for competition
 
 
-  // Get random message from array or fallback
-  const getRandomFromArray = (arr: string[] | undefined, fallback: string) => {
-    if (Array.isArray(arr) && arr.length > 0) {
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
-    return fallback;
+  const [tracker, setTracker] = useState<StudyTracker | null>(null);
+  const [progress, setProgress] = useState<StudyProgress | null>(null);
+  const [isStudyActive, setIsStudyActive] = useState(false);
+  const [incompleteSession, setIncompleteSession] = useState<PracticeSession | null>(null);
+
+  const handleStartStudy = () => {
+    // Use smart coach recommendation instead of hardcoded logic
+    const recommendation = studyScheduler.getCoachRecommendation();
+    const nextTopic = recommendation.nextTopic;
+    
+    const topicRouteMap: Record<string, string> = {
+      "Traffic Signs": "traffic-rules-signs",
+      "Priority Rules": "priority-rules", 
+      "Hazard Perception": "hazard-perception",
+      "Speed & Safety": "speed-safety",
+      "Road Signs": "road-signs",
+      "Motorway Rules": "motorway-rules",
+      "Vehicle Knowledge": "vehicle-knowledge",
+      "Parking Rules": "parking-rules",
+      "Environmental Zones": "environmental",
+      "Technology & Safety": "technology-safety",
+      "Alcohol & Drugs": "alcohol-drugs",
+      "Fatigue & Rest": "fatigue-rest",
+      "Emergency Procedures": "emergency-procedures",
+      "Insight Practice": "insight-practice",
+      "Bicycle Interactions": "bicycle-interactions",
+      "Roundabout Rules": "roundabout-rules",
+      "Tram Interactions": "tram-interactions",
+      "Pedestrian Crossings": "pedestrian-crossings",
+      "Construction Zones": "construction-zones",
+      "Weather Conditions": "weather-conditions"
+    };
+    const topicRoute = topicRouteMap[nextTopic] || nextTopic.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/practice/${topicRoute}`);
+    
+    setTimeout(() => {
+      studyScheduler.startStudy();
+      updateData();
+    }, 0);
   };
 
-  const handlePracticeClick = (testRoute?: string) => {
-    if (testRoute) {
-      navigate(`/practice/${testRoute}`);
-    } else {
-      navigate('/practice');
+  const handleResumeStudy = () => {
+    if (incompleteSession) {
+      const topicRouteMap: Record<string, string> = {
+        "Traffic Signs": "traffic-rules-signs",
+        "Priority Rules": "priority-rules", 
+        "Hazard Perception": "hazard-perception",
+        "Speed & Safety": "speed-safety",
+        "Road Signs": "road-signs",
+        "Motorway Rules": "motorway-rules",
+        "Vehicle Knowledge": "vehicle-knowledge",
+        "Parking Rules": "parking-rules",
+        "Environmental Zones": "environmental",
+        "Technology & Safety": "technology-safety",
+        "Alcohol & Drugs": "alcohol-drugs",
+        "Fatigue & Rest": "fatigue-rest",
+        "Emergency Procedures": "emergency-procedures",
+        "Insight Practice": "insight-practice",
+        "Bicycle Interactions": "bicycle-interactions",
+        "Roundabout Rules": "roundabout-rules",
+        "Tram Interactions": "tram-interactions",
+        "Pedestrian Crossings": "pedestrian-crossings",
+        "Construction Zones": "construction-zones",
+        "Weather Conditions": "weather-conditions"
+      };
+      const topicRoute = topicRouteMap[incompleteSession.topic] || incompleteSession.topic.toLowerCase().replace(/\s+/g, '-');
+      navigate(`/practice/${topicRoute}?resume=${incompleteSession.sessionId}`);
     }
   };
+
+  const handleContinueStudy = () => {
+    navigate('/practice');
+  };
+
+  const updateData = () => {
+    const trackerData = studyScheduler.getTracker();
+    const progressData = studyScheduler.getProgress();
+    const incompleteSessionData = studyScheduler.getIncompleteSession();
+    
+    setTracker(trackerData);
+    setProgress(progressData);
+    setIncompleteSession(incompleteSessionData);
+    
+    if (trackerData.totalStudyTime > 0 || progressData.percentage > 0 || incompleteSessionData) {
+      setIsStudyActive(true);
+    }
+  };
+
+  useEffect(() => {
+    useAuthStore.persist.rehydrate();
+    
+    const timer = setTimeout(() => {
+      loadData();
+    }, 100);
+    
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  const loadData = async () => {
+    try {
+      await studyScheduler.initialize();
+      updateData();
+    } catch (error) {
+      // Error loading data
+    }
+  };
+
+  const formatTime = (minutes: number) => {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    return `${hours}h ${mins}m`;
+  };
+
+  // No loading screen - instant access for competition
+
+  if (!user) {
+    return <SimpleLogin />;
+  }
 
   return (
-    <div className="dashboard">
-      <div className="dashboard-header" style={{paddingBottom: 0, width: '100%', maxWidth: '600px'}}>
-        <div className="dashboard-welcome" style={{padding: '1.5rem 1rem', borderRadius: 20, boxShadow: '0 4px 16px rgba(0,40,104,0.10)', width: '100%', maxWidth: '600px', height: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1rem'}}>
-          <div className="welcome-mascot" style={{marginBottom: 0}}>
-            <Mascot size={80} />
+    <div className="main-layout">
+      <Navigation />
+      <main className="main-content">
+        <div className="dashboard">
+          <div className="dashboard-header">
+            <div className="dashboard-welcome">
+              <div className="welcome-mascot">
+                <Mascot size={80} />
               </div>
-          <div className="welcome-text">
-            <h1 style={{fontSize: '1.8rem', margin: 0, fontWeight: 900, color: '#002868', letterSpacing: '-0.5px', lineHeight: 1.2}}>Welcome, Driver!</h1>
-            <p style={{fontSize: '1rem', margin: '0.5rem 0 0 0', color: '#666', textAlign: 'center'}}>Ready to learn Dutch driving theory?</p>
+              <div className="welcome-text">
+                <h1 className="welcome-title">
+                  Welcome {user?.email?.includes('guest.drivenl.app') ? 'Guest' : user?.firstName || user?.name || 'Driver'}!
+                </h1>
+                <p className="welcome-sub"></p>
+              </div>
             </div>
-          <div className="welcome-cta" style={{marginTop: 0}}>
-            <button 
-              className="primary-cta"
-              style={{fontSize: '1.2rem', padding: '1rem 2rem', minHeight: 48, borderRadius: 16, minWidth: 140, fontWeight: 700}}
-              onClick={() => handlePracticeClick()}
-            >
-              Start Learning
-            </button>
+          </div>
+          <div className="dashboard-content">
+            <div className="progress-tracker">
+              <h3>24 Hour Study Dashboard</h3>
+              
+              {tracker && (
+                <div className="progress-stats">
+                  <div className="progress-stat">
+                    <div className="stat-number">{formatTime(tracker.totalStudyTime)}</div>
+                    <div className="stat-label">Time Studied</div>
+                    <div className="progress-indicator">
+                      <div className="progress-bar-bg">
+                        <div className="progress-bar-fill" style={{ width: `${Math.min((tracker.totalStudyTime / 480) * 100, 100)}%` }}></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="progress-stat">
+                    <div className="stat-number">{formatTime(tracker.remainingTime)}</div>
+                    <div className="stat-label">Time Remaining</div>
+                    <div className="progress-indicator">
+                      <div className="progress-bar-bg">
+                        <div className="progress-bar-fill remaining" style={{ width: `${Math.max(100 - (tracker.totalStudyTime / 480) * 100, 0)}%` }}></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="progress-stat">
+                    <div className="stat-number">{progress?.percentage || 0}%</div>
+                    <div className="stat-label">Prep Progress</div>
+                    <div className="progress-indicator">
+                      <div className="progress-bar-bg">
+                        <div className="progress-bar-fill main" style={{ width: `${progress?.percentage || 0}%` }}></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+
+              {!incompleteSession && (
+                <div className="progress-details">
+                  <div className="weak-areas">
+                    Next Topic: <strong>{studyScheduler.getCoachRecommendation().nextTopic}</strong> {studyScheduler.getTopicTimeEstimate(studyScheduler.getCoachRecommendation().nextTopic)}
+                  </div>
+                </div>
+              )}
+
+              {incompleteSession && (
+                <div className="progress-details">
+                  <div className="weak-areas">
+                    Resume: <strong>{incompleteSession.topic}</strong> {studyScheduler.getTopicTimeEstimate(incompleteSession.topic)}
+                    <br />
+                    <small>({incompleteSession.questionsAnswered}/{incompleteSession.totalQuestions} completed)</small>
+                  </div>
+                </div>
+              )}
+              <div className="progress-notice">
+                <button 
+                  className="primary-cta"
+                  onClick={incompleteSession ? handleResumeStudy : (isStudyActive ? handleContinueStudy : handleStartStudy)}
+                  style={{ width: '100%', marginTop: '1rem' }}
+                >
+                  {incompleteSession 
+                    ? "Resume"
+                    : (isStudyActive ? "Continue" : "Start")
+                  }
+                </button>
+              </div>
+
+              {isStudyActive && (
+                <div className="progress-notice">
+                  <p>{studyScheduler.getCompletionStatus()}</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="dashboard-content" style={{paddingTop: '2rem', marginTop: '1rem', width: '100%', maxWidth: '600px'}}>
-        <ProgressTracker />
-      </div>
+      </main>
     </div>
   );
 }; 

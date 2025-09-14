@@ -5,10 +5,10 @@ export type MascotMood = 'neutral' | 'happy' | 'sad' | 'excited' | 'thinking';
 
 const mascotImages: Record<MascotMood, string> = {
   neutral: '/images/mascot.png',
-  happy: '/images/mascot-happy.png',
-  sad: '/images/mascot-sad.png',
-  excited: '/images/mascot-excited.png',
-  thinking: '/images/mascot-thinking.png',
+  happy: '/images/mascot.png',
+  sad: '/images/mascot.png',
+  excited: '/images/mascot.png',
+  thinking: '/images/mascot.png',
 };
 
 export function Mascot({ size = 120, mood = 'neutral' }: { size?: number; mood?: MascotMood }) {

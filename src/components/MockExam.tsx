@@ -1,327 +1,502 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAuthStore } from '../stores/authStore';
 import type { Question } from '../types';
 import './MockExam.css';
+import { FiMic, FiMicOff, FiClock, FiCheckCircle, FiXCircle } from 'react-icons/fi';
 
-// Import all question data for the mock exam
-import { hazardPerceptionQuestions } from '../question_data/hazardPerceptionQuestions';
-import { insightPracticeQuestions } from '../question_data/insightPracticeQuestions';
-import { mandatorySignQuestions } from '../question_data/mandatorySignsQuestions';
-import { warningSignsQuestions } from '../question_data/warningSignsQuestions';
-import { prohibitorySignsQuestions } from '../question_data/prohibitorySignsQuestions';
-import { prohibitorySigns2Questions } from '../question_data/prohibitorySigns2Questions';
-import { trafficLightsSignalsQuestions } from '../question_data/trafficLightsSignalsQuestions';
-import { roadInformationQuestions } from '../question_data/roadInformationQuestions';
-import { signIdentificationQuestions } from '../question_data/signIdentificationQuestions';
-import { priorityRulesQuestions } from '../question_data/priorityRulesQuestions';
-import { mandatorySigns2Questions } from '../question_data/mandatorySigns2Questions';
+// Import all question data for randomization
+import {
+  mandatorySignQuestions,
+  warningSignsQuestions,
+  prohibitorySignsQuestions,
+  prohibitorySigns2Questions,
+  trafficLightsSignalsQuestions,
+  roadInformationQuestions,
+  signIdentificationQuestions,
+  priorityRulesQuestions,
+  mandatorySigns2Questions,
+  speedLimitQuestions,
+  roadMarkingsQuestions,
+  expandedPriorityRulesQuestions,
+  motorwayRulesQuestions,
+  vehicleCategoriesQuestions,
+  parkingRulesQuestions,
+  environmentalZonesQuestions,
+  technologySafetyQuestions,
+  alcoholDrugsQuestions,
+  fatigueRestQuestions,
+  vehicleDocumentationQuestions,
+  emergencyProceduresQuestions,
+  hazardPerceptionQuestions,
+  insightPracticeQuestions,
+  bicycleInteractionsQuestions,
+  roundaboutRulesQuestions,
+  tramInteractionsQuestions,
+  pedestrianCrossingsQuestions,
+  constructionZonesQuestions,
+  weatherConditionsQuestions
+} from '../question_data';
 
-interface MockExamProps {
-  onComplete: (score: number, total: number, timeSpent: number, questions: Question[], selectedAnswers: { [key: string]: string }) => void;
+// @ts-ignore
+// eslint-disable-next-line
+type SpeechRecognition = any;
+
+interface MockExamConfig {
+  questions: number;
+  timeLimit: number; // in minutes
+  passRate: number; // percentage
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
 }
 
-export const MockExam: React.FC<MockExamProps> = ({ onComplete }) => {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState<{ [key: string]: string }>({});
-  const [timeLeft, setTimeLeft] = useState(25 * 60); // 25 minutes in seconds (official exam time)
-  const [examStarted, setExamStarted] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [examQuestions, setExamQuestions] = useState<Question[]>([]);
-  const [startTime, setStartTime] = useState<Date | null>(null);
-  const [isMuted, setIsMuted] = useState(false);
-  const [examPhase, setExamPhase] = useState<'intro' | 'exam' | 'results'>('intro');
-  
-  const { t_nested } = useLanguage();
+export const MockExam: React.FC = () => {
+  const { quizId } = useParams<{ quizId: string }>();
   const navigate = useNavigate();
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const { user } = useAuthStore();
+  
+  // Mock exam configurations following official format
+  const examConfigs: Record<string, MockExamConfig> = {
+    'mock-quiz-1': { questions: 50, timeLimit: 30, passRate: 88, difficulty: 'beginner' }, // 44/50 = 88%
+    'mock-quiz-2': { questions: 50, timeLimit: 30, passRate: 88, difficulty: 'intermediate' }, // 44/50 = 88%
+    'mock-quiz-3': { questions: 50, timeLimit: 30, passRate: 88, difficulty: 'advanced' } // 44/50 = 88%
+  };
 
-  // Generate mock exam questions on component mount
-  useEffect(() => {
-    generateMockExam();
-  }, []);
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [score, setScore] = useState(0);
+  const [isAnswered, setIsAnswered] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(0); // in seconds
+  const [isFinished, setIsFinished] = useState(false);
+  const [examConfig, setExamConfig] = useState<MockExamConfig | null>(null);
+  const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [showResults, setShowResults] = useState(false);
+  const [isExamStarted, setIsExamStarted] = useState(false);
 
-  // Timer countdown
+  // Voice recognition
+  const [voiceMode, setVoiceMode] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [voiceError, setVoiceError] = useState<string | null>(null);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
+
+  // Load exam configuration and questions following official format
   useEffect(() => {
-    if (examStarted && timeLeft > 0) {
-      timerRef.current = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-    } else if (timeLeft === 0 && examStarted) {
-      finishExam();
+    if (!quizId) return;
+
+    const config = examConfigs[quizId];
+    if (!config) {
+      navigate('/quiz-selection');
+      return;
     }
 
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [timeLeft, examStarted]);
+    setExamConfig(config);
+    setTimeLeft(config.timeLimit * 60); // Convert minutes to seconds
 
-  const generateMockExam = () => {
-    // Official exam question distribution (approximate)
-    const questionDistribution = {
-      trafficRules: 12,      // Traffic rules and regulations
-      hazardPerception: 8,   // Hazard perception and insight
-      roadSigns: 5          // Road signs and markings
-    };
+    // Official Exam Format: 50 questions with specific distribution
+    const formattedQuestions = createFormattedExam(config.difficulty);
+    setQuestions(formattedQuestions);
+  }, [quizId, navigate]);
 
-    // Select questions according to official distribution
+  // Create formatted exam with proper question distribution
+  const createFormattedExam = (_difficulty: 'beginner' | 'intermediate' | 'advanced'): Question[] => {
+    // Official Format: 50 questions distributed as follows:
+    // - 25 Traffic Rules & Signs questions
+    // - 15 Hazard Perception questions  
+    // - 10 Traffic Insight questions
+    
     const trafficRulesQuestions = [
-      ...priorityRulesQuestions,
-      ...trafficLightsSignalsQuestions,
-      ...roadInformationQuestions
-    ].sort(() => 0.5 - Math.random()).slice(0, questionDistribution.trafficRules);
-
-    const hazardPerceptionExamQuestions = [
-      ...hazardPerceptionQuestions,
-      ...insightPracticeQuestions
-    ].sort(() => 0.5 - Math.random()).slice(0, questionDistribution.hazardPerception);
-
-    const roadSignsQuestions = [
       ...mandatorySignQuestions,
       ...warningSignsQuestions,
       ...prohibitorySignsQuestions,
       ...prohibitorySigns2Questions,
+      ...trafficLightsSignalsQuestions,
+      ...roadInformationQuestions,
       ...signIdentificationQuestions,
-      ...mandatorySigns2Questions
-    ].sort(() => 0.5 - Math.random()).slice(0, questionDistribution.roadSigns);
-
-    // Combine all questions and shuffle for final exam
-    const allQuestions = [
-      ...trafficRulesQuestions,
-      ...hazardPerceptionExamQuestions,
-      ...roadSignsQuestions
+      ...priorityRulesQuestions,
+      ...mandatorySigns2Questions,
+      ...speedLimitQuestions,
+      ...roadMarkingsQuestions,
+      ...expandedPriorityRulesQuestions,
+      ...motorwayRulesQuestions,
+      ...vehicleCategoriesQuestions,
+      ...parkingRulesQuestions,
+      ...environmentalZonesQuestions,
+      ...technologySafetyQuestions,
+      ...alcoholDrugsQuestions,
+      ...fatigueRestQuestions,
+      ...vehicleDocumentationQuestions,
+      ...emergencyProceduresQuestions,
+      ...bicycleInteractionsQuestions,
+      ...roundaboutRulesQuestions,
+      ...tramInteractionsQuestions,
+      ...pedestrianCrossingsQuestions,
+      ...constructionZonesQuestions,
+      ...weatherConditionsQuestions
     ];
 
-    const finalQuestions = allQuestions.sort(() => 0.5 - Math.random());
-    
-    setExamQuestions(finalQuestions);
+    const hazardPerceptionQuestionsList = [...hazardPerceptionQuestions];
+    const trafficInsightQuestionsList = [...insightPracticeQuestions];
+
+    // Shuffle each category separately
+    const shuffledTrafficRules = [...trafficRulesQuestions].sort(() => Math.random() - 0.5);
+    const shuffledHazardPerception = [...hazardPerceptionQuestionsList].sort(() => Math.random() - 0.5);
+    const shuffledTrafficInsight = [...trafficInsightQuestionsList].sort(() => Math.random() - 0.5);
+
+    // Select questions based on official format
+    const selectedTrafficRules = shuffledTrafficRules.slice(0, 25);
+    const selectedHazardPerception = shuffledHazardPerception.slice(0, 15);
+    const selectedTrafficInsight = shuffledTrafficInsight.slice(0, 10);
+
+    // Combine and shuffle the final exam to mix question types
+    const exam = [
+      ...selectedTrafficRules,
+      ...selectedHazardPerception,
+      ...selectedTrafficInsight
+    ].sort(() => Math.random() - 0.5);
+
+    return exam;
   };
+
+  // Timer countdown
+  useEffect(() => {
+    if (!isExamStarted || isFinished || timeLeft <= 0) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev <= 1) {
+          finishExam();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isExamStarted, isFinished, timeLeft]);
+
+  // Voice recognition setup
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'webkitSpeechRecognition' in window) {
+      recognitionRef.current = new (window as any).webkitSpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = false;
+      recognitionRef.current.lang = user?.language === 'nl' ? 'nl-NL' : user?.language === 'ar' ? 'ar-SA' : 'en-US';
+
+      recognitionRef.current.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript.toLowerCase().trim();
+        handleVoiceAnswer(transcript);
+        setIsListening(false);
+      };
+
+      recognitionRef.current.onerror = () => {
+        setVoiceError('Voice recognition error');
+        setIsListening(false);
+      };
+
+      recognitionRef.current.onend = () => {
+        setIsListening(false);
+      };
+    }
+  }, [user?.language]);
 
   const startExam = () => {
-    setExamStarted(true);
-    setStartTime(new Date());
-    setExamPhase('exam');
-  };
-
-  const handleAnswerSelect = (questionId: string, answerId: string) => {
-    setSelectedAnswers(prev => ({
-      ...prev,
-      [questionId]: answerId
-    }));
+    setIsExamStarted(true);
   };
 
   const finishExam = () => {
-    if (!startTime) return;
-
-    const endTime = new Date();
-    const timeSpent = Math.round((endTime.getTime() - startTime.getTime()) / 1000);
-
-    // Calculate score
-    let correctAnswers = 0;
-    examQuestions.forEach(question => {
-      const selectedAnswer = selectedAnswers[question.id];
-      if (selectedAnswer === question.correctAnswerId) {
-        correctAnswers++;
-      }
-    });
-
-    onComplete(correctAnswers, examQuestions.length, timeSpent, examQuestions, selectedAnswers);
+    setIsFinished(true);
+    setShowResults(true);
+    
+    // Calculate final score
+    const correctAnswers = Object.values(answers).filter((answer, index) => 
+      answer === questions[index]?.correctAnswerId
+    ).length;
+    
+    setScore(correctAnswers);
+    
+    // Save results to localStorage
+    saveExamResults(correctAnswers);
   };
 
-  const confirmFinish = () => {
-    setShowConfirmation(true);
+  const saveExamResults = (correctAnswers: number) => {
+    if (!examConfig || !quizId) return;
+
+    const percentage = Math.round((correctAnswers / examConfig.questions) * 100);
+    const passed = percentage >= examConfig.passRate;
+    
+    const results = {
+      quizId,
+      score: correctAnswers,
+      percentage,
+      passed,
+      totalQuestions: examConfig.questions,
+      timeUsed: (examConfig.timeLimit * 60) - timeLeft,
+      timestamp: new Date().toISOString(),
+      difficulty: examConfig.difficulty
+    };
+
+    // Load existing progress
+    const existingProgress = localStorage.getItem('quizProgress');
+    const progress = existingProgress ? JSON.parse(existingProgress) : {
+      beginner: { passed: false, bestScore: 0, attempts: 0 },
+      intermediate: { passed: false, bestScore: 0, attempts: 0 },
+      advanced: { passed: false, bestScore: 0, attempts: 0 }
+    };
+
+    // Update progress for this difficulty level
+    const difficulty = examConfig.difficulty;
+    progress[difficulty].attempts += 1;
+    if (percentage > progress[difficulty].bestScore) {
+      progress[difficulty].bestScore = percentage;
+    }
+    if (passed) {
+      progress[difficulty].passed = true;
+    }
+
+    // Save updated progress
+    localStorage.setItem('quizProgress', JSON.stringify(progress));
+    localStorage.setItem(`examResults_${quizId}`, JSON.stringify(results));
   };
 
-  const cancelFinish = () => {
-    setShowConfirmation(false);
+  const handleAnswer = (answerId: string) => {
+    if (isAnswered || !isExamStarted) return;
+
+    setIsAnswered(true);
+    setSelectedAnswer(answerId);
+    setAnswers(prev => ({ ...prev, [currentQuestionIndex]: answerId }));
+
+    // Auto-advance after 2 seconds
+    setTimeout(() => {
+      nextQuestion();
+    }, 2000);
   };
 
-  const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-  };
-
-  const currentQuestion = examQuestions[currentQuestionIndex];
-  const progress = ((currentQuestionIndex + 1) / examQuestions.length) * 100;
-  const answeredQuestions = Object.keys(selectedAnswers).length;
-
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
-    if (!isMuted) {
-      window.speechSynthesis.cancel();
-    } else if (currentQuestion) {
-      const utter = new window.SpeechSynthesisUtterance(currentQuestion.text);
-      window.speechSynthesis.speak(utter);
+  const nextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(prev => prev + 1);
+      setSelectedAnswer(null);
+      setIsAnswered(false);
+    } else {
+      finishExam();
     }
   };
 
-  if (examPhase === 'intro') {
+  const handleVoiceAnswer = (transcript: string) => {
+    const answerMap: Record<string, number> = {
+      'a': 1, 'b': 2, 'c': 3, 'd': 4,
+      'one': 1, 'two': 2, 'three': 3, 'four': 4,
+      'first': 1, 'second': 2, 'third': 3, 'fourth': 4
+    };
+    
+    const answer = answerMap[transcript];
+    if (answer !== undefined && !isAnswered && isExamStarted) {
+      const optionIndex = answer - 1;
+      const optionId = questions[currentQuestionIndex]?.options[optionIndex]?.id;
+      if (optionId) {
+        handleAnswer(optionId);
+      }
+    }
+  };
+
+  const toggleVoiceMode = () => {
+    if (!voiceMode) {
+      setVoiceMode(true);
+      if (recognitionRef.current) {
+        recognitionRef.current.start();
+        setIsListening(true);
+        setVoiceError(null);
+      }
+    } else {
+      setVoiceMode(false);
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      setIsListening(false);
+    }
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const currentQuestion = questions[currentQuestionIndex];
+  const progress = questions.length > 0 ? ((currentQuestionIndex + 1) / questions.length) * 100 : 0;
+
+  if (!examConfig || questions.length === 0) {
+    return null; // No loading screen - instant access for competition
+  }
+
+  if (showResults) {
+    const percentage = Math.round((score / examConfig.questions) * 100);
+    const passed = percentage >= examConfig.passRate;
+    
     return (
-      <div className="quiz-exam-intro">
-        <div className="exam-intro-content">
-          <div className="quiz-logo">
-            <h1>{t_nested('quiz.title')}</h1>
-            <span>{t_nested('quiz.subtitle')}</span>
-          </div>
-          <div className="exam-info">
-            <h2>{t_nested('quiz.officialStyle')}</h2>
-            <div className="exam-details">
-              <div className="detail-item">
-                <span className="detail-label">{t_nested('quiz.questions')}:</span>
-                <span className="detail-value">25</span>
-              </div>
-              <div className="detail-item">
-                <span className="detail-label">{t_nested('quiz.timeLimit')}:</span>
-                <span className="detail-value">25 {t_nested('practice.timeLeft')}</span>
-              </div>
-              <div className="detail-item">
-                <span className="detail-label">{t_nested('quiz.passRate')}:</span>
-                <span className="detail-value">{t_nested('quiz.variesByCategory')}</span>
-              </div>
-              <div className="detail-item">
-                <span className="detail-label">{t_nested('quiz.testType')}:</span>
-                <span className="detail-value">{t_nested('quiz.computerBased')}</span>
-              </div>
+      <div className="mock-exam-container">
+        <div className="mock-exam-results">
+          <div className="results-header">
+            <h1>Mock Exam Results</h1>
+            <div className={`results-status ${passed ? 'passed' : 'failed'}`}>
+              {passed ? <FiCheckCircle size={48} /> : <FiXCircle size={48} />}
+              <h2>{passed ? 'PASSED' : 'FAILED'}</h2>
             </div>
           </div>
+          
+          <div className="results-details">
+            <div className="result-item">
+              <span className="result-label">Score:</span>
+              <span className="result-value">{score}/{examConfig.questions}</span>
+            </div>
+            <div className="result-item">
+              <span className="result-label">Percentage:</span>
+              <span className="result-value">{percentage}%</span>
+            </div>
+            <div className="result-item">
+              <span className="result-label">Required:</span>
+              <span className="result-value">{examConfig.passRate}%</span>
+            </div>
+            <div className="result-item">
+              <span className="result-label">Time Used:</span>
+              <span className="result-value">{formatTime((examConfig.timeLimit * 60) - timeLeft)}</span>
+            </div>
+          </div>
+
+          <div className="results-actions">
+            <button 
+              className="retake-btn"
+              onClick={() => window.location.reload()}
+            >
+              Retake Exam
+            </button>
+            <button 
+              className="dashboard-btn"
+              onClick={() => navigate('/quiz-selection')}
+            >
+              Back to Mock Exams
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isExamStarted) {
+    return (
+      <div className="mock-exam-container">
+        <div className="mock-exam-intro">
+          <h1>Mock Exam</h1>
+          <h2>{examConfig.difficulty.charAt(0).toUpperCase() + examConfig.difficulty.slice(1)} Level</h2>
+          
+          <div className="exam-info">
+            <div className="info-item">
+              <span className="info-label">Questions:</span>
+              <span className="info-value">{examConfig.questions}</span>
+            </div>
+            <div className="info-item">
+              <span className="info-label">Time Limit:</span>
+              <span className="info-value">{examConfig.timeLimit} minutes</span>
+            </div>
+            <div className="info-item">
+              <span className="info-label">Pass Rate:</span>
+              <span className="info-value">{examConfig.passRate}%</span>
+            </div>
+          </div>
+
           <div className="exam-instructions">
-            <h3>{t_nested('quiz.instructions')}</h3>
+            <h3>Instructions:</h3>
             <ul>
-              <li>{t_nested('quiz.instruction1')}</li>
-              <li>{t_nested('quiz.instruction2')}</li>
-              <li>{t_nested('quiz.instruction3')}</li>
-              <li>{t_nested('quiz.instruction4')}</li>
-              <li>{t_nested('quiz.instruction5')}</li>
+              <li>Answer all {examConfig.questions} questions</li>
+              <li>You have {examConfig.timeLimit} minutes to complete the exam</li>
+              <li>Need {examConfig.passRate}% correct to pass</li>
+              <li>Questions are randomly selected from all topics</li>
+              <li>No explanations during the exam</li>
             </ul>
           </div>
-          <div className="exam-warning">
-            <p>⚠️ {t_nested('quiz.warning')}</p>
-          </div>
+
           <button className="start-exam-btn" onClick={startExam}>
-            {t_nested('quiz.startQuiz')}
+            Start Mock Exam
           </button>
         </div>
       </div>
     );
   }
 
-  if (!currentQuestion) {
-    return <div className="loading">{t_nested('quiz.loading')}</div>;
-  }
-
   return (
-    <div className="quiz-exam">
-      {/* Official Quiz Header */}
-      <div className="quiz-exam-header">
-        <div className="quiz-exam-logo">
-          <span>{t_nested('quiz.title')}</span>
-        </div>
-        <div className="quiz-exam-info">
-          <div className="exam-timer">
-            <span className="timer-label">{t_nested('quiz.timeLeft')}:</span>
-            <span className={`timer-value ${timeLeft < 300 ? 'urgent' : ''}`}>
-              {formatTime(timeLeft)}
-            </span>
-          </div>
-          <div className="exam-progress">
-            <span className="progress-label">{t_nested('quiz.question')}:</span>
-            <span className="progress-value">{currentQuestionIndex + 1} / {examQuestions.length}</span>
+    <div className="mock-exam-container">
+      <div className="mock-exam-header">
+        <div className="exam-progress">
+          <span>Question {currentQuestionIndex + 1} of {questions.length}</span>
+          <div className="progress-bar">
+            <div 
+              className="progress-fill" 
+              style={{ width: `${progress}%` }}
+            ></div>
           </div>
         </div>
-        <div className="quiz-exam-controls">
-          <button className="quiz-mute-btn" onClick={toggleMute} aria-label={isMuted ? t_nested('practice.unmute') : t_nested('practice.mute')}>
-            {isMuted ? '🔇' : '🔊'}
-          </button>
-          <button className="quiz-finish-btn" onClick={confirmFinish}>
-            {t_nested('quiz.finishQuiz')}
-          </button>
+        
+        <div className="exam-timer">
+          <FiClock size={20} />
+          <span className={timeLeft < 300 ? 'time-warning' : ''}>
+            {formatTime(timeLeft)}
+          </span>
         </div>
       </div>
 
-      {/* Progress Bar */}
-      <div className="quiz-progress-bar">
-        <div className="quiz-progress-fill" style={{ width: `${progress}%` }} />
-      </div>
+      <div className="mock-exam-content">
+        {currentQuestion && (
+          <>
+            <div className="question-container">
+              <h2 className="question-text">{currentQuestion.text}</h2>
+              
+              {currentQuestion.imageUrl && (
+                <div className="question-image">
+                  <img src={currentQuestion.imageUrl} alt="Question" />
+                </div>
+              )}
 
-      {/* Question Content */}
-      <div className="quiz-question-container">
-        <div className="quiz-question-header">
-          <span className="quiz-question-number">{t_nested('quiz.question')} {currentQuestionIndex + 1}</span>
-          <span className="quiz-question-category">{currentQuestion.subject}</span>
-        </div>
-
-        <div className="quiz-question-text">
-          {currentQuestion.text}
-        </div>
-
-        {currentQuestion.imageUrl && (
-          <div className="quiz-question-image">
-            <img src={currentQuestion.imageUrl} alt={currentQuestion.imageHint || 'Question image'} />
-          </div>
-        )}
-
-        <div className="quiz-options-list">
-          {currentQuestion.options.map((option) => (
-            <button
-              key={option.id}
-              className={`quiz-option-btn ${selectedAnswers[currentQuestion.id] === option.id ? 'selected' : ''}`}
-              onClick={() => handleAnswerSelect(currentQuestion.id, option.id)}
-            >
-              <span className="option-letter">
-                {option.id.slice(-1).toUpperCase()}
-              </span>
-              <span className="option-text">{option.text}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Navigation */}
-      <div className="quiz-navigation">
-        <button 
-          className="quiz-nav-btn quiz-prev-btn"
-          disabled={currentQuestionIndex === 0}
-          onClick={() => setCurrentQuestionIndex(Math.max(0, currentQuestionIndex - 1))}
-        >
-          ← {t_nested('quiz.previous')}
-        </button>
-        <div className="quiz-question-indicators">
-          {examQuestions.map((_, index) => (
-            <button
-              key={index}
-              className={`quiz-indicator ${index === currentQuestionIndex ? 'current' : ''} ${selectedAnswers[examQuestions[index].id] ? 'answered' : ''}`}
-              onClick={() => setCurrentQuestionIndex(index)}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
-        <button 
-          className="quiz-nav-btn quiz-next-btn"
-          disabled={currentQuestionIndex === examQuestions.length - 1}
-          onClick={() => setCurrentQuestionIndex(Math.min(examQuestions.length - 1, currentQuestionIndex + 1))}
-        >
-          {t_nested('quiz.next')} →
-        </button>
-      </div>
-
-      {/* Confirmation Dialog */}
-      {showConfirmation && (
-        <div className="quiz-confirmation-overlay">
-          <div className="quiz-confirmation-dialog">
-            <h3>{t_nested('quiz.finishQuizConfirm')}</h3>
-            <p>{t_nested('quiz.finishQuizMessage')}</p>
-            <p>{t_nested('quiz.answeredQuestions').replace('{answered}', answeredQuestions.toString()).replace('{total}', examQuestions.length.toString())}</p>
-            <div className="quiz-confirmation-buttons">
-              <button className="quiz-cancel-btn" onClick={cancelFinish}>
-                {t_nested('quiz.cancel')}
-              </button>
-              <button className="quiz-confirm-btn" onClick={finishExam}>
-                {t_nested('quiz.finishQuiz')}
-              </button>
+              <div className="options-container">
+                {currentQuestion.options.map((option, index) => {
+                  const isSelected = selectedAnswer === option.id;
+                  const isCorrect = option.id === currentQuestion.correctAnswerId;
+                  const showResult = isAnswered;
+                  
+                  return (
+                    <button
+                      key={option.id}
+                      className={`option-btn ${isSelected ? 'selected' : ''} ${
+                        showResult ? (isCorrect ? 'correct' : isSelected ? 'incorrect' : '') : ''
+                      }`}
+                      onClick={() => handleAnswer(option.id)}
+                      disabled={isAnswered}
+                    >
+                      <span className="option-letter">
+                        {String.fromCharCode(65 + index)}
+                      </span>
+                      <span className="option-text">{option.text}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+
+            <div className="exam-controls">
+              <button 
+                className={`voice-btn ${voiceMode ? 'active' : ''}`}
+                onClick={toggleVoiceMode}
+                disabled={isAnswered}
+              >
+                {isListening ? <FiMic size={20} /> : <FiMicOff size={20} />}
+                Voice
+              </button>
+              
+              {voiceError && (
+                <div className="voice-error">{voiceError}</div>
+              )}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
-}; 
+};

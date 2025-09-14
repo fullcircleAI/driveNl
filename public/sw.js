@@ -1,9 +1,9 @@
-// Service Worker for CBR Theory Learning App
+// Service Worker for Theory Learning App
 // Provides offline support, caching, and performance optimization
 
-const CACHE_NAME = 'cbr-theory-v1.0.0';
-const STATIC_CACHE = 'cbr-static-v1.0.0';
-const DYNAMIC_CACHE = 'cbr-dynamic-v1.0.0';
+const CACHE_NAME = 'theory-v1.0.0';
+const STATIC_CACHE = 'static-v1.0.0';
+const DYNAMIC_CACHE = 'dynamic-v1.0.0';
 
 // Files to cache immediately
 const STATIC_FILES = [
@@ -263,7 +263,7 @@ self.addEventListener('push', (event) => {
   };
 
   event.waitUntil(
-    self.registration.showNotification('CBR Theory Learning', options)
+    self.registration.showNotification('Theory Learning', options)
   );
 });
 

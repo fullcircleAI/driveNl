@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useAuthStore } from '../stores/authStore';
+
 import { dataPersistence } from '../services/dataPersistence';
-import { performanceTracker } from '../services/performanceTracker';
-import { smartQuestionSelector } from '../services/smartQuestionSelector';
+// Removed complex AI services - keeping only simple features
 import './ProgressTracker.css';
 
 export const ProgressTracker: React.FC = () => {
-  const { user } = useAuth();
-  const { t_nested } = useLanguage();
+  const { user } = useAuthStore();
+
   const [progressData, setProgressData] = useState<any>(null);
   const [learningInsights, setLearningInsights] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -74,15 +73,14 @@ export const ProgressTracker: React.FC = () => {
         };
       }
 
-      // Load learning insights
+      // Load simple insights (AI complexity removed)
       let insights = null;
       try {
-        await performanceTracker.initialize();
-        if (smartQuestionSelector.hasEnoughData()) {
-          const recommendations = await smartQuestionSelector.getPracticeRecommendations();
-          const focus = smartQuestionSelector.getPracticeFocus();
-          insights = { recommendations, focus };
-        }
+        // Simple insights without complex AI
+        insights = { 
+          recommendations: ['Continue with your study blocks'], 
+          focus: 'Complete all 24 study blocks' 
+        };
       } catch (error) {
         console.error('Error loading insights:', error);
       }

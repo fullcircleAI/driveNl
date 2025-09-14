@@ -36,15 +36,10 @@ class AuthService {
     console.log('AuthService: Setting user ID in data persistence');
     dataPersistence.setUserId(userId);
 
-    // Temporarily skip cloud operations due to connectivity issues
-console.log('AuthService: Skipping cloud operations due to connectivity issues');
-    
-    // Save user profile to database (commented out for now)
-    /*
+    // Save user profile to database
     console.log('AuthService: Saving user profile to database...');
     try {
       await dataPersistence.saveUserProfile({
-        id: userId,
         username,
         email: user.email,
         language,
@@ -57,16 +52,13 @@ console.log('AuthService: Skipping cloud operations due to connectivity issues')
       console.log('AuthService: User profile saved successfully');
     } catch (error) {
       console.error('AuthService: Error saving user profile:', error);
-      throw error;
+      // Don't throw error - continue with local storage
     }
-    */
 
-    // Save default settings (commented out for now)
-    /*
+    // Save default settings
     console.log('AuthService: Saving user settings...');
     try {
       await dataPersistence.saveUserSettings({
-        userId,
         language,
         voiceEnabled: true,
         notificationsEnabled: true,
@@ -75,9 +67,8 @@ console.log('AuthService: Skipping cloud operations due to connectivity issues')
       console.log('AuthService: User settings saved successfully');
     } catch (error) {
       console.error('AuthService: Error saving user settings:', error);
-      throw error;
+      // Don't throw error - continue with local storage
     }
-    */
 
     this.currentUser = user;
     console.log('AuthService: Set current user');

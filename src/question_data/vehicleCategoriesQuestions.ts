@@ -104,57 +104,5 @@ export const vehicleCategoriesQuestions: Question[] = [
     correctAnswerId: 'q-vc-8o2',
     explanation: 'Cars towing trailers have a speed limit of 90 km/h on motorways in the Netherlands.',
     subject: 'Vehicle Categories'
-  },
-  {
-    id: 'q-vc-9',
-    text: 'What is the speed limit for electric bicycles in the Netherlands?',
-    options: [
-      { id: 'q-vc-9o1', text: '15 km/h' },
-      { id: 'q-vc-9o2', text: '25 km/h' },
-      { id: 'q-vc-9o3', text: '30 km/h' },
-      { id: 'q-vc-9o4', text: '45 km/h' }
-    ],
-    correctAnswerId: 'q-vc-9o2',
-    explanation: 'Electric bicycles (e-bikes) have a speed limit of 25 km/h in the Netherlands. Faster e-bikes are classified as mopeds.',
-    subject: 'Vehicle Categories'
-  },
-  {
-    id: 'q-vc-10',
-    text: 'What is the speed limit for emergency vehicles when responding to emergencies?',
-    options: [
-      { id: 'q-vc-10o1', text: 'They must follow normal speed limits' },
-      { id: 'q-vc-10o2', text: 'They can exceed speed limits by 20 km/h' },
-      { id: 'q-vc-10o3', text: 'They can exceed speed limits when safe' },
-      { id: 'q-vc-10o4', text: 'They have no speed limits' }
-    ],
-    correctAnswerId: 'q-vc-10o3',
-    explanation: 'Emergency vehicles can exceed speed limits when responding to emergencies, but only when it is safe to do so and with lights and sirens activated.',
-    subject: 'Vehicle Categories'
-  },
-  {
-    id: 'q-vc-11',
-    text: 'What is the speed limit for motorcycles in built-up areas?',
-    options: [
-      { id: 'q-vc-11o1', text: '30 km/h' },
-      { id: 'q-vc-11o2', text: '50 km/h' },
-      { id: 'q-vc-11o3', text: '70 km/h' },
-      { id: 'q-vc-11o4', text: '80 km/h' }
-    ],
-    correctAnswerId: 'q-vc-11o2',
-    explanation: 'Motorcycles have the same speed limit as cars in built-up areas, which is 50 km/h unless otherwise indicated.',
-    subject: 'Vehicle Categories'
-  },
-  {
-    id: 'q-vc-12',
-    text: 'What is the speed limit for trucks in built-up areas?',
-    options: [
-      { id: 'q-vc-12o1', text: '30 km/h' },
-      { id: 'q-vc-12o2', text: '50 km/h' },
-      { id: 'q-vc-12o3', text: '70 km/h' },
-      { id: 'q-vc-12o4', text: '80 km/h' }
-    ],
-    correctAnswerId: 'q-vc-12o2',
-    explanation: 'Trucks have the same speed limit as cars in built-up areas, which is 50 km/h unless otherwise indicated by traffic signs.',
-    subject: 'Vehicle Categories'
   }
 ];

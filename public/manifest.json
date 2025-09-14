@@ -1,6 +1,6 @@
 {
-  "name": "CBR Theory Learning",
-  "short_name": "CBR Theory",
+  "name": "DriveNL",
+  "short_name": "DriveNL",
   "description": "Comprehensive Dutch driving theory learning app with practice tests and mock exams",
   "start_url": "/",
   "display": "standalone",
@@ -75,7 +75,7 @@
       "sizes": "1280x720",
       "type": "image/svg+xml",
       "form_factor": "wide",
-      "label": "Dashboard view of the CBR Theory Learning app"
+      "label": "Dashboard view of the Theory Learning app"
     },
     {
       "src": "/vite.svg",
@@ -96,7 +96,7 @@
   "handle_links": "preferred",
   "protocol_handlers": [
     {
-      "protocol": "web+cbr",
+      "protocol": "web+theory",
       "url": "/practice?test=%s"
     }
   ]

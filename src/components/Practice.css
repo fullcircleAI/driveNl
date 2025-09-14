@@ -10,6 +10,8 @@
   gap: 2rem;
   background: #FFFFFF !important;
   color: var(--text-color, #1A1A1A);
+  overflow-y: visible;
+  height: auto;
 }
 
 /* Override any global background colors */
@@ -66,7 +68,7 @@ html .practice-page,
 
 .practice-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -87,15 +89,6 @@ html .practice-page,
   width: 100%;
 }
 
-.practice-title::after {
-  content: '';
-  display: block;
-  width: 48px;
-  height: 4px;
-  background: #E1E5E9;
-  border-radius: 2px;
-  margin: 0.5rem auto 0 auto;
-}
 
 .practice-subtitle {
   font-size: 1.1rem;
@@ -113,7 +106,7 @@ html .practice-page,
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
-  padding: 1rem 0;
+  padding: 0;
 }
 
 /* Test Button Styles */
@@ -454,34 +447,4 @@ html .practice-page,
   }
 }
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  .practice-title {
-    background: linear-gradient(135deg, #a8b2ff 0%, #c4a8ff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
 
-  .practice-subtitle {
-    color: #bdc3c7;
-  }
-
-  .test-button {
-    background: #2c3e50;
-    border-color: #34495e;
-    color: #ecf0f1;
-  }
-
-  .test-button-label {
-    color: #ecf0f1;
-  }
-
-  .test-button-arrow {
-    color: #bdc3c7;
-  }
-
-  .practice-loading-overlay {
-    background: rgba(44, 62, 80, 0.9);
-  }
-}

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveNL Cloud Storage Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        button {
+            background: #002868;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #001a4a; }
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 DriveNL Cloud Storage Test</h1>
+    
+    <div class="test-container">
+        <h2>Test Results</h2>
+        <div id="test-results"></div>
+    </div>
+
+    <div class="test-container">
+        <h2>Test Controls</h2>
+        <button onclick="runAllTests()">Run All Tests</button>
+        <button onclick="testCloudStorage()">Test Cloud Storage</button>
+        <button onclick="testDataPersistence()">Test Data Persistence</button>
+        <button onclick="testAuthService()">Test Auth Service</button>
+        <button onclick="clearResults()">Clear Results</button>
+    </div>
+
+    <div class="test-container">
+        <h2>Console Log</h2>
+        <div id="console-log" class="log"></div>
+    </div>
+
+    <script>
+        let testResults = [];
+        let originalConsoleLog = console.log;
+        let originalConsoleError = console.error;
+
+        // Capture console output
+        console.log = function(...args) {
+            originalConsoleLog.apply(console, args);
+            document.getElementById('console-log').textContent += args.join(' ') + '\n';
+        };
+
+        console.error = function(...args) {
+            originalConsoleError.apply(console, args);
+            document.getElementById('console-log').textContent += 'ERROR: ' + args.join(' ') + '\n';
+        };
+
+        function addResult(message, type = 'info') {
+            testResults.push({ message, type, timestamp: new Date().toLocaleTimeString() });
+            updateResults();
+        }
+
+        function updateResults() {
+            const container = document.getElementById('test-results');
+            container.innerHTML = testResults.map(result => 
+                `<div class="test-result ${result.type}">
+                    [${result.timestamp}] ${result.message}
+                </div>`
+            ).join('');
+        }
+
+        function clearResults() {
+            testResults = [];
+            document.getElementById('console-log').textContent = '';
+            updateResults();
+        }
+
+        async function testCloudStorage() {
+            addResult('🧪 Testing Cloud Storage Service...', 'info');
+            
+            try {
+                // Test if cloud storage service exists
+                if (typeof window.cloudStorage === 'undefined') {
+                    addResult('❌ Cloud Storage service not found', 'error');
+                    return;
+                }
+
+                const testData = {
+                    userId: 'test_user_' + Date.now(),
+                    profile: { name: 'Test User', email: 'test@example.com' },
+                    settings: { language: 'en', theme: 'light' },
+                    progress: [{ testId: 'test1', score: 85, date: new Date().toISOString() }],
+                    lastSync: new Date().toISOString()
+                };
+
+                // Test saving data
+                addResult('📤 Testing data save...', 'info');
+                const saveResult = await window.cloudStorage.saveUserData(testData);
+                addResult(`✅ Save result: ${saveResult}`, 'success');
+
+                // Test loading data
+                addResult('📥 Testing data load...', 'info');
+                const loadedData = await window.cloudStorage.loadUserData(testData.userId);
+                addResult(`✅ Loaded data: ${loadedData ? 'Success' : 'No data'}`, 'success');
+
+                // Test provider info
+                const providerInfo = window.cloudStorage.getProviderInfo();
+                const cloudAvailable = window.cloudStorage.isCloudAvailable();
+                
+                addResult(`ℹ️ Provider: ${providerInfo}`, 'info');
+                addResult(`🌐 Cloud Available: ${cloudAvailable}`, cloudAvailable ? 'success' : 'warning');
+
+            } catch (error) {
+                addResult(`❌ Cloud Storage test failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function testDataPersistence() {
+            addResult('🧪 Testing Data Persistence Service...', 'info');
+            
+            try {
+                if (typeof window.dataPersistence === 'undefined') {
+                    addResult('❌ Data Persistence service not found', 'error');
+                    return;
+                }
+
+                // Test setting user ID
+                const testUserId = 'test_user_' + Date.now();
+                window.dataPersistence.setUserId(testUserId);
+                addResult(`✅ User ID set: ${testUserId}`, 'success');
+
+                // Test saving test result
+                const testResult = {
+                    testId: 'test_123',
+                    score: 85,
+                    category: 'Traffic Signs',
+                    date: new Date().toISOString(),
+                    timeSpent: 300,
+                    correctAnswers: 17,
+                    totalQuestions: 20
+                };
+
+                const resultId = await window.dataPersistence.saveTestResult(testResult);
+                addResult(`✅ Test result saved: ${resultId}`, 'success');
+
+                // Test getting user test results
+                const results = await window.dataPersistence.getUserTestResults();
+                addResult(`✅ Retrieved ${results.length} test results`, 'success');
+
+            } catch (error) {
+                addResult(`❌ Data Persistence test failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function testAuthService() {
+            addResult('🧪 Testing Auth Service...', 'info');
+            
+            try {
+                if (typeof window.authService === 'undefined') {
+                    addResult('❌ Auth Service not found', 'error');
+                    return;
+                }
+
+                // Test creating anonymous user
+                const testUsername = 'TestUser_' + Date.now();
+                const testEmail = 'test@example.com';
+                
+                addResult('👤 Creating test user...', 'info');
+                const user = await window.authService.createAnonymousUser(testUsername, testEmail, 'en');
+                addResult(`✅ User created: ${user.username} (${user.id})`, 'success');
+
+                // Test getting current user
+                const currentUser = window.authService.getCurrentUser();
+                addResult(`✅ Current user: ${currentUser ? currentUser.username : 'None'}`, 'success');
+
+                // Test user login status
+                const isLoggedIn = window.authService.isLoggedIn();
+                addResult(`✅ Login status: ${isLoggedIn}`, 'success');
+
+            } catch (error) {
+                addResult(`❌ Auth Service test failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function runAllTests() {
+            clearResults();
+            addResult('🚀 Starting comprehensive cloud storage tests...', 'info');
+            
+            await testCloudStorage();
+            await testDataPersistence();
+            await testAuthService();
+            
+            addResult('✅ All tests completed!', 'success');
+        }
+
+        // Auto-run tests when page loads
+        window.addEventListener('load', () => {
+            addResult('📱 DriveNL Cloud Storage Test Page Loaded', 'info');
+            addResult('💡 Click "Run All Tests" to test cloud storage functionality', 'info');
+        });
+    </script>
+</body>
+</html>

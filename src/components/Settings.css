@@ -5,6 +5,9 @@
   display: flex;
   flex-direction: column;
   background: none !important;
+  overflow-y: visible;
+  padding: 0;
+  margin: 0;
 }
 
 .settings-header {
@@ -14,34 +17,30 @@
   padding: 0;
 }
 
-.settings-header h2 {
-  text-align: center;
+.settings-title {
   font-size: 2.2rem;
-  color: #002868;
   font-weight: 900;
-  margin-bottom: 0 !important;
+  color: #002868;
+  margin-bottom: 0;
   letter-spacing: -1px;
   line-height: 1.13;
-  font-family: inherit;
   position: relative;
-}
-.settings-header h2::after {
-  content: '';
-  display: block;
-  width: 48px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--secondary-color, #002868) 60%, var(--accent-color, #BF0A30) 100%);
-  border-radius: 2px;
-  margin: 0.5rem auto 2rem auto !important;
+  text-align: center;
+  width: 100%;
+  font-family: inherit;
+  margin-top: 0;
 }
 
 .settings-main-menu {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
   box-sizing: border-box;
-  overflow-y: hidden !important;
+  overflow-y: auto;
+  flex: 1;
+  justify-content: flex-start;
+  padding-top: 1rem;
 }
 
 .settings-btn-wrapper {
@@ -298,12 +297,7 @@
   font-size: 0.95rem;
   margin-left: 0.5rem;
 }
-.qr-label {
-  font-size: 0.95rem;
-  color: #002868;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
+
 
 .language-select {
   appearance: none;
@@ -386,8 +380,7 @@
 .edit-field,
 .display-field,
 .data-actions,
-.danger-zone,
-.settings-qr-mobile {
+.danger-zone {
   text-align: left !important;
   justify-content: flex-start !important;
   align-items: flex-start !important;
@@ -447,41 +440,132 @@
     padding-left: 12px;
     padding-right: 12px;
     max-width: 100vw;
-    gap: 1.2rem;
-  }
-  .settings-main-menu-btn {
-    padding: 1rem 1.2rem !important;
-    font-size: 1rem !important;
-    min-height: 56px !important;
-  }
-  .settings-main-menu-btn .settings-icon {
-    font-size: 1.2rem !important;
-    margin-right: 0.8rem !important;
-  }
-  .settings-main-menu-btn .settings-arrow {
-    font-size: 1.1rem !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .settings-header h2 {
-    font-size: 1.2rem;
-  }
-  .settings-main-menu {
-    padding-left: 4px;
-    padding-right: 4px;
     gap: 1rem;
   }
-.settings-main-menu-btn {
-    padding: 0.8rem 1rem !important;
+  .settings-main-menu-btn {
+    padding: 0.9rem 1.1rem !important;
     font-size: 0.95rem !important;
     min-height: 52px !important;
   }
   .settings-main-menu-btn .settings-icon {
     font-size: 1.1rem !important;
-    margin-right: 0.6rem !important;
+    margin-right: 0.7rem !important;
   }
   .settings-main-menu-btn .settings-arrow {
     font-size: 1rem !important;
   }
+}
+
+@media (max-width: 480px) {
+  .settings-header h2 {
+    font-size: 1.1rem;
+  }
+  .settings-main-menu {
+    padding-left: 4px;
+    padding-right: 4px;
+    gap: 0.6rem;
+    padding-top: 0.5rem;
+  }
+  .settings-main-menu-btn {
+    padding: 0.6rem 0.8rem !important;
+    font-size: 0.85rem !important;
+    min-height: 44px !important;
+  }
+  .settings-main-menu-btn .settings-icon {
+    font-size: 0.9rem !important;
+    margin-right: 0.4rem !important;
+  }
+  .settings-main-menu-btn .settings-arrow {
+    font-size: 0.8rem !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .settings-header h2 {
+    font-size: 1rem;
+  }
+  .settings-main-menu {
+    gap: 0.5rem;
+    padding-top: 0.3rem;
+  }
+  .settings-main-menu-btn {
+    padding: 0.5rem 0.7rem !important;
+    font-size: 0.8rem !important;
+    min-height: 40px !important;
+  }
+  .settings-main-menu-btn .settings-icon {
+    font-size: 0.8rem !important;
+    margin-right: 0.3rem !important;
+  }
+  .settings-main-menu-btn .settings-arrow {
+    font-size: 0.7rem !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .settings-header h2 {
+    font-size: 0.9rem;
+  }
+  .settings-main-menu {
+    gap: 0.4rem;
+    padding-top: 0.2rem;
+  }
+  .settings-main-menu-btn {
+    padding: 0.4rem 0.6rem !important;
+    font-size: 0.75rem !important;
+    min-height: 36px !important;
+  }
+  .settings-main-menu-btn .settings-icon {
+    font-size: 0.7rem !important;
+    margin-right: 0.2rem !important;
+  }
+  .settings-main-menu-btn .settings-arrow {
+    font-size: 0.6rem !important;
+  }
+}
+
+/* Toggle Switch Styles */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 24px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+  background-color: #002868;
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(26px);
 }

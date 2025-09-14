@@ -1,4 +1,6 @@
-// Simple local storage data persistence service
+// Enhanced data persistence service with cloud storage support
+
+import { cloudStorage, type CloudUserData } from '../config/cloudStorage';
 
 export interface UserProgress {
   id: string;
@@ -34,13 +36,43 @@ export interface UserSettings {
 
 class DataPersistenceService {
   private userId: string | null = null;
+  private cloudData: CloudUserData | null = null;
 
-  setUserId(userId: string) {
+  setUserId(userId: string | null) {
     this.userId = userId;
+    if (userId) {
+      this.loadCloudData();
+    }
   }
 
   getUserId(): string | null {
     return this.userId;
+  }
+
+  // Load user data from cloud storage
+  private async loadCloudData(): Promise<void> {
+    if (!this.userId) return;
+
+    try {
+      this.cloudData = await cloudStorage.loadUserData(this.userId);
+      if (this.cloudData) {
+        console.log('DataPersistence: Cloud data loaded successfully');
+      }
+    } catch (error) {
+      console.error('DataPersistence: Error loading cloud data:', error);
+    }
+  }
+
+  // Save data to cloud storage
+  private async saveCloudData(): Promise<void> {
+    if (!this.userId || !this.cloudData) return;
+
+    try {
+      await cloudStorage.saveUserData(this.cloudData);
+      console.log('DataPersistence: Cloud data saved successfully');
+    } catch (error) {
+      console.error('DataPersistence: Error saving cloud data:', error);
+    }
   }
 
   // Save test result
@@ -49,7 +81,7 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    console.log('DataPersistence: Saving test result locally');
+    console.log('DataPersistence: Saving test result');
     const resultId = 'result_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
     
     const fullResult: UserProgress = {
@@ -58,10 +90,26 @@ class DataPersistenceService {
       userId: this.userId
     };
 
-    // Store in localStorage
+    // Store locally
     const existingResults = this.getLocalTestResults();
     existingResults.push(fullResult);
     localStorage.setItem(`testResults_${this.userId}`, JSON.stringify(existingResults));
+
+    // Update cloud data
+    if (!this.cloudData) {
+      this.cloudData = {
+        userId: this.userId,
+        profile: null,
+        settings: null,
+        progress: [],
+        lastSync: new Date().toISOString()
+      };
+    }
+    this.cloudData.progress = existingResults;
+    this.cloudData.lastSync = new Date().toISOString();
+
+    // Save to cloud
+    await this.saveCloudData();
     
     return resultId;
   }
@@ -91,13 +139,30 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    console.log('DataPersistence: Saving user profile locally');
+    console.log('DataPersistence: Saving user profile');
     const fullProfile: UserProfile = {
       ...profile,
       id: this.userId
     };
 
+    // Store locally
     localStorage.setItem(`userProfile_${this.userId}`, JSON.stringify(fullProfile));
+
+    // Update cloud data
+    if (!this.cloudData) {
+      this.cloudData = {
+        userId: this.userId,
+        profile: null,
+        settings: null,
+        progress: [],
+        lastSync: new Date().toISOString()
+      };
+    }
+    this.cloudData.profile = fullProfile;
+    this.cloudData.lastSync = new Date().toISOString();
+
+    // Save to cloud
+    await this.saveCloudData();
   }
 
   // Get user profile
@@ -116,13 +181,30 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    console.log('DataPersistence: Saving user settings locally');
+    console.log('DataPersistence: Saving user settings');
     const fullSettings: UserSettings = {
       ...settings,
       userId: this.userId
     };
 
+    // Store locally
     localStorage.setItem(`userSettings_${this.userId}`, JSON.stringify(fullSettings));
+
+    // Update cloud data
+    if (!this.cloudData) {
+      this.cloudData = {
+        userId: this.userId,
+        profile: null,
+        settings: null,
+        progress: [],
+        lastSync: new Date().toISOString()
+      };
+    }
+    this.cloudData.settings = fullSettings;
+    this.cloudData.lastSync = new Date().toISOString();
+
+    // Save to cloud
+    await this.saveCloudData();
   }
 
   // Get user settings
@@ -186,8 +268,24 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    console.log('DataPersistence: Local data sync (no-op for now)');
-    // This would sync local data to cloud when cloud storage is re-enabled
+    console.log('DataPersistence: Syncing local data to cloud');
+    
+    // Load all local data
+    const profile = await this.getUserProfile();
+    const settings = await this.getUserSettings();
+    const progress = await this.getUserTestResults();
+
+    // Create cloud data object
+    this.cloudData = {
+      userId: this.userId,
+      profile,
+      settings,
+      progress,
+      lastSync: new Date().toISOString()
+    };
+
+    // Save to cloud
+    await this.saveCloudData();
   }
 
   // Delete user data (for GDPR compliance)

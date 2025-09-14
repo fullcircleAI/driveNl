@@ -5,7 +5,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: light;
   color: var(--text-color, #111111);
   background-color: var(--primary-color, #FFFFFF);
 
@@ -19,6 +19,47 @@
   --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
   --safe-area-inset-left: env(safe-area-inset-left, 0px);
   --safe-area-inset-right: env(safe-area-inset-right, 0px);
+  
+  /* Font size variables */
+  --font-size-xsmall: 0.75rem;
+  --font-size-small: 0.875rem;
+  --font-size-body: 1rem;
+  --font-size-h3: 1.125rem;
+  --font-size-h2: 1.25rem;
+  --font-size-h1: 1.5rem;
+  --font-size-display: 2rem;
+  
+  /* Color variables */
+  --primary-blue: #1A3E7A;
+  --secondary-blue: #002868;
+  --accent-blue: #4A90E2;
+  --text-primary: #002868;
+  --text-secondary: #666;
+  --text-light: #999;
+  --background-primary: #FFFFFF;
+  --background-secondary: #F8FAFC;
+  --background-gradient: linear-gradient(135deg, #F5F7FA 0%, #E8ECF1 100%);
+  --border-color: #E2E8F0;
+  --shadow-light: rgba(26, 62, 122, 0.15);
+  --shadow-medium: rgba(26, 62, 122, 0.3);
+  
+  /* Spacing variables */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Border radius variables */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  
+  /* Transition variables */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
 }
 
 * {
@@ -39,13 +80,18 @@ body {
   padding: 0;
   min-width: 320px;
   min-height: 100vh;
+  background: linear-gradient(135deg, #1A3E7A 0%, #002868 100%);
   /* Mobile optimizations */
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   overflow-x: hidden;
-  /* Remove flex display that might cause layout issues */
   display: block;
+}
+
+/* White background for practice test pages */
+body.practice-page {
+  background: #FFFFFF !important;
 }
 
 h1 {
@@ -177,18 +223,7 @@ button:focus-visible {
   }
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
+
 
 /* Prevent horizontal scroll on mobile */
 html, body {

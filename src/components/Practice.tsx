@@ -1,106 +1,196 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useAuthStore } from '../stores/authStore';
+import { Navigation } from './Navigation';
 import { 
-  FiZap, FiHelpCircle, FiEye, FiAlertOctagon, FiCheckCircle, FiAlertTriangle, 
-  FiActivity, FiInfo, FiTag, FiFlag, FiTrendingUp, FiMap, FiShield, FiTruck, 
-  FiBox, FiSquare, FiDroplet, FiCpu, FiClock, FiFileText, FiPhone 
+  FiEye, FiActivity, FiFlag, FiShield, FiRotateCcw, FiTruck, FiUsers, FiCloud, FiTool
 } from 'react-icons/fi';
 import './Practice.css';
 
-// Lazy load test components for better performance
-const LazyTestButton = React.lazy(() => import('./LazyTestButton'));
+import LazyTestButton from './LazyTestButton';
 
 export function Practice() {
-  const { user } = useAuth();
-  const { t_nested, currentLanguage } = useLanguage();
+  useAuthStore();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
   const [hoveredTest, setHoveredTest] = useState<string | null>(null);
 
-  // Memoized tooltip messages for better performance
   const tooltipMessages = useMemo(() => ({
-    'insight-practice': 'Practice understanding traffic scenarios and making decisions',
-    'hazard-perception': 'Learn to recognize dangerous situations on the road',
-    'prohibitory-signs': 'Master signs that prohibit certain actions',
-    'mandatory-signs': 'Understand signs that require specific actions',
-    'warning-signs': 'Learn to recognize warning signs',
-    'prohibitory-signs-2': 'Advanced prohibitory signs practice',
-    'traffic-lights-signals': 'Master traffic light rules and signals',
-    'road-information': 'Learn about road markings and information signs',
-    'sign-identification': 'Practice identifying different types of signs',
+    'traffic-rules-signs': 'Master Dutch traffic rules, signs, and regulations',
     'priority-rules': 'Understand right of way and priority rules',
-    'mandatory-signs-2': 'Advanced mandatory signs practice',
-    'speed-limits': 'Learn speed limit rules and regulations',
-    'road-markings': 'Understand road markings and their meanings',
-    'expanded-priority-rules': 'Advanced priority and right of way rules',
+    'hazard-perception': 'Learn to recognize dangerous situations on the road',
+    'speed-safety': 'Speed limits, safety rules, and vehicle regulations',
+    'bicycle-interactions': 'Learn to safely interact with cyclists on the road',
+    'roundabout-rules': 'Master roundabout navigation and priority rules',
+    'tram-interactions': 'Understand how to safely interact with trams',
+    'pedestrian-crossings': 'Learn pedestrian crossing rules and safety',
+    'construction-zones': 'Navigate construction zones safely',
+    'weather-conditions': 'Drive safely in various weather conditions',
+    'road-signs': 'Advanced road signs and identification practice',
     'motorway-rules': 'Specific rules for motorway driving',
-    'vehicle-categories': 'Different vehicle types and their rules',
+    'vehicle-knowledge': 'Vehicle categories and documentation requirements',
     'parking-rules': 'Parking regulations and restrictions',
-    'environmental-zones': 'Environmental zones and restrictions',
+    'environmental': 'Environmental zones and restrictions',
     'technology-safety': 'Modern vehicle technology and safety features',
     'alcohol-drugs': 'Alcohol and drug regulations for drivers',
     'fatigue-rest': 'Driver fatigue and rest requirements',
-    'vehicle-documentation': 'Required vehicle documentation',
-    'emergency-procedures': 'Emergency procedures and protocols'
+    'emergency-procedures': 'Emergency procedures and protocols',
+    'insight-practice': 'Practice understanding traffic scenarios and making decisions'
   }), []);
 
-  const toTitleCase = useCallback((str: string) =>
-    str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase()), []);
-
-  // Memoized tests array for better performance
   const tests = useMemo(() => [
-    { label: 'Insight Practice', icon: <FiHelpCircle />, route: 'insight-practice', importance: 2 },
-    { label: 'Hazard Perception', icon: <FiEye />, route: 'hazard-perception', importance: 3 },
-    { label: 'Prohibitory Signs', icon: <FiAlertOctagon />, route: 'prohibitory-signs', importance: 2 },
-    { label: 'Mandatory Signs', icon: <FiCheckCircle />, route: 'mandatory-signs', importance: 2 },
-    { label: 'Warning Signs', icon: <FiAlertTriangle />, route: 'warning-signs', importance: 2 },
-    { label: 'Prohibitory Signs 2', icon: <FiAlertOctagon />, route: 'prohibitory-signs-2', importance: 1 },
-    { label: 'Traffic Lights & Signals', icon: <FiActivity />, route: 'traffic-lights-signals', importance: 2 },
-    { label: 'Road Information', icon: <FiInfo />, route: 'road-information', importance: 1 },
-    { label: 'Sign Identification', icon: <FiTag />, route: 'sign-identification', importance: 1 },
-    { label: 'Priority Rules', icon: <FiFlag />, route: 'priority-rules', importance: 2 },
-    { label: 'Mandatory Signs 2', icon: <FiCheckCircle />, route: 'mandatory-signs-2', importance: 1 },
-    // Phase 1: Core Content
-    { label: 'Speed Limits', icon: <FiTrendingUp />, route: 'speed-limits', importance: 2 },
-    { label: 'Road Markings', icon: <FiMap />, route: 'road-markings', importance: 2 },
-    { label: 'Expanded Priority Rules', icon: <FiShield />, route: 'expanded-priority-rules', importance: 2 },
-    // Phase 2: Advanced Topics
-    { label: 'Motorway Rules', icon: <FiTruck />, route: 'motorway-rules', importance: 2 },
-    { label: 'Vehicle Categories', icon: <FiBox />, route: 'vehicle-categories', importance: 1 },
-    { label: 'Parking Rules', icon: <FiSquare />, route: 'parking-rules', importance: 2 },
-    // Phase 3: Modern Topics
-    { label: 'Environmental Zones', icon: <FiDroplet />, route: 'environmental-zones', importance: 1 },
-    { label: 'Technology & Safety', icon: <FiCpu />, route: 'technology-safety', importance: 1 },
-    // Critical CBR Content
-    { label: 'Alcohol & Drugs', icon: <FiAlertTriangle />, route: 'alcohol-drugs', importance: 3 },
-    { label: 'Fatigue & Rest', icon: <FiClock />, route: 'fatigue-rest', importance: 3 },
-    { label: 'Vehicle Documentation', icon: <FiFileText />, route: 'vehicle-documentation', importance: 2 },
-    { label: 'Emergency Procedures', icon: <FiPhone />, route: 'emergency-procedures', importance: 3 },
+    { 
+      label: 'Traffic Rules & Signs', 
+      icon: <FiActivity />, 
+      route: 'traffic-rules-signs', 
+      importance: 3,
+      description: 'Master Dutch traffic rules, signs, and regulations'
+    },
+    { 
+      label: 'Priority & Right of Way', 
+      icon: <FiFlag />, 
+      route: 'priority-rules', 
+      importance: 3,
+      description: 'Understand priority rules and right of way situations'
+    },
+    { 
+      label: 'Hazard Perception', 
+      icon: <FiEye />, 
+      route: 'hazard-perception', 
+      importance: 3,
+      description: 'Learn to recognize and respond to dangerous situations'
+    },
+    { 
+      label: 'Speed & Safety', 
+      icon: <FiShield />, 
+      route: 'speed-safety', 
+      importance: 2,
+      description: 'Speed limits, safety rules, and vehicle regulations'
+    },
+    { 
+      label: 'Bicycle Interactions', 
+      icon: <FiActivity />, 
+      route: 'bicycle-interactions', 
+      importance: 3,
+      description: 'Learn to safely interact with cyclists on the road'
+    },
+    { 
+      label: 'Roundabout Rules', 
+      icon: <FiRotateCcw />, 
+      route: 'roundabout-rules', 
+      importance: 3,
+      description: 'Master roundabout navigation and priority rules'
+    },
+    { 
+      label: 'Tram Interactions', 
+      icon: <FiTruck />, 
+      route: 'tram-interactions', 
+      importance: 2,
+      description: 'Understand how to safely interact with trams'
+    },
+    { 
+      label: 'Pedestrian Crossings', 
+      icon: <FiUsers />, 
+      route: 'pedestrian-crossings', 
+      importance: 2,
+      description: 'Learn pedestrian crossing rules and safety'
+    },
+    { 
+      label: 'Construction Zones', 
+      icon: <FiTool />, 
+      route: 'construction-zones', 
+      importance: 2,
+      description: 'Navigate construction zones safely'
+    },
+    { 
+      label: 'Weather Conditions', 
+      icon: <FiCloud />, 
+      route: 'weather-conditions', 
+      importance: 1,
+      description: 'Drive safely in various weather conditions'
+    },
+    { 
+      label: 'Road Signs', 
+      icon: <FiActivity />, 
+      route: 'road-signs', 
+      importance: 2,
+      description: 'Advanced road signs and identification'
+    },
+    { 
+      label: 'Motorway Rules', 
+      icon: <FiTruck />, 
+      route: 'motorway-rules', 
+      importance: 2,
+      description: 'Specific rules for motorway driving'
+    },
+    { 
+      label: 'Vehicle Knowledge', 
+      icon: <FiShield />, 
+      route: 'vehicle-knowledge', 
+      importance: 2,
+      description: 'Vehicle categories and documentation'
+    },
+    { 
+      label: 'Parking Rules', 
+      icon: <FiFlag />, 
+      route: 'parking-rules', 
+      importance: 2,
+      description: 'Parking regulations and restrictions'
+    },
+    { 
+      label: 'Environmental Zones', 
+      icon: <FiCloud />, 
+      route: 'environmental', 
+      importance: 1,
+      description: 'Environmental zones and restrictions'
+    },
+    { 
+      label: 'Technology & Safety', 
+      icon: <FiShield />, 
+      route: 'technology-safety', 
+      importance: 1,
+      description: 'Modern vehicle technology and safety features'
+    },
+    { 
+      label: 'Alcohol & Drugs', 
+      icon: <FiActivity />, 
+      route: 'alcohol-drugs', 
+      importance: 3,
+      description: 'Alcohol and drug regulations for drivers'
+    },
+    { 
+      label: 'Fatigue & Rest', 
+      icon: <FiUsers />, 
+      route: 'fatigue-rest', 
+      importance: 2,
+      description: 'Driver fatigue and rest requirements'
+    },
+    { 
+      label: 'Emergency Procedures', 
+      icon: <FiShield />, 
+      route: 'emergency-procedures', 
+      importance: 3,
+      description: 'Emergency procedures and protocols'
+    },
+    { 
+      label: 'Insight Practice', 
+      icon: <FiEye />, 
+      route: 'insight-practice', 
+      importance: 2,
+      description: 'Practice understanding traffic scenarios'
+    }
   ], []);
 
-  // Memoized importance colors for better performance
   const getImportanceColor = useCallback((importance: number) => {
     switch (importance) {
-      case 3: return '#e74c3c'; // Critical - Red
-      case 2: return '#f39c12'; // Important - Orange
-      case 1: return '#27ae60'; // Basic - Green
-      default: return '#95a5a6'; // Default - Gray
+      case 3: return '#e74c3c';
+      case 2: return '#f39c12';
+      case 1: return '#27ae60';
+      default: return '#95a5a6';
     }
   }, []);
 
-  const handleTestClick = useCallback(async (route: string) => {
-    setIsLoading(true);
-    try {
-      // Add a small delay for better UX feedback
-      await new Promise(resolve => setTimeout(resolve, 150));
-      navigate(`/practice/${route}`);
-    } catch (error) {
-      console.error('Navigation error:', error);
-    } finally {
-      setIsLoading(false);
-    }
+  const handleTestClick = useCallback((route: string) => {
+    navigate(`/practice/${route}`);
   }, [navigate]);
 
   const handleTestHover = useCallback((route: string | null) => {
@@ -108,35 +198,34 @@ export function Practice() {
   }, []);
 
   return (
-    <div className="practice-page">
-      <div className="practice-header">
-        <h1 className="practice-title">{t_nested('practice.title')}</h1>
-      </div>
+    <div className="main-layout">
+      <Navigation />
+      <main className="main-content">
+        <div className="practice-page">
+          <div style={{ height: '3rem' }} />
+          <div className="practice-header">
+            <h1 className="practice-title">Practice</h1>
+          </div>
 
       <div className="practice-content">
         <div className="practice-grid">
           {tests.map((test) => (
-            <React.Suspense key={test.route} fallback={<div className="test-button-skeleton" />}>
-              <LazyTestButton
-                test={test}
-                importanceColor={getImportanceColor(test.importance)}
-                tooltipMessage={tooltipMessages[test.route as keyof typeof tooltipMessages]}
-                isHovered={hoveredTest === test.route}
-                isLoading={isLoading}
-                onHover={handleTestHover}
-                onClick={handleTestClick}
-              />
-            </React.Suspense>
+            <LazyTestButton
+              key={test.route}
+              test={test}
+              importanceColor={getImportanceColor(test.importance)}
+              tooltipMessage={tooltipMessages[test.route as keyof typeof tooltipMessages]}
+              isHovered={hoveredTest === test.route}
+              isLoading={false}
+              onHover={handleTestHover}
+              onClick={handleTestClick}
+            />
           ))}
         </div>
       </div>
 
-      {isLoading && (
-        <div className="practice-loading-overlay">
-          <div className="practice-loading-spinner" />
-          <p>Loading...</p>
         </div>
-      )}
+      </main>
     </div>
   );
 } 

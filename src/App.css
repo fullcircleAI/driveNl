@@ -143,8 +143,8 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
-  background: var(--primary-color);
-  color: var(--text-color);
+  background: var(--background-primary);
+  color: var(--text-primary);
 }
 
 #root {
@@ -167,10 +167,10 @@ body {
 
 .container {
   width: 100%;
-  max-width: var(--container-max-width);
+  max-width: 1100px;
   margin: 0 auto;
-  padding-left: var(--container-padding);
-  padding-right: var(--container-padding);
+  padding-left: var(--spacing-lg);
+  padding-right: var(--spacing-lg);
   box-sizing: border-box;
 }
 
@@ -232,8 +232,8 @@ body {
 
 .card {
   padding: 1rem;
-  background: var(--card-bg);
-  border: 1px solid var(--secondary-color);
+  background: var(--background-primary);
+  border: 1px solid var(--border-color);
 }
 
 .read-the-docs {
@@ -258,7 +258,7 @@ header {
 
 header h1 {
   font-size: clamp(1.8rem, 4vw, 2.5rem);
-  color: var(--header-color);
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
   animation: fadeInDown 0.8s ease-out;
 }
@@ -282,7 +282,7 @@ header p {
 textarea {
   width: 100%;
   padding: 1rem;
-  border: 2px solid var(--secondary-color);
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 16px; /* Prevent zoom on iOS */
   resize: vertical;
@@ -292,7 +292,7 @@ textarea {
 
 textarea:focus {
   outline: none;
-  border-color: var(--accent-color);
+  border-color: var(--accent-blue);
   box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.1);
 }
 
@@ -358,7 +358,7 @@ input, textarea, select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  border: 2px solid var(--secondary-color);
+  border: 2px solid var(--border-color);
 }
 
 /* Global loading state */

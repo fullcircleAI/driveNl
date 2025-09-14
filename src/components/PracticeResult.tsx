@@ -1,3 +1,4 @@
+import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import './PracticeResult.css';

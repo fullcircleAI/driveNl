@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useLanguage } from '../contexts/LanguageContext';
 import { useNavigate } from 'react-router-dom';
+import { Navigation } from './Navigation';
 import { FiAward, FiTrendingUp, FiZap, FiLock, FiCheckCircle } from 'react-icons/fi';
-import { usePremiumStatus } from './usePremiumStatus';
 import './QuizSelectionPage.css';
 
 interface QuizLevel {
@@ -20,9 +19,8 @@ interface QuizLevel {
 }
 
 export const QuizSelectionPage: React.FC = () => {
-  const { t_nested } = useLanguage();
   const navigate = useNavigate();
-  const isPremium = usePremiumStatus();
+  const isPremium = true; // All users get full access
   const [userProgress, setUserProgress] = useState<{
     beginner: { passed: boolean; bestScore: number; attempts: number };
     intermediate: { passed: boolean; bestScore: number; attempts: number };
@@ -44,7 +42,7 @@ export const QuizSelectionPage: React.FC = () => {
         const progress = JSON.parse(savedProgress);
         setUserProgress(progress);
       } catch (error) {
-        console.error('Error loading quiz progress:', error);
+        // Error loading quiz progress
       }
     }
   }, []);
@@ -100,43 +98,43 @@ export const QuizSelectionPage: React.FC = () => {
 
   const quizLevels: QuizLevel[] = [
     {
-      id: 'quiz-1',
-      title: 'Beginner Quiz',
+      id: 'mock-quiz-1',
+      title: 'Mock Exam 1',
       subtitle: 'Foundation Level',
       difficulty: 'beginner',
-      description: 'Basic driving theory questions for beginners',
-      timeLimit: 25,
-      questions: 25,
-      passRate: '70%',
+      description: 'Official format: 50 questions (25 Traffic Rules, 15 Hazard Perception, 10 Traffic Insight)',
+      timeLimit: 30,
+      questions: 50,
+      passRate: '88%',
       icon: <FiAward size={32} />,
       color: '#28a745',
-      requiredScore: 70
+      requiredScore: 88
     },
     {
-      id: 'quiz-2',
-      title: 'Intermediate Quiz',
+      id: 'mock-quiz-2',
+      title: 'Mock Exam 2',
       subtitle: 'Standard Level',
       difficulty: 'intermediate',
-      description: 'Intermediate driving theory questions',
-      timeLimit: 25,
-      questions: 25,
-      passRate: '75%',
+      description: 'Official format: 50 questions (25 Traffic Rules, 15 Hazard Perception, 10 Traffic Insight)',
+      timeLimit: 30,
+      questions: 50,
+      passRate: '88%',
       icon: <FiTrendingUp size={32} />,
       color: '#ffc107',
-      requiredScore: 75
+      requiredScore: 88
     },
     {
-      id: 'quiz-3',
-      title: 'Advanced Quiz',
+      id: 'mock-quiz-3',
+      title: 'Mock Exam 3',
       subtitle: 'Expert Level',
       difficulty: 'advanced',
-      description: 'Advanced driving theory questions',
-      timeLimit: 25,
-      questions: 25,
-      passRate: '80%',
+      description: 'Official format: 50 questions (25 Traffic Rules, 15 Hazard Perception, 10 Traffic Insight)',
+      timeLimit: 30,
+      questions: 50,
+      passRate: '88%',
       icon: <FiZap size={32} />,
       color: '#dc3545',
-      requiredScore: 80
+      requiredScore: 88
     }
   ];
 
@@ -207,11 +205,14 @@ export const QuizSelectionPage: React.FC = () => {
 
 
   return (
-    <div className="quiz-selection-page">
-      <div className="quiz-selection-header">
-        <h1>{t_nested('quizSelection.title')}</h1>
-        <p>Choose your quiz level to test your knowledge</p>
-      </div>
+    <div className="main-layout">
+      <Navigation />
+      <main className="main-content">
+        <div className="quiz-selection-page">
+          <div style={{ height: '3rem' }} />
+          <div className="quiz-selection-header">
+            <h1 className="quiz-selection-title">Mock Exam</h1>
+          </div>
 
       <div className="quiz-levels-container">
         {quizLevels.map((level, index) => {
@@ -322,7 +323,8 @@ export const QuizSelectionPage: React.FC = () => {
         })}
       </div>
 
-      
+        </div>
+      </main>
     </div>
   );
 };

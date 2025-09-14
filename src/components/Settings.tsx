@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useState, useEffect } from 'react';
+import { useAuthStore } from '../stores/authStore';
+import { Navigation } from './Navigation';
 import './Settings.css';
-import { QRCodeSVG } from 'qrcode.react';
-import { FiUser, FiLock, FiFileText, FiHelpCircle, FiAlertCircle } from 'react-icons/fi';
+
+import { FiUser, FiLock, FiFileText, FiHelpCircle, FiAlertCircle, FiClock, FiArrowLeft, FiCloud, FiCloudOff, FiPlay } from 'react-icons/fi';
+import { studyScheduler, type StudyPreferences } from '../services/studyScheduler';
+import { cloudStorage } from '../config/cloudStorage';
+import { testCloudStorage } from '../utils/testCloudStorage';
 
 interface FAQ {
   question: string;
@@ -35,17 +37,26 @@ const faqs: FAQ[] = [
 ];
 
 export const Settings: React.FC = () => {
-  const { user, logout, updateUserProfile } = useAuth();
-  const { t_nested, currentLanguage, setLanguage } = useLanguage();
-  const [activeTab, setActiveTab] = useState<'account' | 'privacy' | 'terms' | 'faq' | 'support'>('account');
+  const { user, logout, updateUserProfile } = useAuthStore();
+  const [activeTab, setActiveTab] = useState<'account' | 'study' | 'privacy' | 'terms' | 'faq' | 'support'>('account');
   const [isEditing, setIsEditing] = useState(false);
-  const [editUsername, setEditUsername] = useState(user?.username || '');
+  const [editUsername, setEditUsername] = useState(user?.firstName || user?.name || '');
   const [supportSubject, setSupportSubject] = useState('');
   const [supportMessage, setSupportMessage] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [sendSuccess, setSendSuccess] = useState(false);
   const [showMenu, setShowMenu] = useState(true);
   const [personalizedLearning, setPersonalizedLearning] = useState(true);
+  const [studyPreferences, setStudyPreferences] = useState<StudyPreferences>({
+    notifications: true,
+    optimalTimeReminders: true,
+    knowledgeDecayAlerts: true,
+    preferredStudyTimes: ['09:00', '14:00', '20:00'],
+    dailyGoal: 30
+  });
+  const [studyStreak, setStudyStreak] = useState(0);
+  const [testResults, setTestResults] = useState<string[]>([]);
+  const [isTesting, setIsTesting] = useState(false);
 
   useEffect(() => {
     // Load personalized learning preference
@@ -53,6 +64,20 @@ export const Settings: React.FC = () => {
     if (stored !== null) {
       setPersonalizedLearning(JSON.parse(stored));
     }
+
+    // Initialize study scheduler and load preferences
+    const initializeStudyScheduler = async () => {
+      try {
+        await studyScheduler.initialize();
+        const preferences = studyScheduler.getPreferences();
+        setStudyPreferences(preferences);
+        setStudyStreak(studyScheduler.getStudyStreak());
+      } catch (error) {
+        console.error('Error initializing study scheduler:', error);
+      }
+    };
+
+    initializeStudyScheduler();
   }, []);
 
   const handlePersonalizedLearningToggle = () => {
@@ -62,9 +87,9 @@ export const Settings: React.FC = () => {
   };
 
   const handleUpdateProfile = async () => {
-    if (editUsername.trim() && editUsername !== user?.username) {
+    if (editUsername.trim() && editUsername !== user?.firstName) {
       try {
-        await updateUserProfile({ username: editUsername.trim() });
+        await updateUserProfile({ firstName: editUsername.trim() });
         setIsEditing(false);
       } catch (error) {
         console.error('Error updating profile:', error);
@@ -91,7 +116,7 @@ export const Settings: React.FC = () => {
 
     setIsSending(true);
     try {
-      const mailtoLink = `mailto:victory.ai@gmail.com?subject=${encodeURIComponent(supportSubject)}&body=${encodeURIComponent(`From: ${user?.email || user?.username || 'Unknown User'}\n\n${supportMessage}`)}`;
+      const mailtoLink = `mailto:victory.ai@gmail.com?subject=${encodeURIComponent(supportSubject)}&body=${encodeURIComponent(`From: ${user?.email || user?.firstName || 'Unknown User'}\n\n${supportMessage}`)}`;
       window.open(mailtoLink);
       setSendSuccess(true);
       setSupportSubject('');
@@ -106,6 +131,165 @@ export const Settings: React.FC = () => {
       setIsSending(false);
     }
   };
+
+  const handleStudyPreferenceChange = async (key: keyof StudyPreferences, value: any) => {
+    const newPreferences = { ...studyPreferences, [key]: value };
+    setStudyPreferences(newPreferences);
+    
+    try {
+      await studyScheduler.updatePreferences(newPreferences);
+    } catch (error) {
+      console.error('Error updating study preferences:', error);
+    }
+  };
+
+  const handleTestCloudStorage = async () => {
+    setIsTesting(true);
+    setTestResults([]);
+    
+    try {
+      const results = await testCloudStorage();
+      const resultMessages = results.map(result => 
+        `${result.success ? '✅' : '❌'} ${result.testName}: ${result.message}`
+      );
+      setTestResults(resultMessages);
+    } catch (error) {
+      setTestResults([`❌ Test failed: ${error instanceof Error ? error.message : 'Unknown error'}`]);
+    } finally {
+      setIsTesting(false);
+    }
+  };
+
+  const renderStudyTab = () => (
+    <div className="settings-content">
+      <div className="settings-header">
+        <button
+          className="back-button"
+          onClick={() => setShowMenu(true)}
+          style={{
+            background: 'none',
+            border: 'none',
+            fontSize: '1.5rem',
+            cursor: 'pointer',
+            color: '#002868',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem'
+          }}
+        >
+          <FiArrowLeft />
+          Back
+        </button>
+        <h2>Study Schedule</h2>
+      </div>
+
+      <div className="settings-section">
+        <h4>Study Streak</h4>
+        <div style={{ 
+          background: 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)', 
+          color: 'white', 
+          padding: '1rem', 
+          borderRadius: '12px', 
+          textAlign: 'center',
+          marginBottom: '1rem'
+        }}>
+          <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>{studyStreak}</div>
+          <div>Days in a row</div>
+        </div>
+      </div>
+
+      <div className="settings-section">
+        <h4>Notifications</h4>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontWeight: 600, color: '#002868' }}>Study Reminders</div>
+              <div style={{ fontSize: '0.9rem', color: '#666' }}>Get notified when it's time to study</div>
+            </div>
+            <label className="toggle-switch">
+              <input
+                type="checkbox"
+                checked={studyPreferences.notifications}
+                onChange={(e) => handleStudyPreferenceChange('notifications', e.target.checked)}
+              />
+              <span className="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontWeight: 600, color: '#002868' }}>Optimal Time Alerts</div>
+              <div style={{ fontSize: '0.9rem', color: '#666' }}>Remind me when I perform best</div>
+            </div>
+            <label className="toggle-switch">
+              <input
+                type="checkbox"
+                checked={studyPreferences.optimalTimeReminders}
+                onChange={(e) => handleStudyPreferenceChange('optimalTimeReminders', e.target.checked)}
+              />
+              <span className="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontWeight: 600, color: '#002868' }}>Knowledge Decay Alerts</div>
+              <div style={{ fontSize: '0.9rem', color: '#666' }}>Warn when knowledge is fading</div>
+            </div>
+            <label className="toggle-switch">
+              <input
+                type="checkbox"
+                checked={studyPreferences.knowledgeDecayAlerts}
+                onChange={(e) => handleStudyPreferenceChange('knowledgeDecayAlerts', e.target.checked)}
+              />
+              <span className="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div className="settings-section">
+        <h4>Daily Goal</h4>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <input
+            type="range"
+            min="10"
+            max="120"
+            step="5"
+            value={studyPreferences.dailyGoal}
+            onChange={(e) => handleStudyPreferenceChange('dailyGoal', parseInt(e.target.value))}
+            style={{ flex: 1 }}
+          />
+          <span style={{ fontWeight: 600, color: '#002868', minWidth: '60px' }}>
+            {studyPreferences.dailyGoal} min
+          </span>
+        </div>
+        <div style={{ fontSize: '0.9rem', color: '#666', marginTop: '0.5rem' }}>
+          Target daily study time
+        </div>
+      </div>
+
+      <div className="settings-section">
+        <h4>Exam Date (Optional)</h4>
+        <input
+          type="date"
+          value={studyPreferences.examDate || ''}
+          onChange={(e) => handleStudyPreferenceChange('examDate', e.target.value)}
+          style={{
+            width: '100%',
+            padding: '0.75rem',
+            border: '2px solid #E2E8F0',
+            borderRadius: '8px',
+            fontSize: '1rem',
+            fontFamily: 'inherit'
+          }}
+        />
+        <div style={{ fontSize: '0.9rem', color: '#666', marginTop: '0.5rem' }}>
+          Set your exam date for personalized study planning
+        </div>
+      </div>
+    </div>
+  );
 
   /**
    * For the Account tab, render a right-aligned header with a back arrow and 'Settings', then 'Account' as the page name.
@@ -143,7 +327,7 @@ export const Settings: React.FC = () => {
             </div>
           ) : (
             <div className="display-field">
-                <span>{user?.username}</span>
+                <span>{user?.firstName || user?.name}</span>
                 <button onClick={() => setIsEditing(true)} className="edit-btn" style={{ transition: 'none', boxShadow: 'none', outline: 'none' }}>Edit</button>
             </div>
           )}
@@ -159,14 +343,14 @@ export const Settings: React.FC = () => {
           <label>Language</label>
           <div className="display-field">
             <select
-                value={currentLanguage || ''}
-              onChange={(e) => setLanguage(e.target.value as 'en' | 'nl' | 'ar')}
+                value={user?.language || 'en'}
+              onChange={(e) => updateUserProfile({ language: e.target.value as 'en' | 'nl' })}
               className="language-select"
                 style={{ textAlign: 'left' }}
             >
               <option value="en">English</option>
               <option value="nl">Nederlands</option>
-              <option value="ar">العربية</option>
+
             </select>
           </div>
         </div>
@@ -174,6 +358,76 @@ export const Settings: React.FC = () => {
           <label>Account Status</label>
           <div className="display-field">
             <span className="premium-badge">🌟 Premium User</span>
+          </div>
+        </div>
+        <div className="profile-field">
+          <label>Data Storage</label>
+          <div className="display-field">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              {cloudStorage.isCloudAvailable() ? (
+                <>
+                  <FiCloud style={{ color: '#059669' }} />
+                  <span style={{ color: '#059669', fontWeight: 600 }}>
+                    {cloudStorage.getProviderInfo()}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <FiCloudOff style={{ color: '#dc2626' }} />
+                  <span style={{ color: '#dc2626', fontWeight: 600 }}>
+                    {cloudStorage.getProviderInfo()}
+                  </span>
+                </>
+              )}
+            </div>
+            <div style={{ fontSize: '0.8rem', color: '#666', marginTop: '0.25rem' }}>
+              {cloudStorage.isCloudAvailable() 
+                ? 'Your data syncs across all devices' 
+                : 'Data stored locally only - set up cloud storage for cross-device sync'
+              }
+            </div>
+          </div>
+        </div>
+        <div className="profile-field">
+          <label>Cloud Storage Test</label>
+          <div className="display-field">
+            <button 
+              onClick={handleTestCloudStorage}
+              disabled={isTesting}
+              style={{
+                background: '#002868',
+                color: 'white',
+                border: 'none',
+                padding: '0.5rem 1rem',
+                borderRadius: '5px',
+                cursor: isTesting ? 'not-allowed' : 'pointer',
+                opacity: isTesting ? 0.7 : 1,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem'
+              }}
+            >
+              <FiPlay size={16} />
+              {isTesting ? 'Testing...' : 'Test Cloud Storage'}
+            </button>
+            {testResults.length > 0 && (
+              <div style={{ 
+                marginTop: '1rem', 
+                padding: '1rem', 
+                background: '#f8f9fa', 
+                borderRadius: '5px',
+                fontSize: '0.9rem',
+                maxHeight: '200px',
+                overflowY: 'auto'
+              }}>
+                <strong>Test Results:</strong>
+                {testResults.map((result, index) => (
+                  <div key={index} style={{ marginTop: '0.5rem' }}>
+                    {result}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -386,7 +640,7 @@ export const Settings: React.FC = () => {
           <div className="form-field">
             <label>From</label>
             <div className="sender-info">
-                  <span>{user?.email || user?.username || 'Unknown User'}</span>
+                  <span>{user?.email || user?.firstName || 'Unknown User'}</span>
               <span className="sender-note">(Your email will be automatically included)</span>
             </div>
           </div>
@@ -461,6 +715,7 @@ export const Settings: React.FC = () => {
   // Main menu list
   const mainMenu = [
     { key: 'account', label: 'Account', icon: <FiUser /> },
+    { key: 'study', label: 'Study Schedule', icon: <FiClock /> },
     { key: 'privacy', label: 'Privacy Policy', icon: <FiLock /> },
     { key: 'terms', label: 'Terms & Conditions', icon: <FiFileText /> },
     { key: 'faq', label: 'FAQ', icon: <FiHelpCircle /> },
@@ -474,12 +729,15 @@ export const Settings: React.FC = () => {
   }, [showMenu]);
 
   return (
-    <div className="settings-container">
-      <div style={{ height: '3rem' }} />
-      {showMenu ? (
+    <div className="main-layout">
+      <Navigation />
+      <main className="main-content">
+        <div className="settings-container">
+          <div style={{ height: '3rem' }} />
+          {showMenu ? (
         <>
       <div className="settings-header">
-        <h2>Settings</h2>
+        <h2 className="settings-title">Settings</h2>
       </div>
           <div className="settings-main-menu">
               {mainMenu.map(item => (
@@ -522,6 +780,7 @@ export const Settings: React.FC = () => {
           renderAccountTab()
         ) : (
           <>
+            {activeTab === 'study' && renderStudyTab()}
             {activeTab === 'privacy' && renderPrivacyTab()}
             {activeTab === 'terms' && renderTermsTab()}
             {activeTab === 'faq' && renderFAQTab()}
@@ -529,6 +788,8 @@ export const Settings: React.FC = () => {
           </>
         )
         )}
+        </div>
+      </main>
     </div>
   );
 }; 

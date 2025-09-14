@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Test</title>
+    <style>
+        :root {
+            --primary-blue: #1A3E7A;
+            --spacing-xl: 2rem;
+            --background-gradient: linear-gradient(135deg, #F5F7FA 0%, #E8ECF1 100%);
+        }
+        .test {
+            background: var(--background-gradient);
+            color: var(--primary-blue);
+            padding: var(--spacing-xl);
+            border: 2px solid var(--primary-blue);
+        }
+    </style>
+</head>
+<body>
+    <div class="test">CSS Variables Test - This should have blue text and gradient background</div>
+</body>
+</html>

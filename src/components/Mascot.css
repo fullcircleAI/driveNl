@@ -69,6 +69,32 @@
   80% { transform: translateY(0); }
 }
 
+/* Mascot mood-specific animations */
+.mascot-sad {
+  animation: mascot-sad 3s infinite;
+  filter: drop-shadow(0 4px 24px rgba(0,40,104,0.22)) drop-shadow(0 0 16px #BF0A30aa) drop-shadow(0 0 32px #BF0A3088) hue-rotate(200deg) saturate(0.7);
+}
+
+@keyframes mascot-sad {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(2px) rotate(-1deg); }
+  50% { transform: translateY(4px) rotate(0deg); }
+  75% { transform: translateY(2px) rotate(1deg); }
+}
+
+.mascot-thinking {
+  animation: mascot-thinking 4s infinite;
+  filter: drop-shadow(0 4px 24px rgba(0,40,104,0.22)) drop-shadow(0 0 16px #3a53a4aa) drop-shadow(0 0 32px #BF0A3088) hue-rotate(120deg);
+}
+
+@keyframes mascot-thinking {
+  0%, 100% { transform: translateY(0) scale(1); }
+  20% { transform: translateY(-2px) scale(1.02); }
+  40% { transform: translateY(0) scale(1); }
+  60% { transform: translateY(-1px) scale(1.01); }
+  80% { transform: translateY(0) scale(1); }
+}
+
 @media (max-width: 600px) {
   .mascot-spotlight {
     margin: 1.2rem auto 1.2rem auto;

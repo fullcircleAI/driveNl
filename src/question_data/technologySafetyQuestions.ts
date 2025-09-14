@@ -104,57 +104,5 @@ export const technologySafetyQuestions: Question[] = [
     correctAnswerId: 'q-ts-8o2',
     explanation: 'Tire Pressure Monitoring System (TPMS) warns the driver when tire pressure is too low, which can affect safety and fuel efficiency.',
     subject: 'Technology & Safety'
-  },
-  {
-    id: 'q-ts-9',
-    text: 'What does Head-Up Display (HUD) do?',
-    options: [
-      { id: 'q-ts-9o1', text: 'Projects information onto the windshield' },
-      { id: 'q-ts-9o2', text: 'Controls the radio' },
-      { id: 'q-ts-9o3', text: 'Manages the climate control' },
-      { id: 'q-ts-9o4', text: 'Adjusts the mirrors' }
-    ],
-    correctAnswerId: 'q-ts-9o1',
-    explanation: 'Head-Up Display (HUD) projects important information like speed and navigation onto the windshield, allowing the driver to see it without looking away from the road.',
-    subject: 'Technology & Safety'
-  },
-  {
-    id: 'q-ts-10',
-    text: 'What does Parking Assist do?',
-    options: [
-      { id: 'q-ts-10o1', text: 'Automatically parks the vehicle' },
-      { id: 'q-ts-10o2', text: 'Helps the driver park by providing guidance' },
-      { id: 'q-ts-10o3', text: 'Controls the steering wheel' },
-      { id: 'q-ts-10o4', text: 'Adjusts the mirrors automatically' }
-    ],
-    correctAnswerId: 'q-ts-10o2',
-    explanation: 'Parking Assist helps the driver park by providing guidance through sensors and cameras, making parking easier and safer.',
-    subject: 'Technology & Safety'
-  },
-  {
-    id: 'q-ts-11',
-    text: 'What does Traffic Sign Recognition do?',
-    options: [
-      { id: 'q-ts-11o1', text: 'Automatically follows traffic signs' },
-      { id: 'q-ts-11o2', text: 'Detects and displays traffic signs to the driver' },
-      { id: 'q-ts-11o3', text: 'Controls the speed automatically' },
-      { id: 'q-ts-11o4', text: 'Manages the navigation system' }
-    ],
-    correctAnswerId: 'q-ts-11o2',
-    explanation: 'Traffic Sign Recognition detects and displays traffic signs to the driver, helping them stay aware of speed limits and other important road information.',
-    subject: 'Technology & Safety'
-  },
-  {
-    id: 'q-ts-12',
-    text: 'What does Driver Fatigue Monitoring do?',
-    options: [
-      { id: 'q-ts-12o1', text: 'Automatically drives the vehicle' },
-      { id: 'q-ts-12o2', text: 'Warns the driver when they show signs of fatigue' },
-      { id: 'q-ts-12o3', text: 'Controls the air conditioning' },
-      { id: 'q-ts-12o4', text: 'Adjusts the seat position' }
-    ],
-    correctAnswerId: 'q-ts-12o2',
-    explanation: 'Driver Fatigue Monitoring warns the driver when they show signs of fatigue, such as irregular steering patterns or eye closure, helping prevent accidents.',
-    subject: 'Technology & Safety'
   }
 ];

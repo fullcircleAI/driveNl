@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveNL Beta - Dutch Driving Theory App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #002868;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 20px 0;
+        }
+
+        .cta-button:hover {
+            background: #001a4a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .languages {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .language {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border-radius: 25px;
+            font-weight: bold;
+        }
+
+        .testimonial {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #2196f3;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .languages {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚗 DriveNL Beta</h1>
+            <p>Master the Dutch Driving Theory Test</p>
+        </div>
+
+        <div class="card">
+            <h2>🎯 You're Invited to Beta Test DriveNL!</h2>
+            <p>Join 50 beta testers who will help shape the future of Dutch driving theory preparation. Get early access to all features and help us create the perfect learning experience.</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🌍</div>
+                    <h3>3 Languages</h3>
+                    <p>English, Dutch, and Arabic support</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile First</h3>
+                    <p>Works perfectly on all devices</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎤</div>
+                    <h3>Voice Features</h3>
+                    <p>Hands-free practice with voice commands</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">☁️</div>
+                    <h3>Cloud Sync</h3>
+                    <p>Your progress syncs across all devices</p>
+                </div>
+            </div>
+
+            <div class="languages">
+                <div class="language">
+                    <span>🇬🇧</span>
+                    <span>English</span>
+                </div>
+                <div class="language">
+                    <span>🇳🇱</span>
+                    <span>Dutch</span>
+                </div>
+                <div class="language">
+                    <span>🇸🇦</span>
+                    <span>Arabic</span>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="/" class="cta-button">🚀 Start Beta Testing Now</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>✨ What Makes DriveNL Special?</h2>
+            
+            <div class="testimonial">
+                <strong>🎯 Real Exam Conditions</strong>
+                <p>Practice with mock exams that mirror the actual Dutch driving theory test - 50 questions, 30 minutes, 88% pass rate.</p>
+            </div>
+
+            <div class="testimonial">
+                <strong>🧠 Smart Learning</strong>
+                <p>Personalized practice tests that focus on your weak areas and adapt to your learning pace.</p>
+            </div>
+
+            <div class="testimonial">
+                <strong>📊 Progress Tracking</strong>
+                <p>Detailed analytics show your improvement over time and help you stay motivated.</p>
+            </div>
+
+            <div class="testimonial">
+                <strong>🔊 Voice Integration</strong>
+                <p>Practice hands-free with voice commands and text-to-speech in your preferred language.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🤝 Beta Tester Benefits</h2>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+                    ✅ <strong>Free Access:</strong> All features unlocked during beta
+                </li>
+                <li style="margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+                    ✅ <strong>Early Access:</strong> Be among the first to use DriveNL
+                </li>
+                <li style="margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+                    ✅ <strong>Shape the Product:</strong> Your feedback directly influences development
+                </li>
+                <li style="margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+                    ✅ <strong>Priority Support:</strong> Direct access to the development team
+                </li>
+                <li style="margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+                    ✅ <strong>Beta Tester Badge:</strong> Special recognition in the app
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>📝 Beta Testing Details</h2>
+            <p><strong>Duration:</strong> 2 weeks</p>
+            <p><strong>Time Commitment:</strong> 30 minutes per week</p>
+            <p><strong>Feedback:</strong> Simple surveys and optional interviews</p>
+            <p><strong>Support:</strong> Direct email support during beta</p>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="/" class="cta-button">🎯 Join Beta Testing</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Questions? Contact us at <a href="mailto:beta@drivenl.app" style="color: white;">beta@drivenl.app</a></p>
+            <p>&copy; 2024 DriveNL. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

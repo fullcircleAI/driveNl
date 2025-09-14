@@ -30,24 +30,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         console.log('AuthProvider: Starting user initialization');
         setLoading(true);
         
-        // Try to get current user from auth service
+        // Simple synchronous check for existing user
         const currentUser = authService.getCurrentUser();
         console.log('AuthProvider: Current user from auth service:', currentUser);
         
         if (currentUser) {
           console.log('AuthProvider: Setting user from auth service');
           setUser(currentUser);
-          
-          // Try to sync data to cloud in background (don't block on this)
-          try {
-            console.log('AuthProvider: Syncing data to cloud');
-            await authService.syncData();
-          } catch (syncError) {
-            console.warn('AuthProvider: Data sync failed, but continuing:', syncError);
-          }
         } else {
-          console.log('AuthProvider: No current user found');
+          console.log('AuthProvider: No current user found - user can login later');
         }
+        
+        // Don't block on cloud sync - do it in background
+        setTimeout(async () => {
+          try {
+            if (currentUser) {
+              console.log('AuthProvider: Syncing data to cloud in background');
+              await authService.syncData();
+            }
+          } catch (syncError) {
+            console.warn('AuthProvider: Background data sync failed:', syncError);
+          }
+        }, 100);
+        
       } catch (err) {
         console.error('AuthProvider: Error initializing user:', err);
         setError('Failed to initialize user session');
@@ -57,29 +62,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     };
 
-    initializeUser();
+    // Add a small delay to prevent race conditions
+    const timer = setTimeout(initializeUser, 100);
+    return () => clearTimeout(timer);
   }, []);
 
-  console.log('AuthProvider: Current state - user:', user, 'loading:', loading, 'error:', error);
 
   const login = async (username: string, email: string, language: Language = 'en') => {
     try {
-      console.log('AuthProvider: Login started with username:', username, 'email:', email);
       setLoading(true);
       setError(null);
       
-      console.log('AuthProvider: Creating anonymous user...');
       // Use 'en' as default since auth service doesn't support Arabic yet
       const authLanguage: 'en' | 'nl' = language === 'ar' ? 'en' : language;
       const newUser = await authService.createAnonymousUser(username, email, authLanguage);
-      console.log('AuthProvider: User created successfully:', newUser);
       setUser(newUser);
-      console.log('AuthProvider: User state updated');
     } catch (err) {
-      console.error('AuthProvider: Login error:', err);
       setError(err instanceof Error ? err.message : 'Login failed');
     } finally {
-      console.log('AuthProvider: Login finished, setting loading to false');
       setLoading(false);
     }
   };
@@ -98,7 +98,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         await authService.updateUserSettings({ language: authLanguage });
         setUser({ ...user, language });
       } catch (err) {
-        console.error('Error updating language:', err);
+        // Error updating language
       }
     }
   };
@@ -109,7 +109,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         await authService.updateUserProfile(updates);
         setUser({ ...user, ...updates });
       } catch (err) {
-        console.error('Error updating user profile:', err);
         throw err;
       }
     }

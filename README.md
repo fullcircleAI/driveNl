@@ -1,11 +1,11 @@
-# 🚗 CBR Theory Learning App
+# 🚗 DriveNL
 
-A comprehensive bilingual (English/Dutch) CBR theory learning application with practice tests, mock exams, progress tracking, and voice support.
+A comprehensive bilingual (English/Dutch) Dutch driving theory learning application with practice tests, mock exams, progress tracking, and voice support.
 
 ## ✨ Features
 
-- **📚 Practice Tests** - 12+ test categories covering all CBR theory topics
-- **🎯 Mock Exam** - Real CBR exam simulation with 25 questions and 30-minute timer
+- **📚 Practice Tests** - 12+ test categories covering all theory topics
+- **🎯 Mock Exam** - Real exam simulation with 25 questions and 30-minute timer
 - **📊 Progress Tracking** - Comprehensive analytics with weak/strong area identification
 - **🌍 Bilingual Support** - Full English and Dutch translations
 - **🎤 Voice Integration** - Text-to-speech and voice command support
@@ -24,7 +24,7 @@ A comprehensive bilingual (English/Dutch) CBR theory learning application with p
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd cbr-ai-app
+   cd drivenl
    ```
 
 2. **Install dependencies**
@@ -94,7 +94,7 @@ The app supports two modes of data storage:
 
 ## 🎯 Test Categories
 
-1. **Free Test** - Introduction to CBR theory
+1. **Free Test** - Introduction to theory
 2. **Hazard Perception** - Recognizing dangerous situations
 3. **Insight Practice** - Understanding traffic scenarios
 4. **Mandatory Signs** - Required traffic signs
@@ -104,7 +104,7 @@ The app supports two modes of data storage:
 8. **Road Information** - Road markings and information
 9. **Sign Identification** - Traffic sign recognition
 10. **Priority Rules** - Right of way rules
-11. **Mock Exam** - Full CBR exam simulation
+11. **Mock Exam** - Full exam simulation
 
 ## 📊 Progress Analytics
 
@@ -156,4 +156,4 @@ For support or questions:
 
 ---
 
-**Built with ❤️ for CBR theory students**
+**Built with ❤️ for Dutch driving theory students**

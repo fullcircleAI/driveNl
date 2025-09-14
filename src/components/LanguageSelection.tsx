@@ -1,34 +1,22 @@
-import { useLanguage } from '../contexts/LanguageContext';
-import { useAuth } from '../contexts/AuthContext';
+// React import removed - not needed in newer versions
+import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../stores/authStore';
 import type { Language } from '../types';
 import './LanguageSelection.css';
 
 export function LanguageSelection() {
-  const { setLanguage } = useLanguage();
-  const { logout } = useAuth();
+  const navigate = useNavigate();
+  const { setLanguage } = useAuthStore();
 
   const handleLanguageSelect = (language: Language) => {
     setLanguage(language);
-  };
-
-  const handleBack = () => {
-    logout();
+    navigate('/dashboard');
   };
 
   return (
     <div className="language-selection">
       <div className="language-card">
         <div className="language-header">
-          <button 
-            className="back-button"
-            onClick={handleBack}
-            aria-label="Go back"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M19 12H5"/>
-              <path d="M12 19l-7-7 7-7"/>
-            </svg>
-          </button>
           <h1 style={{
             fontSize: 'var(--font-size-display)', 
             margin: 0, 

@@ -25,8 +25,16 @@ export { parkingRulesQuestions } from './parkingRulesQuestions';
 export { environmentalZonesQuestions } from './environmentalZonesQuestions';
 export { technologySafetyQuestions } from './technologySafetyQuestions';
 
-// Critical CBR Content
+// Critical Content
 export { alcoholDrugsQuestions } from './alcoholDrugsQuestions';
 export { fatigueRestQuestions } from './fatigueRestQuestions';
 export { vehicleDocumentationQuestions } from './vehicleDocumentationQuestions';
 export { emergencyProceduresQuestions } from './emergencyProceduresQuestions';
+
+// New Essential Topics
+export { bicycleInteractionsQuestions } from './bicycleInteractionsQuestions';
+export { roundaboutRulesQuestions } from './roundaboutRulesQuestions';
+export { tramInteractionsQuestions } from './tramInteractionsQuestions';
+export { pedestrianCrossingsQuestions } from './pedestrianCrossingsQuestions';
+export { constructionZonesQuestions } from './constructionZonesQuestions';
+export { weatherConditionsQuestions } from './weatherConditionsQuestions';
