@@ -119,7 +119,7 @@ export const StreakCounter: React.FC = () => {
          };
 
   const getLevelEmoji = (level: number) => {
-    const emojis = ['🎯', '🔥', '⚡', '🏆', '👑', '💎'];
+    const emojis = ['📝', '🔥', '⚡', '🏆', '👑', '💎'];
     return emojis[Math.min(level, emojis.length - 1)];
   };
 
