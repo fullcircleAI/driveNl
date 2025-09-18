@@ -167,20 +167,31 @@ export const Dashboard: React.FC = () => {
               </div>
               
               {tracker && (
-                <div className="mobile-optimized-layout">
-                  <div className="main-progress-card">
-                    <div className="progress-circle">
-                      <div className="progress-percentage">{progress?.percentage || 0}%</div>
-                      <div className="progress-label">Study Progress</div>
-                    </div>
-                    <div className="progress-details">
-                      <div className="detail-item">
-                        <span className="detail-value">{formatTime(tracker.totalStudyTime)}</span>
-                        <span className="detail-label">Studied Today</span>
+                <div className="progress-stats">
+                  <div className="progress-stat">
+                    <div className="stat-number">{formatTime(tracker.totalStudyTime)}</div>
+                    <div className="stat-label">Time Studied</div>
+                    <div className="progress-indicator">
+                      <div className="progress-bar-bg">
+                        <div className="progress-bar-fill" style={{ width: `${Math.min((tracker.totalStudyTime / 480) * 100, 100)}%` }}></div>
                       </div>
-                      <div className="detail-item">
-                        <span className="detail-value">{formatTime(tracker.remainingTime)}</span>
-                        <span className="detail-label">Remaining</span>
+                    </div>
+                  </div>
+                  <div className="progress-stat">
+                    <div className="stat-number">{formatTime(tracker.remainingTime)}</div>
+                    <div className="stat-label">Time Remaining</div>
+                    <div className="progress-indicator">
+                      <div className="progress-bar-bg">
+                        <div className="progress-bar-fill remaining" style={{ width: `${Math.max(100 - (tracker.totalStudyTime / 480) * 100, 0)}%` }}></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="progress-stat">
+                    <div className="stat-number">{progress?.percentage || 0}%</div>
+                    <div className="stat-label">Study Progress</div>
+                    <div className="progress-indicator">
+                      <div className="progress-bar-bg">
+                        <div className="progress-bar-fill main" style={{ width: `${progress?.percentage || 0}%` }}></div>
                       </div>
                     </div>
                   </div>
@@ -205,14 +216,15 @@ export const Dashboard: React.FC = () => {
                   </div>
                 </div>
               )}
-              <div className="mobile-action-section">
+              <div className="progress-notice">
                 <button 
-                  className="mobile-primary-cta"
+                  className="primary-cta"
                   onClick={incompleteSession ? handleResumeStudy : (isStudyActive ? handleContinueStudy : handleStartStudy)}
+                  style={{ width: '100%', marginTop: '1rem' }}
                 >
                   {incompleteSession 
-                    ? "Resume Study"
-                    : (isStudyActive ? "Continue Learning" : "Start Studying")
+                    ? "Resume"
+                    : (isStudyActive ? "Continue" : "Start")
                   }
                 </button>
               </div>
