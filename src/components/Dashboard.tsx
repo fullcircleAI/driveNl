@@ -4,7 +4,7 @@ import { useAuthStore } from '../stores/authStore';
 import { Mascot } from './Mascot';
 import { SimpleLogin } from './SimpleLogin';
 import { Navigation } from './Navigation';
-import { StreakCounter } from './StreakCounter';
+import { StreakCounter, useStreak } from './StreakCounter';
 import { studyScheduler } from '../services/studyScheduler';
 import type { StudyTracker, StudyProgress, PracticeSession } from '../services/studyScheduler';
 
@@ -14,6 +14,7 @@ import './Mascot.css';
 export const Dashboard: React.FC = () => {
   const { user } = useAuthStore();
   const navigate = useNavigate();
+  const { recordStudySession } = useStreak();
   // No initialization screen - instant access for competition
 
 
@@ -23,6 +24,9 @@ export const Dashboard: React.FC = () => {
   const [incompleteSession, setIncompleteSession] = useState<PracticeSession | null>(null);
 
   const handleStartStudy = () => {
+    // Record study session for streak tracking
+    recordStudySession();
+    
     // Use smart coach recommendation instead of hardcoded logic
     const recommendation = studyScheduler.getCoachRecommendation();
     const nextTopic = recommendation.nextTopic;
@@ -60,6 +64,9 @@ export const Dashboard: React.FC = () => {
 
   const handleResumeStudy = () => {
     if (incompleteSession) {
+      // Record study session for streak tracking
+      recordStudySession();
+      
       const topicRouteMap: Record<string, string> = {
         "Traffic Signs": "traffic-rules-signs",
         "Priority Rules": "priority-rules", 
@@ -88,6 +95,8 @@ export const Dashboard: React.FC = () => {
   };
 
   const handleContinueStudy = () => {
+    // Record study session for streak tracking
+    recordStudySession();
     navigate('/practice');
   };
 
