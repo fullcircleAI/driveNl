@@ -159,7 +159,6 @@ export const StreakCounter: React.FC = () => {
             />
           </svg>
           <div className="progress-content">
-            <div className="level-emoji">{getLevelEmoji(levelData.level)}</div>
             <div className="streak-number">{streakData.currentStreak}</div>
           </div>
         </div>
