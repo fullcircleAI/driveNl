@@ -60,7 +60,7 @@
   margin: 0 auto;
   overflow: hidden;
   padding-bottom: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
 .welcome-title {
