@@ -162,8 +162,6 @@ export const Dashboard: React.FC = () => {
           </div>
           <div className="dashboard-content">
             <div className="progress-tracker">
-              <h3>24 Hour Study Dashboard</h3>
-              
               {tracker && (
                 <div className="progress-stats">
                   <div className="progress-stat">
