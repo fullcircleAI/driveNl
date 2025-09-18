@@ -39,7 +39,7 @@
   position: relative;
   overflow: hidden;
   max-width: 540px;
-  margin: 0 auto;
+  margin: 1rem auto 0 auto;
   transition: var(--transition-normal);
   display: flex;
   align-items: center;
