@@ -188,7 +188,7 @@ export const Dashboard: React.FC = () => {
               {!incompleteSession && (
                 <div className="progress-details">
                   <div className="weak-areas">
-                    Next Topic: <strong>{studyScheduler.getCoachRecommendation().nextTopic}</strong> {studyScheduler.getTopicTimeEstimate(studyScheduler.getCoachRecommendation().nextTopic)}
+                    Next: <strong>{studyScheduler.getCoachRecommendation().nextTopic}</strong> {studyScheduler.getTopicTimeEstimate(studyScheduler.getCoachRecommendation().nextTopic)}
                   </div>
                 </div>
               )}
