@@ -2,26 +2,28 @@
 .streak-counter {
   position: relative;
   background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-  border-radius: 12px;
-  padding: 0.5rem 0.75rem;
-  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 0.6rem 0.8rem;
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4), 0 0 20px rgba(255, 107, 53, 0.2);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
   z-index: 10;
-  transition: all 0.3s ease;
-  max-width: 120px;
-  min-width: 100px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 130px;
+  min-width: 110px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   cursor: pointer;
+  animation: streak-glow 3s ease-in-out infinite;
 }
 
 .streak-counter:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.5), 0 0 30px rgba(255, 107, 53, 0.3);
+  animation: streak-pulse 0.6s ease-in-out;
 }
 
 .streak-display {
@@ -91,12 +93,14 @@
 }
 
 .streak-message {
-  font-size: 0.6rem;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.65rem;
+  color: white;
   text-align: center;
-  margin-top: 0.25rem;
-  font-weight: 500;
-  line-height: 1.1;
+  margin-top: 0.3rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: message-glow 2s ease-in-out infinite;
 }
 
 /* Celebration animation */
@@ -105,23 +109,39 @@
 }
 
 .celebration-overlay {
-  position: absolute;
-  top: -2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-  color: #1a1a1a;
-  padding: 0.25rem 0.5rem;
-  border-radius: 8px;
-  font-size: 0.6rem;
-  font-weight: 700;
-  white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
-  animation: celebration-bounce 0.6s ease-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  animation: celebration-fade-in 0.4s ease-out;
 }
 
 .celebration-text {
-  animation: celebration-pulse 0.6s ease-out;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #1a1a1a;
+  padding: 1.5rem 2rem;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+  animation: celebration-bounce 0.8s ease-out;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.celebration-subtext {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  color: #2c3e50;
 }
 
 /* Animations */
@@ -172,12 +192,53 @@
   }
 }
 
+@keyframes streak-glow {
+  0%, 100% { 
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4), 0 0 20px rgba(255, 107, 53, 0.2);
+  }
+  50% { 
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.6), 0 0 30px rgba(255, 107, 53, 0.4);
+  }
+}
+
+@keyframes streak-pulse {
+  0% { 
+    transform: translateY(-3px) scale(1.05);
+  }
+  50% { 
+    transform: translateY(-3px) scale(1.08);
+  }
+  100% { 
+    transform: translateY(-3px) scale(1.05);
+  }
+}
+
+@keyframes message-glow {
+  0%, 100% { 
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  50% { 
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+}
+
+@keyframes celebration-fade-in {
+  from { 
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to { 
+    opacity: 1;
+    backdrop-filter: blur(10px);
+  }
+}
+
 /* Mobile responsive - fits within existing mobile layout */
 @media (max-width: 768px) {
   .streak-counter {
-    padding: 0.4rem 0.6rem;
-    max-width: 100px;
-    min-width: 85px;
+    padding: 0.5rem 0.7rem;
+    max-width: 110px;
+    min-width: 95px;
   }
   
   .circular-progress {
@@ -209,13 +270,22 @@
   .streak-message {
     font-size: 0.5rem;
   }
+  
+  .celebration-text {
+    font-size: 1.2rem;
+    padding: 1rem 1.5rem;
+  }
+  
+  .celebration-subtext {
+    font-size: 0.8rem;
+  }
 }
 
 @media (max-width: 480px) {
   .streak-counter {
-    padding: 0.35rem 0.5rem;
-    max-width: 90px;
-    min-width: 80px;
+    padding: 0.4rem 0.6rem;
+    max-width: 100px;
+    min-width: 85px;
   }
   
   .circular-progress {

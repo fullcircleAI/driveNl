@@ -108,14 +108,15 @@ export const StreakCounter: React.FC = () => {
     return { level: 5, progress: 100, nextMilestone: streak + 1 };
   };
 
-  const getStreakMessage = (streak: number) => {
-    if (streak === 0) return 'Start your streak!';
-    if (streak === 1) return 'Great start!';
-    if (streak < 7) return 'Keep it up!';
-    if (streak < 14) return 'You\'re on fire!';
-    if (streak < 30) return 'Incredible!';
-    return 'Legendary!';
-  };
+         const getStreakMessage = (streak: number) => {
+           if (streak === 0) return '🎯 Start your streak!';
+           if (streak === 1) return '🚀 Great start!';
+           if (streak < 7) return '💪 Keep it up!';
+           if (streak < 14) return '🔥 ON FIRE! 🔥';
+           if (streak < 30) return '⚡ INCREDIBLE! ⚡';
+           if (streak < 60) return '🏆 LEGENDARY! 🏆';
+           return '👑 UNSTOPPABLE! 👑';
+         };
 
   const getLevelEmoji = (level: number) => {
     const emojis = ['🎯', '🔥', '⚡', '🏆', '👑', '💎'];
@@ -169,11 +170,15 @@ export const StreakCounter: React.FC = () => {
       </div>
       <div className="streak-message">{getStreakMessage(streakData.currentStreak)}</div>
       
-      {showCelebration && (
-        <div className="celebration-overlay">
-          <div className="celebration-text">🎉 {streakData.currentStreak} Tests Completed! 🎉</div>
-        </div>
-      )}
+             {showCelebration && (
+               <div className="celebration-overlay">
+                 <div className="celebration-text">
+                   🎉 LEVEL {levelData.level} UNLOCKED! 🎉
+                   <br />
+                   <span className="celebration-subtext">{streakData.currentStreak} Tests Completed!</span>
+                 </div>
+               </div>
+             )}
     </div>
   );
 };
