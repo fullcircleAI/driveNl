@@ -166,32 +166,25 @@ export const Dashboard: React.FC = () => {
                 <StreakCounter />
               </div>
               {tracker && (
-                <div className="progress-stats">
-                  <div className="progress-stat">
-                    <div className="stat-number">{formatTime(tracker.totalStudyTime)}</div>
-                    <div className="stat-label">Time Studied</div>
-                    <div className="progress-indicator">
-                      <div className="progress-bar-bg">
-                        <div className="progress-bar-fill" style={{ width: `${Math.min((tracker.totalStudyTime / 480) * 100, 100)}%` }}></div>
+                <div className="mobile-progress-layout">
+                  <div className="hero-progress-card">
+                    <div className="progress-main">
+                      <div className="progress-percentage">{progress?.percentage || 0}%</div>
+                      <div className="progress-label">Study Progress</div>
+                      <div className="progress-bar-large">
+                        <div className="progress-fill" style={{ width: `${progress?.percentage || 0}%` }}></div>
                       </div>
                     </div>
                   </div>
-                  <div className="progress-stat">
-                    <div className="stat-number">{formatTime(tracker.remainingTime)}</div>
-                    <div className="stat-label">Time Remaining</div>
-                    <div className="progress-indicator">
-                      <div className="progress-bar-bg">
-                        <div className="progress-bar-fill remaining" style={{ width: `${Math.max(100 - (tracker.totalStudyTime / 480) * 100, 0)}%` }}></div>
-                      </div>
+                  
+                  <div className="secondary-stats">
+                    <div className="stat-item">
+                      <div className="stat-value">{formatTime(tracker.totalStudyTime)}</div>
+                      <div className="stat-label">Studied Today</div>
                     </div>
-                  </div>
-                  <div className="progress-stat">
-                    <div className="stat-number">{progress?.percentage || 0}%</div>
-                    <div className="stat-label">Study Progress</div>
-                    <div className="progress-indicator">
-                      <div className="progress-bar-bg">
-                        <div className="progress-bar-fill main" style={{ width: `${progress?.percentage || 0}%` }}></div>
-                      </div>
+                    <div className="stat-item">
+                      <div className="stat-value">{formatTime(tracker.remainingTime)}</div>
+                      <div className="stat-label">Remaining</div>
                     </div>
                   </div>
                 </div>
