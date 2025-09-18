@@ -16,6 +16,7 @@ export const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const { recordStudySession } = useStreak();
   // No initialization screen - instant access for competition
+  // Force rebuild to clear cache
 
 
   const [tracker, setTracker] = useState<StudyTracker | null>(null);
