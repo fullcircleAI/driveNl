@@ -212,16 +212,27 @@ export const Dashboard: React.FC = () => {
                   </div>
                 </div>
               )}
-              <div className="progress-notice">
+              <div className="progress-actions">
                 <button 
-                  className="primary-cta"
+                  className="action-button primary"
                   onClick={incompleteSession ? handleResumeStudy : (isStudyActive ? handleContinueStudy : handleStartStudy)}
-                  style={{ width: '100%', marginTop: '1rem' }}
                 >
                   {incompleteSession 
                     ? "Resume"
                     : (isStudyActive ? "Continue" : "Start")
                   }
+                </button>
+                <button 
+                  className="action-button secondary"
+                  onClick={() => navigate('/practice')}
+                >
+                  Practice
+                </button>
+                <button 
+                  className="action-button secondary"
+                  onClick={() => navigate('/mock-exam')}
+                >
+                  Mock Exam
                 </button>
               </div>
 
