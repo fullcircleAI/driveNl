@@ -160,7 +160,7 @@ export const Dashboard: React.FC = () => {
               </div>
               <div className="welcome-text">
                 <h1 className="welcome-title">
-                  Welcome {user?.email?.includes('guest.drivenl.app') ? 'Guest' : user?.firstName || user?.name || 'Driver'}!
+                  DriveNL
                 </h1>
                 <p className="welcome-sub"></p>
               </div>
