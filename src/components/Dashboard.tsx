@@ -157,15 +157,11 @@ export const Dashboard: React.FC = () => {
               <div className="welcome-mascot">
                 <Mascot size={80} />
               </div>
+              <StreakCounter />
             </div>
           </div>
           <div className="dashboard-content">
             <div className="progress-tracker">
-              <div className="study-focus-header">
-                <h3>Study Progress</h3>
-                <StreakCounter />
-              </div>
-              
               {tracker && (
                 <div className="progress-stats">
                   <div className="progress-stat">
@@ -188,7 +184,7 @@ export const Dashboard: React.FC = () => {
                   </div>
                   <div className="progress-stat">
                     <div className="stat-number">{progress?.percentage || 0}%</div>
-                    <div className="stat-label">Study Progress</div>
+                    <div className="stat-label">Prep Progress</div>
                     <div className="progress-indicator">
                       <div className="progress-bar-bg">
                         <div className="progress-bar-fill main" style={{ width: `${progress?.percentage || 0}%` }}></div>

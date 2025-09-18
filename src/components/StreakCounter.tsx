@@ -163,7 +163,7 @@ export const StreakCounter: React.FC = () => {
           </div>
         </div>
                <div className="streak-info">
-                 <div className="streak-label">Topics Studied</div>
+                 <div className="streak-label">Topics Completed!</div>
                </div>
       </div>
       <div className="streak-message">{getStreakMessage(streakData.currentStreak)}</div>
@@ -173,7 +173,7 @@ export const StreakCounter: React.FC = () => {
                  <div className="celebration-text">
                    LEVEL {levelData.level} UNLOCKED!
                    <br />
-                   <span className="celebration-subtext">{streakData.currentStreak} Topics Studied!</span>
+                   <span className="celebration-subtext">{streakData.currentStreak} Topics Completed!</span>
                  </div>
                </div>
              )}
