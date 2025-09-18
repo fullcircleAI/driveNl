@@ -163,6 +163,7 @@ export const Dashboard: React.FC = () => {
           <div className="dashboard-content">
             <div className="progress-tracker">
               <h3>Study Progress</h3>
+              {/* Time-focused learning interface */}
               <div className="progress-stats">
                 <div className="progress-stat">
                   <div className="stat-number">{formatTime(tracker?.totalStudyTime || 0)}</div>
