@@ -162,7 +162,7 @@ export const Dashboard: React.FC = () => {
           </div>
           <div className="dashboard-content">
             <div className="progress-tracker">
-              <h3>24 Hour Study Dashboard</h3>
+              <h3>Study Progress</h3>
               <div className="progress-stats">
                 <div className="progress-stat">
                   <div className="stat-number">{formatTime(tracker?.totalStudyTime || 0)}</div>
@@ -175,7 +175,7 @@ export const Dashboard: React.FC = () => {
                 </div>
                 <div className="progress-stat">
                   <div className="stat-number">{progress?.percentage || 0}%</div>
-                  <div className="stat-label">Prep Progress</div>
+                  <div className="stat-label">Exam Readiness</div>
                   <div className="progress-indicator">
                     <div className="progress-bar-bg">
                       <div className="progress-bar-fill main" style={{ width: `${progress?.percentage || 0}%` }}></div>
