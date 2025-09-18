@@ -158,12 +158,6 @@ export const Dashboard: React.FC = () => {
               <div className="welcome-mascot">
                 <Mascot size={80} />
               </div>
-              <div className="welcome-text">
-                <h1 className="welcome-title">
-                  DriveNL
-                </h1>
-                <p className="welcome-sub"></p>
-              </div>
             </div>
           </div>
           <div className="dashboard-content">
