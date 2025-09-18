@@ -161,6 +161,22 @@
   transition: var(--transition-normal);
 }
 
+.study-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.study-title {
+  font-size: var(--font-size-h2);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
 .progress-tracker:hover {
   transform: translateY(-1px);
   box-shadow: 0 10px 36px var(--shadow-medium);
@@ -415,6 +431,13 @@
     padding: 1.5rem;
     flex-direction: column;
     gap: 0.5rem;
+  }
+  
+  .study-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    text-align: center;
   }
   
   .welcome-title {

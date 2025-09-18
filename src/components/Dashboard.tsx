@@ -157,11 +157,14 @@ export const Dashboard: React.FC = () => {
               <div className="welcome-mascot">
                 <Mascot size={80} />
               </div>
-              <StreakCounter />
             </div>
           </div>
           <div className="dashboard-content">
             <div className="progress-tracker">
+              <div className="study-header">
+                <div className="study-title">Study Progress</div>
+                <StreakCounter />
+              </div>
               {tracker && (
                 <div className="progress-stats">
                   <div className="progress-stat">
