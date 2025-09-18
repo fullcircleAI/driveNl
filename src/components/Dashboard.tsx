@@ -165,26 +165,23 @@ export const Dashboard: React.FC = () => {
                 <h3>Study Progress</h3>
                 <StreakCounter />
               </div>
+              
               {tracker && (
-                <div className="mobile-progress-layout">
-                  <div className="hero-progress-card">
-                    <div className="progress-main">
+                <div className="mobile-optimized-layout">
+                  <div className="main-progress-card">
+                    <div className="progress-circle">
                       <div className="progress-percentage">{progress?.percentage || 0}%</div>
                       <div className="progress-label">Study Progress</div>
-                      <div className="progress-bar-large">
-                        <div className="progress-fill" style={{ width: `${progress?.percentage || 0}%` }}></div>
+                    </div>
+                    <div className="progress-details">
+                      <div className="detail-item">
+                        <span className="detail-value">{formatTime(tracker.totalStudyTime)}</span>
+                        <span className="detail-label">Studied Today</span>
                       </div>
-                    </div>
-                  </div>
-                  
-                  <div className="secondary-stats">
-                    <div className="stat-item">
-                      <div className="stat-value">{formatTime(tracker.totalStudyTime)}</div>
-                      <div className="stat-label">Studied Today</div>
-                    </div>
-                    <div className="stat-item">
-                      <div className="stat-value">{formatTime(tracker.remainingTime)}</div>
-                      <div className="stat-label">Remaining</div>
+                      <div className="detail-item">
+                        <span className="detail-value">{formatTime(tracker.remainingTime)}</span>
+                        <span className="detail-label">Remaining</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -208,15 +205,14 @@ export const Dashboard: React.FC = () => {
                   </div>
                 </div>
               )}
-              <div className="progress-notice">
+              <div className="mobile-action-section">
                 <button 
-                  className="primary-cta"
+                  className="mobile-primary-cta"
                   onClick={incompleteSession ? handleResumeStudy : (isStudyActive ? handleContinueStudy : handleStartStudy)}
-                  style={{ width: '100%', marginTop: '1rem' }}
                 >
                   {incompleteSession 
-                    ? "Resume"
-                    : (isStudyActive ? "Continue" : "Start")
+                    ? "Resume Study"
+                    : (isStudyActive ? "Continue Learning" : "Start Studying")
                   }
                 </button>
               </div>
