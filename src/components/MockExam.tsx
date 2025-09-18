@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
+import { useStreak } from './StreakCounter';
 import type { Question } from '../types';
 import './MockExam.css';
 import { FiMic, FiMicOff, FiClock, FiCheckCircle, FiXCircle } from 'react-icons/fi';
@@ -53,6 +54,7 @@ export const MockExam: React.FC = () => {
   const { quizId } = useParams<{ quizId: string }>();
   const navigate = useNavigate();
   const { user } = useAuthStore();
+  const { recordStudySession } = useStreak();
   
   // Mock exam configurations following official format
   const examConfigs: Record<string, MockExamConfig> = {
@@ -206,6 +208,9 @@ export const MockExam: React.FC = () => {
   const finishExam = () => {
     setIsFinished(true);
     setShowResults(true);
+    
+    // Record study session for streak tracking
+    recordStudySession();
     
     // Calculate final score
     const correctAnswers = Object.values(answers).filter((answer, index) => 

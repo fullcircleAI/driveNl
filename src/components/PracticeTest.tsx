@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
 import { dataPersistence } from '../services/dataPersistence';
 import { studyScheduler } from '../services/studyScheduler';
+import { useStreak } from './StreakCounter';
 import type { Question } from '../types';
 import './PracticeTest.css';
 import './Dashboard.css';
@@ -45,6 +46,7 @@ export const PracticeTest: React.FC = () => {
   const { testType } = useParams<{ testType: string }>();
   const navigate = useNavigate();
   const { user } = useAuthStore();
+  const { recordStudySession } = useStreak();
   
   // Simple state management
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -390,6 +392,9 @@ export const PracticeTest: React.FC = () => {
   // Save results when finished
   useEffect(() => {
     if (isFinished && sessionId) {
+      // Record study session for streak tracking
+      recordStudySession();
+      
       // Complete the study session with real performance data
       const performance = Math.round((score / questions.length) * 100);
       studyScheduler.completePracticeSession(sessionId, performance);
@@ -421,7 +426,7 @@ export const PracticeTest: React.FC = () => {
       
       localStorage.setItem('refreshProgress', '1');
     }
-  }, [isFinished, user, testType, score, questions.length, sessionId, sessionStartTime]);
+  }, [isFinished, user, testType, score, questions.length, sessionId, sessionStartTime, recordStudySession]);
 
   // Results page
   if (isFinished) {
