@@ -45,6 +45,7 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  min-height: 200px;
 }
 
 .dashboard-welcome:hover {
