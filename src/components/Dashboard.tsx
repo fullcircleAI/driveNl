@@ -230,7 +230,7 @@ export const Dashboard: React.FC = () => {
                 </button>
                 <button 
                   className="action-button secondary"
-                  onClick={() => navigate('/mock-exam')}
+                  onClick={() => navigate('/quiz-selection')}
                 >
                   Mock Exam
                 </button>
