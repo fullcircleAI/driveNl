@@ -154,10 +154,10 @@ export const Dashboard: React.FC = () => {
         <div className="dashboard">
           <div className="dashboard-header">
             <div className="dashboard-welcome">
-              <StreakCounter />
               <div className="welcome-mascot">
                 <Mascot size={80} />
               </div>
+              <StreakCounter />
             </div>
           </div>
           <div className="dashboard-content">

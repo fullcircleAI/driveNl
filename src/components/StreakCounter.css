@@ -1,8 +1,6 @@
 /* Streak Counter Styles - Fits within existing dashboard structure */
 .streak-counter {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+  position: relative;
   background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
   border-radius: 12px;
   padding: 0.5rem 0.75rem;
@@ -13,6 +11,13 @@
   transition: all 0.3s ease;
   max-width: 120px;
   min-width: 100px;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
 }
 
 .streak-counter:hover {
@@ -171,11 +176,10 @@
 /* Mobile responsive - fits within existing mobile layout */
 @media (max-width: 768px) {
   .streak-counter {
-    top: 0.75rem;
-    right: 0.75rem;
     padding: 0.4rem 0.6rem;
     max-width: 100px;
     min-width: 85px;
+    margin-top: 0.4rem;
   }
   
   .circular-progress {
@@ -211,11 +215,10 @@
 
 @media (max-width: 480px) {
   .streak-counter {
-    top: 0.5rem;
-    right: 0.5rem;
     padding: 0.35rem 0.5rem;
     max-width: 90px;
     min-width: 80px;
+    margin-top: 0.3rem;
   }
   
   .circular-progress {
