@@ -187,7 +187,7 @@ export const Dashboard: React.FC = () => {
                   </div>
                   <div className="progress-stat">
                     <div className="stat-number">{progress?.percentage || 0}%</div>
-                    <div className="stat-label">Prep Progress</div>
+                    <div className="stat-label">Study Progress</div>
                     <div className="progress-indicator">
                       <div className="progress-bar-bg">
                         <div className="progress-bar-fill main" style={{ width: `${progress?.percentage || 0}%` }}></div>
