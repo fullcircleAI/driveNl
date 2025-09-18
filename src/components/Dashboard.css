@@ -41,6 +41,10 @@
   max-width: 540px;
   margin: 0 auto;
   transition: var(--transition-normal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .dashboard-welcome:hover {
@@ -138,9 +142,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.25rem;
   animation: bounce 2s infinite;
   transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .progress-tracker {
@@ -409,6 +413,8 @@
   
   .dashboard-welcome {
     padding: 1.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
   }
   
   .welcome-title {
@@ -438,6 +444,8 @@
   .dashboard-welcome {
     padding: 0.75rem;
     border-radius: 16px;
+    flex-direction: column;
+    gap: 0.4rem;
   }
   
   .welcome-title {
