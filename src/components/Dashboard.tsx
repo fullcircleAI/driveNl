@@ -4,6 +4,7 @@ import { useAuthStore } from '../stores/authStore';
 import { Mascot } from './Mascot';
 import { SimpleLogin } from './SimpleLogin';
 import { Navigation } from './Navigation';
+import { StreakCounter } from './StreakCounter';
 import { studyScheduler } from '../services/studyScheduler';
 import type { StudyTracker, StudyProgress, PracticeSession } from '../services/studyScheduler';
 
@@ -144,6 +145,7 @@ export const Dashboard: React.FC = () => {
         <div className="dashboard">
           <div className="dashboard-header">
             <div className="dashboard-welcome">
+              <StreakCounter />
               <div className="welcome-mascot">
                 <Mascot size={80} />
               </div>

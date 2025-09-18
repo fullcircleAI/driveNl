@@ -1,0 +1,277 @@
+/* Streak Counter Styles - Fits within existing dashboard structure */
+.streak-counter {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  border-radius: 12px;
+  padding: 0.5rem 0.75rem;
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+  transition: all 0.3s ease;
+  max-width: 120px;
+  min-width: 100px;
+}
+
+.streak-counter:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
+}
+
+.streak-display {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.circular-progress {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.progress-ring-circle {
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
+}
+
+.progress-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.level-emoji {
+  font-size: 0.8rem;
+  line-height: 1;
+  margin-bottom: 0.1rem;
+  animation: emoji-pulse 2s ease-in-out infinite;
+}
+
+.streak-number {
+  font-size: 0.7rem;
+  font-weight: 900;
+  color: white;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.streak-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.level-text {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.streak-label {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  margin-top: 0.1rem;
+}
+
+.streak-message {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  margin-top: 0.25rem;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+/* Celebration animation */
+.streak-counter.celebrating {
+  animation: streak-celebration 0.6s ease-out;
+}
+
+.celebration-overlay {
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #1a1a1a;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+  animation: celebration-bounce 0.6s ease-out;
+}
+
+.celebration-text {
+  animation: celebration-pulse 0.6s ease-out;
+}
+
+/* Animations */
+@keyframes emoji-pulse {
+  0%, 100% { 
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% { 
+    transform: scale(1.1);
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes streak-celebration {
+  0% { 
+    transform: scale(1);
+  }
+  50% { 
+    transform: scale(1.1);
+  }
+  100% { 
+    transform: scale(1);
+  }
+}
+
+@keyframes celebration-bounce {
+  0% { 
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px) scale(0.8);
+  }
+  50% { 
+    opacity: 1;
+    transform: translateX(-50%) translateY(-5px) scale(1.05);
+  }
+  100% { 
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+@keyframes celebration-pulse {
+  0%, 100% { 
+    transform: scale(1);
+  }
+  50% { 
+    transform: scale(1.1);
+  }
+}
+
+/* Mobile responsive - fits within existing mobile layout */
+@media (max-width: 768px) {
+  .streak-counter {
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.4rem 0.6rem;
+    max-width: 100px;
+    min-width: 85px;
+  }
+  
+  .circular-progress {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .progress-ring {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .level-emoji {
+    font-size: 0.7rem;
+  }
+  
+  .streak-number {
+    font-size: 0.6rem;
+  }
+  
+  .level-text {
+    font-size: 0.6rem;
+  }
+  
+  .streak-label {
+    font-size: 0.55rem;
+  }
+  
+  .streak-message {
+    font-size: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .streak-counter {
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.35rem 0.5rem;
+    max-width: 90px;
+    min-width: 80px;
+  }
+  
+  .circular-progress {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .progress-ring {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .level-emoji {
+    font-size: 0.6rem;
+  }
+  
+  .streak-number {
+    font-size: 0.55rem;
+  }
+  
+  .level-text {
+    font-size: 0.55rem;
+  }
+  
+  .streak-label {
+    font-size: 0.5rem;
+  }
+  
+  .streak-message {
+    font-size: 0.45rem;
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .level-emoji {
+    animation: none;
+  }
+  
+  .streak-counter.celebrating {
+    animation: none;
+  }
+  
+  .celebration-overlay {
+    animation: none;
+  }
+  
+  .celebration-text {
+    animation: none;
+  }
+}
