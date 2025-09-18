@@ -109,7 +109,7 @@ export const StreakCounter: React.FC = () => {
   };
 
          const getStreakMessage = (streak: number) => {
-           if (streak === 0) return '🎯 Start your streak!';
+           if (streak === 0) return '';
            if (streak === 1) return '🚀 Great start!';
            if (streak < 7) return '💪 Keep it up!';
            if (streak < 14) return '🔥 ON FIRE! 🔥';
