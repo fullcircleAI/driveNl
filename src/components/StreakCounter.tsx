@@ -163,9 +163,9 @@ export const StreakCounter: React.FC = () => {
             <div className="streak-number">{streakData.currentStreak}</div>
           </div>
         </div>
-        <div className="streak-info">
-          <div className="streak-label">Tests</div>
-        </div>
+               <div className="streak-info">
+                 <div className="streak-label">Tests Completed!</div>
+               </div>
       </div>
       <div className="streak-message">{getStreakMessage(streakData.currentStreak)}</div>
       
