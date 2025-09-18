@@ -157,25 +157,8 @@
   margin: var(--spacing-sm) auto 0 auto;
   flex-shrink: 0;
   overflow: hidden;
-  min-height: 180px;
-  max-height: 180px;
+  min-height: 200px;
   transition: var(--transition-normal);
-}
-
-.study-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.study-title {
-  font-size: var(--font-size-h2);
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0;
 }
 
 .progress-tracker:hover {
@@ -183,12 +166,20 @@
   box-shadow: 0 10px 36px var(--shadow-medium);
 }
 
-.progress-tracker h3 {
+.study-focus-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.study-focus-header h3 {
   font-size: var(--font-size-h2);
   font-weight: 700;
   color: #002868;
-  text-align: center;
-  margin: 0 0 1rem 0;
+  margin: 0;
 }
 
 /* Coach Message Styles */
@@ -249,11 +240,10 @@
   text-align: center;
   padding: var(--spacing-md);
   background: linear-gradient(135deg, var(--background-secondary) 0%, #E8ECF1 100%);
-  border-radius: var(--radius-lg);
-  border: 2px solid var(--primary-blue);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
   transition: var(--transition-fast);
   cursor: pointer;
-  box-shadow: 0 4px 12px var(--shadow-light);
 }
 
 .progress-stat:hover {
@@ -435,10 +425,9 @@
     gap: 0.5rem;
   }
   
-  .study-header {
+  .study-focus-header {
     flex-direction: column;
     gap: 0.5rem;
-    align-items: center;
     text-align: center;
   }
   
@@ -508,6 +497,14 @@
   .progress-stats {
     grid-template-columns: 1fr;
     gap: 0.75rem;
+  }
+  
+  .progress-stat {
+    padding: 0.5rem;
+  }
+  
+  .stat-number {
+    font-size: var(--font-size-h3);
   }
   
 

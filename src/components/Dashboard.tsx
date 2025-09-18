@@ -161,8 +161,9 @@ export const Dashboard: React.FC = () => {
           </div>
           <div className="dashboard-content">
             <div className="progress-tracker">
-              <div className="study-header">
-                <div className="study-title">Study Progress</div>
+              <div className="study-focus-header">
+                <h3>Study Progress</h3>
+                <StreakCounter />
               </div>
               {tracker && (
                 <div className="progress-stats">
