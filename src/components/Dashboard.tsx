@@ -13,42 +13,40 @@ import './Mascot.css';
 export const Dashboard: React.FC = () => {
   const { user } = useAuthStore();
   const navigate = useNavigate();
-  // No initialization screen - instant access for competition
-
 
   const [tracker, setTracker] = useState<StudyTracker | null>(null);
   const [progress, setProgress] = useState<StudyProgress | null>(null);
   const [isStudyActive, setIsStudyActive] = useState(false);
   const [incompleteSession, setIncompleteSession] = useState<PracticeSession | null>(null);
 
+  const topicRouteMap: Record<string, string> = {
+    "Traffic Signs": "traffic-rules-signs",
+    "Priority Rules": "priority-rules", 
+    "Hazard Perception": "hazard-perception",
+    "Speed & Safety": "speed-safety",
+    "Road Signs": "road-signs",
+    "Motorway Rules": "motorway-rules",
+    "Vehicle Knowledge": "vehicle-knowledge",
+    "Parking Rules": "parking-rules",
+    "Environmental Zones": "environmental",
+    "Technology & Safety": "technology-safety",
+    "Alcohol & Drugs": "alcohol-drugs",
+    "Fatigue & Rest": "fatigue-rest",
+    "Emergency Procedures": "emergency-procedures",
+    "Insight Practice": "insight-practice",
+    "Bicycle Interactions": "bicycle-interactions",
+    "Roundabout Rules": "roundabout-rules",
+    "Tram Interactions": "tram-interactions",
+    "Pedestrian Crossings": "pedestrian-crossings",
+    "Construction Zones": "construction-zones",
+    "Weather Conditions": "weather-conditions"
+  };
+
   const handleStartStudy = () => {
-    // Use smart coach recommendation instead of hardcoded logic
     const recommendation = studyScheduler.getCoachRecommendation();
     const nextTopic = recommendation.nextTopic;
-    
-    const topicRouteMap: Record<string, string> = {
-      "Traffic Signs": "traffic-rules-signs",
-      "Priority Rules": "priority-rules", 
-      "Hazard Perception": "hazard-perception",
-      "Speed & Safety": "speed-safety",
-      "Road Signs": "road-signs",
-      "Motorway Rules": "motorway-rules",
-      "Vehicle Knowledge": "vehicle-knowledge",
-      "Parking Rules": "parking-rules",
-      "Environmental Zones": "environmental",
-      "Technology & Safety": "technology-safety",
-      "Alcohol & Drugs": "alcohol-drugs",
-      "Fatigue & Rest": "fatigue-rest",
-      "Emergency Procedures": "emergency-procedures",
-      "Insight Practice": "insight-practice",
-      "Bicycle Interactions": "bicycle-interactions",
-      "Roundabout Rules": "roundabout-rules",
-      "Tram Interactions": "tram-interactions",
-      "Pedestrian Crossings": "pedestrian-crossings",
-      "Construction Zones": "construction-zones",
-      "Weather Conditions": "weather-conditions"
-    };
     const topicRoute = topicRouteMap[nextTopic] || nextTopic.toLowerCase().replace(/\s+/g, '-');
+    
     navigate(`/practice/${topicRoute}`);
     
     setTimeout(() => {
@@ -59,28 +57,6 @@ export const Dashboard: React.FC = () => {
 
   const handleResumeStudy = () => {
     if (incompleteSession) {
-      const topicRouteMap: Record<string, string> = {
-        "Traffic Signs": "traffic-rules-signs",
-        "Priority Rules": "priority-rules", 
-        "Hazard Perception": "hazard-perception",
-        "Speed & Safety": "speed-safety",
-        "Road Signs": "road-signs",
-        "Motorway Rules": "motorway-rules",
-        "Vehicle Knowledge": "vehicle-knowledge",
-        "Parking Rules": "parking-rules",
-        "Environmental Zones": "environmental",
-        "Technology & Safety": "technology-safety",
-        "Alcohol & Drugs": "alcohol-drugs",
-        "Fatigue & Rest": "fatigue-rest",
-        "Emergency Procedures": "emergency-procedures",
-        "Insight Practice": "insight-practice",
-        "Bicycle Interactions": "bicycle-interactions",
-        "Roundabout Rules": "roundabout-rules",
-        "Tram Interactions": "tram-interactions",
-        "Pedestrian Crossings": "pedestrian-crossings",
-        "Construction Zones": "construction-zones",
-        "Weather Conditions": "weather-conditions"
-      };
       const topicRoute = topicRouteMap[incompleteSession.topic] || incompleteSession.topic.toLowerCase().replace(/\s+/g, '-');
       navigate(`/practice/${topicRoute}?resume=${incompleteSession.sessionId}`);
     }
@@ -121,7 +97,7 @@ export const Dashboard: React.FC = () => {
       await studyScheduler.initialize();
       updateData();
     } catch (error) {
-      // Error loading data
+      console.error('Error loading study data:', error);
     }
   };
 
@@ -130,8 +106,6 @@ export const Dashboard: React.FC = () => {
     const mins = minutes % 60;
     return `${hours}h ${mins}m`;
   };
-
-  // No loading screen - instant access for competition
 
   if (!user) {
     return <SimpleLogin />;
@@ -151,14 +125,11 @@ export const Dashboard: React.FC = () => {
           </div>
           <div className="dashboard-content">
             <div className="progress-tracker">
-              {/* Main progress bar at top */}
               <div className="main-progress-bar">
                 <div className="progress-bar-bg">
                   <div className="progress-bar-fill orange" style={{ width: `${Math.min(((tracker?.totalStudyTime || 0) / 120) * 100, 100)}%` }}></div>
                 </div>
               </div>
-              
-              {/* Time-focused learning interface - v3 */}
               <div className="progress-stats">
                 <div className="progress-stat">
                   <div className="stat-number">{formatTime(tracker?.totalStudyTime || 0)}</div>
@@ -179,7 +150,6 @@ export const Dashboard: React.FC = () => {
                   </div>
                 </div>
               </div>
-
 
               {!incompleteSession && (
                 <div className="progress-details">

@@ -10,13 +10,8 @@
   margin: 0;
 }
 
-/* Make Settings page scrollable */
-.settings-layout .main-content {
-  overflow: visible !important;
-  height: auto !important;
-  max-height: none !important;
-}
-
+/* Settings page scrollable overrides */
+.settings-layout .main-content,
 .settings-main-content {
   overflow: visible !important;
   height: auto !important;

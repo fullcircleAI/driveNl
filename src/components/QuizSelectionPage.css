@@ -9,13 +9,8 @@
   height: auto;
 }
 
-/* Make Quiz Selection page scrollable */
-.quiz-selection-layout .main-content {
-  overflow: visible !important;
-  height: auto !important;
-  max-height: none !important;
-}
-
+/* Quiz Selection page scrollable overrides */
+.quiz-selection-layout .main-content,
 .quiz-selection-main-content {
   overflow: visible !important;
   height: auto !important;

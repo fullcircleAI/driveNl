@@ -14,70 +14,28 @@
   height: auto;
 }
 
-/* Override any global background colors and make scrollable */
-html .practice-page,
-body .practice-page,
-.main-layout .practice-page,
-.main-content .practice-page,
-.scrollable-content .practice-page {
-  background: #FFFFFF !important;
-}
-
-/* Override main-content overflow for practice page */
+/* Practice page scrollable overrides */
 .practice-main-content {
   overflow: visible !important;
   height: auto !important;
   max-height: none !important;
 }
 
-.main-content:has(.practice-page),
-.main-content .practice-page {
-  overflow: visible !important;
-  height: auto !important;
-}
-
-/* Ensure practice page container allows scrolling */
-.scrollable-content:has(.practice-page) {
-  overflow: visible !important;
-  height: auto !important;
-}
-
-/* Target the scrollable-content wrapper specifically */
+/* Force white background on practice page */
+html .practice-page,
+body .practice-page,
+.main-layout .practice-page,
+.main-content .practice-page,
+.scrollable-content .practice-page,
 .scrollable-content {
   background: #FFFFFF !important;
 }
 
-/* Ensure the practice page container is white */
-.scrollable-content .practice-page {
-  background: #FFFFFF !important;
-}
-
-/* Override main-content background for practice route */
-.main-content .scrollable-content {
-  background: #FFFFFF !important;
-}
-
-/* Force white background on all practice-related containers */
-.main-layout .main-content .scrollable-content,
-.main-layout .main-content .scrollable-content .practice-page {
-  background: #FFFFFF !important;
-}
-
-/* Additional scrollable overrides for practice page */
+/* Additional practice page overrides */
 .practice-layout .main-content {
   overflow: visible !important;
   height: auto !important;
   max-height: none !important;
-}
-
-.main-layout:has(.practice-page) .main-content {
-  overflow: visible !important;
-  height: auto !important;
-}
-
-.main-layout:has(.practice-page) .dashboard {
-  overflow: visible !important;
-  height: auto !important;
 }
 
 /* Additional aggressive overrides to remove any blue tint */
