@@ -111,8 +111,8 @@
   display: none;
 }
 
-/* Mobile-first responsive design */
-@media (max-width: 900px) {
+/* Mobile responsive design - only for actual mobile devices */
+@media (max-width: 480px) {
   .sidebar {
     display: none;
   }
@@ -187,8 +187,13 @@
 }
 
 /* Large mobile devices */
-@media (min-width: 481px) and (max-width: 900px) {
+@media (min-width: 481px) and (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+  
   .footer-nav {
+    display: flex;
     padding: 0.6rem 0;
     padding-bottom: calc(0.6rem + var(--safe-area-inset-bottom));
   }
@@ -206,10 +211,15 @@
   }
 }
 
-/* Tablet landscape */
-@media (min-width: 901px) and (max-width: 1024px) {
+/* Tablet - show sidebar, hide footer */
+@media (min-width: 769px) and (max-width: 1024px) {
   .sidebar {
+    display: flex;
     width: 200px;
+  }
+  
+  .footer-nav {
+    display: none;
   }
   
   .nav-btn {
@@ -227,57 +237,6 @@
   }
 }
 
-/* iPad Optimizations */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .sidebar {
-    width: 220px; /* Slightly wider for iPad */
-  }
-  
-  .nav-btn {
-    padding: 1rem 1.8rem;
-    font-size: 1.1rem;
-    min-height: 48px; /* Larger touch targets */
-  }
-  
-  .nav-icon {
-    font-size: 1.5rem;
-  }
-  
-  .logo {
-    margin-left: 1.8rem;
-    font-size: 1.3rem;
-    margin-bottom: 2.5rem;
-  }
-  
-  .sidebar-user {
-    padding: 1.5rem 1.8rem;
-  }
-  
-  .user-avatar {
-    width: 45px;
-    height: 45px;
-    font-size: 1.2rem;
-  }
-  
-  .user-name {
-    font-size: 1.1rem;
-  }
-  
-  .user-email {
-    font-size: 1rem;
-  }
-  
-  /* Keep sidebar visible on iPad */
-  .footer-nav {
-    display: none;
-  }
-  
-  .main-content {
-    margin-left: 220px;
-    padding: 2rem;
-    padding-bottom: 2rem; /* Remove bottom padding for footer nav */
-  }
-}
 
 /* iPad Pro Optimizations */
 @media (min-width: 1025px) and (max-width: 1366px) {
@@ -325,22 +284,6 @@
   }
 }
 
-/* Landscape iPad - Optimize for horizontal layout */
-@media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
-  .sidebar {
-    width: 200px;
-  }
-  
-  .nav-btn {
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-  }
-  
-  .main-content {
-    margin-left: 200px;
-    padding: 1.5rem;
-  }
-} 
 
 @media (max-width: 1024px) {
   .footer-label {
