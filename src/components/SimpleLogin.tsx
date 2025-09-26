@@ -109,7 +109,7 @@ export const SimpleLogin: React.FC = () => {
             <Mascot size={120} />
           </div>
           <h1>Theory24</h1>
-          <p>AI dutch driving theory learning in 24 hours</p>
+          <p>AI-powered Dutch driving theory in 24 hours</p>
         </div>
 
         <div className="login-actions">
