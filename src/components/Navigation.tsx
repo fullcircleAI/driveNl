@@ -9,6 +9,9 @@ export function Navigation() {
   const hideFooter =
     /^\/practice\/[^/]+$/.test(location.pathname) ||
     (/^\/mock-exam(\/|$)/.test(location.pathname) && location.pathname !== '/mock-exam');
+  
+  // Debug: log current path and hideFooter status
+  console.log('Current path:', location.pathname, 'Hide footer:', hideFooter);
 
   const menuItems = [
     { label: 'Dashboard', path: '/dashboard', icon: <FiUser size={20} /> },
@@ -29,15 +32,17 @@ export function Navigation() {
           ))}
         </nav>
       </aside>
-      <footer className="footer-nav">
-        {menuItems.map(item => (
-          <NavLink key={item.path} to={item.path} className={({ isActive }) => isActive ? 'footer-btn active' : 'footer-btn'}>
-            <span className="footer-icon">{item.icon}</span>
-            {/* Hide text on mobile/iPad, show only on desktop if needed */}
-            <span className="footer-label">{item.label}</span>
-          </NavLink>
-        ))}
-      </footer>
+      {!hideFooter && (
+        <footer className="footer-nav">
+          {menuItems.map(item => (
+            <NavLink key={item.path} to={item.path} className={({ isActive }) => isActive ? 'footer-btn active' : 'footer-btn'}>
+              <span className="footer-icon">{item.icon}</span>
+              {/* Hide text on mobile/iPad, show only on desktop if needed */}
+              <span className="footer-label">{item.label}</span>
+            </NavLink>
+          ))}
+        </footer>
+      )}
     </>
   );
 } 
