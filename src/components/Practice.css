@@ -24,6 +24,12 @@ body .practice-page,
 }
 
 /* Override main-content overflow for practice page */
+.practice-main-content {
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
+}
+
 .main-content:has(.practice-page),
 .main-content .practice-page {
   overflow: visible !important;
@@ -58,6 +64,12 @@ body .practice-page,
 }
 
 /* Additional scrollable overrides for practice page */
+.practice-layout .main-content {
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
+}
+
 .main-layout:has(.practice-page) .main-content {
   overflow: visible !important;
   height: auto !important;

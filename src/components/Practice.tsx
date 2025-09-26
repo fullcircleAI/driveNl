@@ -198,9 +198,9 @@ export function Practice() {
   }, []);
 
   return (
-    <div className="main-layout">
+    <div className="main-layout practice-layout">
       <Navigation />
-      <main className="main-content">
+      <main className="main-content practice-main-content">
         <div className="practice-page">
           <div style={{ height: '3rem' }} />
           <div className="practice-header">
