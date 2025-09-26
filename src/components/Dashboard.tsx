@@ -151,6 +151,13 @@ export const Dashboard: React.FC = () => {
           </div>
           <div className="dashboard-content">
             <div className="progress-tracker">
+              {/* Main progress bar at top */}
+              <div className="main-progress-bar">
+                <div className="progress-bar-bg">
+                  <div className="progress-bar-fill orange" style={{ width: `${Math.min(((tracker?.totalStudyTime || 0) / 120) * 100, 100)}%` }}></div>
+                </div>
+              </div>
+              
               {/* Time-focused learning interface - v3 */}
               <div className="progress-stats">
                 <div className="progress-stat">
@@ -170,13 +177,6 @@ export const Dashboard: React.FC = () => {
                       <div className="progress-bar-fill" style={{ width: `${Math.min(((tracker?.remainingTime || 120) / 120) * 100, 100)}%` }}></div>
                     </div>
                   </div>
-                </div>
-              </div>
-              
-              {/* Main progress bar */}
-              <div className="main-progress-bar">
-                <div className="progress-bar-bg">
-                  <div className="progress-bar-fill orange" style={{ width: `${Math.min(((tracker?.totalStudyTime || 0) / 120) * 100, 100)}%` }}></div>
                 </div>
               </div>
 
