@@ -108,8 +108,8 @@ export const SimpleLogin: React.FC = () => {
           <div className="login-mascot">
             <Mascot size={120} />
           </div>
-          <h1>DriveNL</h1>
-          <p>Smarter way to learn Dutch driving theory</p>
+          <h1>Theory24</h1>
+          <p>AI dutch driving theory learning in 24 hours</p>
         </div>
 
         <div className="login-actions">
