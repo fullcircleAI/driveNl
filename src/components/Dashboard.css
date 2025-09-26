@@ -184,9 +184,9 @@
   box-shadow: 0 10px 36px var(--shadow-medium);
 }
 
-/* Main progress bar below title */
+/* Main progress bar */
 .main-progress-bar {
-  margin: 1rem 0;
+  margin: 0.5rem 0 1rem 0;
   width: 100%;
 }
 
@@ -206,13 +206,6 @@
   box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
 }
 
-.progress-tracker h3 {
-  font-size: var(--font-size-h2);
-  font-weight: 700;
-  color: #002868;
-  text-align: center;
-  margin: 0 0 1rem 0;
-}
 
 
 /* Coach Message Styles */
