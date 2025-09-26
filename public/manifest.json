@@ -1,7 +1,7 @@
 {
-  "name": "DriveNL",
-  "short_name": "DriveNL",
-  "description": "Comprehensive Dutch driving theory learning app with practice tests and mock exams",
+  "name": "Theory24",
+  "short_name": "Theory24",
+  "description": "AI dutch driving theory learning in 24 hours",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -75,7 +75,7 @@
       "sizes": "1280x720",
       "type": "image/svg+xml",
       "form_factor": "wide",
-      "label": "Dashboard view of the Theory Learning app"
+      "label": "Dashboard view of Theory24"
     },
     {
       "src": "/vite.svg",

@@ -211,7 +211,7 @@ export const QuizSelectionPage: React.FC = () => {
         <div className="quiz-selection-page">
           <div style={{ height: '3rem' }} />
           <div className="quiz-selection-header">
-            <h1 className="quiz-selection-title">Mock Exam</h1>
+            <h1 className="quiz-selection-title">Theory24</h1>
           </div>
 
       <div className="quiz-levels-container">

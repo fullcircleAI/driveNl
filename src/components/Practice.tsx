@@ -204,7 +204,7 @@ export function Practice() {
         <div className="practice-page">
           <div style={{ height: '3rem' }} />
           <div className="practice-header">
-            <h1 className="practice-title">Practice</h1>
+            <h1 className="practice-title">Theory24</h1>
           </div>
 
       <div className="practice-content">
