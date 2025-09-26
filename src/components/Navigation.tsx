@@ -29,17 +29,15 @@ export function Navigation() {
           ))}
         </nav>
       </aside>
-      {!hideFooter && (
-        <footer className="footer-nav">
-          {menuItems.map(item => (
-            <NavLink key={item.path} to={item.path} className={({ isActive }) => isActive ? 'footer-btn active' : 'footer-btn'}>
-              <span className="footer-icon">{item.icon}</span>
-              {/* Hide text on mobile/iPad, show only on desktop if needed */}
-              <span className="footer-label">{item.label}</span>
-            </NavLink>
-          ))}
-        </footer>
-      )}
+      <footer className="footer-nav">
+        {menuItems.map(item => (
+          <NavLink key={item.path} to={item.path} className={({ isActive }) => isActive ? 'footer-btn active' : 'footer-btn'}>
+            <span className="footer-icon">{item.icon}</span>
+            {/* Hide text on mobile/iPad, show only on desktop if needed */}
+            <span className="footer-label">{item.label}</span>
+          </NavLink>
+        ))}
+      </footer>
     </>
   );
 } 

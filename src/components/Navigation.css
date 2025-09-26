@@ -111,6 +111,12 @@
   display: none;
 }
 
+/* Hide footer on practice and mock exam pages */
+body:has(.practice-page) .footer-nav,
+body:has(.mock-exam-page) .footer-nav {
+  display: none !important;
+}
+
 /* Mobile responsive design - when minimized or on mobile devices */
 @media (max-width: 768px) {
   .sidebar {
