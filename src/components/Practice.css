@@ -10,17 +10,30 @@
   gap: 2rem;
   background: #FFFFFF !important;
   color: var(--text-color, #1A1A1A);
-  overflow-y: visible;
+  overflow-y: auto;
   height: auto;
 }
 
-/* Override any global background colors */
+/* Override any global background colors and make scrollable */
 html .practice-page,
 body .practice-page,
 .main-layout .practice-page,
 .main-content .practice-page,
 .scrollable-content .practice-page {
   background: #FFFFFF !important;
+}
+
+/* Override main-content overflow for practice page */
+.main-content:has(.practice-page),
+.main-content .practice-page {
+  overflow: visible !important;
+  height: auto !important;
+}
+
+/* Ensure practice page container allows scrolling */
+.scrollable-content:has(.practice-page) {
+  overflow: visible !important;
+  height: auto !important;
 }
 
 /* Target the scrollable-content wrapper specifically */
@@ -42,6 +55,17 @@ body .practice-page,
 .main-layout .main-content .scrollable-content,
 .main-layout .main-content .scrollable-content .practice-page {
   background: #FFFFFF !important;
+}
+
+/* Additional scrollable overrides for practice page */
+.main-layout:has(.practice-page) .main-content {
+  overflow: visible !important;
+  height: auto !important;
+}
+
+.main-layout:has(.practice-page) .dashboard {
+  overflow: visible !important;
+  height: auto !important;
 }
 
 /* Additional aggressive overrides to remove any blue tint */
