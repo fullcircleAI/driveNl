@@ -5,9 +5,22 @@
   display: flex;
   flex-direction: column;
   background: none !important;
-  overflow-y: visible;
+  overflow-y: auto;
   padding: 0;
   margin: 0;
+}
+
+/* Make Settings page scrollable */
+.settings-layout .main-content {
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
+}
+
+.settings-main-content {
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
 }
 
 .settings-header {

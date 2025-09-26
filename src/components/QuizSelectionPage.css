@@ -5,8 +5,21 @@
   padding: 2rem 1rem;
   min-height: 100vh;
   background: var(--neutral-color, #F5F7FA);
-  overflow-y: visible;
+  overflow-y: auto;
   height: auto;
+}
+
+/* Make Quiz Selection page scrollable */
+.quiz-selection-layout .main-content {
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
+}
+
+.quiz-selection-main-content {
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
 }
 
 .quiz-selection-header {

@@ -729,9 +729,9 @@ export const Settings: React.FC = () => {
   }, [showMenu]);
 
   return (
-    <div className="main-layout">
+    <div className="main-layout settings-layout">
       <Navigation />
-      <main className="main-content">
+      <main className="main-content settings-main-content">
         <div className="settings-container">
           <div style={{ height: '3rem' }} />
           {showMenu ? (

@@ -205,9 +205,9 @@ export const QuizSelectionPage: React.FC = () => {
 
 
   return (
-    <div className="main-layout">
+    <div className="main-layout quiz-selection-layout">
       <Navigation />
-      <main className="main-content">
+      <main className="main-content quiz-selection-main-content">
         <div className="quiz-selection-page">
           <div style={{ height: '3rem' }} />
           <div className="quiz-selection-header">
