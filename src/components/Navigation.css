@@ -111,8 +111,8 @@
   display: none;
 }
 
-/* Mobile responsive design - only for actual mobile devices */
-@media (max-width: 480px) {
+/* Mobile responsive design - when minimized or on mobile devices */
+@media (max-width: 768px) {
   .sidebar {
     display: none;
   }
@@ -188,12 +188,7 @@
 
 /* Large mobile devices */
 @media (min-width: 481px) and (max-width: 768px) {
-  .sidebar {
-    display: none;
-  }
-  
   .footer-nav {
-    display: flex;
     padding: 0.6rem 0;
     padding-bottom: calc(0.6rem + var(--safe-area-inset-bottom));
   }
