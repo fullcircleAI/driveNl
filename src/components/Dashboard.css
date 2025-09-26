@@ -1,4 +1,38 @@
-/* Dashboard Styles */
+/* Dashboard Styles - iOS and Android Optimized */
+
+/* iOS and Android viewport and touch optimizations */
+* {
+  /* iOS Safari touch optimizations */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection for important content */
+.stat-number,
+.stat-label,
+.welcome-title,
+.welcome-sub,
+.coach-message p,
+.next-topic,
+.weak-areas,
+.strong-areas {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* iOS Safari viewport fix */
+@supports (-webkit-touch-callout: none) {
+  .main-content {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 .main-layout {
   display: flex;
   min-height: 100vh;
@@ -385,6 +419,8 @@
     padding: 1rem;
     padding-bottom: 4rem;
     min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
   }
   
   .sidebar {
@@ -415,6 +451,60 @@
   .progress-tracker {
     flex-shrink: 0;
     min-height: 180px;
+  }
+  
+  .dashboard-welcome {
+    width: 100%;
+    max-width: 100%;
+    margin: 0.5rem 0;
+    padding: 1rem;
+    min-height: 120px;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .progress-tracker {
+    width: 100%;
+    max-width: 100%;
+    margin: 0.5rem 0;
+    padding: 1rem;
+    min-height: 120px;
+  }
+  
+  .progress-stats {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+  
+  .progress-stat {
+    padding: 0.8rem;
+  }
+  
+  .stat-number {
+    font-size: 1.2rem;
+  }
+  
+  .stat-label {
+    font-size: 0.7rem;
+  }
+  
+  .main-progress-bar {
+    margin: 0.8rem 0;
+  }
+  
+  .main-progress-bar .progress-bar-bg {
+    height: 10px;
+  }
+  
+  .progress-actions {
+    margin-top: 1rem;
+  }
+  
+  .action-button {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    min-height: 48px; /* iOS/Android touch target */
   }
 }
 
@@ -468,22 +558,66 @@
 .progress-stat:nth-child(2) { animation-delay: 0.4s; }
 .progress-stat:nth-child(3) { animation-delay: 0.5s; }
 
-/* Responsive Design */
+/* iOS and Android Mobile Optimizations */
 @media (max-width: 768px) {
   .main-content {
     padding: 1rem;
+    height: 100vh;
+    overflow: hidden;
+    /* iOS Safari viewport fix */
+    -webkit-overflow-scrolling: touch;
   }
   
   .dashboard {
-    padding: 1rem 0.5rem;
+    padding: 0.5rem;
+    height: 100%;
+    overflow: hidden;
   }
   
   .dashboard-welcome {
-    padding: 1.5rem;
+    padding: 1rem;
     flex-direction: column;
     gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 0.5rem 0;
+    min-height: 100px;
   }
   
+  .progress-tracker {
+    width: 100%;
+    max-width: 100%;
+    margin: 0.5rem 0;
+    padding: 1rem;
+    min-height: 100px;
+  }
+  
+  .progress-stats {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+  
+  .progress-stat {
+    padding: 0.8rem;
+    /* iOS touch feedback */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .stat-number {
+    font-size: 1.1rem;
+  }
+  
+  .stat-label {
+    font-size: 0.65rem;
+  }
+  
+  .main-progress-bar {
+    margin: 0.8rem 0;
+  }
+  
+  .main-progress-bar .progress-bar-bg {
+    height: 8px;
+  }
   
   .welcome-title {
     font-size: var(--font-size-h1);
@@ -497,20 +631,35 @@
   .progress-actions {
     flex-direction: column;
     gap: 0.5rem;
+    margin-top: 1rem;
   }
   
   .action-button {
     width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    min-height: 48px; /* iOS/Android touch target */
+    /* iOS touch feedback */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    /* Android touch feedback */
+    touch-action: manipulation;
   }
 }
 
+/* Small Mobile Devices (iPhone SE, etc.) */
 @media (max-width: 480px) {
   .main-content {
     padding: 0.5rem;
+    height: 100vh;
+    overflow: hidden;
+    /* iOS Safari viewport fix */
+    -webkit-overflow-scrolling: touch;
   }
   
   .dashboard {
-    padding: 0.25rem 0.125rem;
+    padding: 0.25rem;
+    height: 100%;
+    overflow: hidden;
   }
   
   .dashboard-welcome {
@@ -518,6 +667,46 @@
     border-radius: 16px;
     flex-direction: column;
     gap: 0.4rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 0.25rem 0;
+    min-height: 80px;
+  }
+  
+  .progress-tracker {
+    padding: 0.75rem;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0.25rem 0;
+    min-height: 80px;
+  }
+  
+  .progress-stats {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+  
+  .progress-stat {
+    padding: 0.6rem;
+    /* iOS touch feedback */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .stat-number {
+    font-size: 1rem;
+  }
+  
+  .stat-label {
+    font-size: 0.6rem;
+  }
+  
+  .main-progress-bar {
+    margin: 0.6rem 0;
+  }
+  
+  .main-progress-bar .progress-bar-bg {
+    height: 6px;
   }
   
   .welcome-title {
@@ -531,11 +720,7 @@
   .primary-cta {
     padding: 0.875rem 1.5rem;
     font-size: var(--font-size-small);
-  }
-  
-  .progress-tracker {
-    padding: 0.75rem;
-    border-radius: 16px;
+    min-height: 48px; /* iOS/Android touch target */
   }
   
   .coach-message p {
@@ -552,20 +737,20 @@
     padding: 0.4rem;
   }
   
-  .progress-stats {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
+  .progress-actions {
+    margin-top: 0.8rem;
   }
   
-  .progress-stat {
-    padding: 0.5rem;
+  .action-button {
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    min-height: 48px; /* iOS/Android touch target */
+    /* iOS touch feedback */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    /* Android touch feedback */
+    touch-action: manipulation;
   }
-  
-  .stat-number {
-    font-size: var(--font-size-h3);
-  }
-  
-
   
   .study-reminder {
     margin-top: 0.5rem;
@@ -583,17 +768,62 @@
   }
 }
 
+/* Very Small Mobile Devices (iPhone 5, etc.) */
 @media (max-width: 360px) {
   .main-content {
     padding: 0.25rem;
+    height: 100vh;
+    overflow: hidden;
+    /* iOS Safari viewport fix */
+    -webkit-overflow-scrolling: touch;
   }
   
   .dashboard {
-    padding: 0.125rem 0.0625rem;
+    padding: 0.125rem;
+    height: 100%;
+    overflow: hidden;
   }
   
   .dashboard-welcome {
     padding: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 0.125rem 0;
+    min-height: 70px;
+  }
+  
+  .progress-tracker {
+    padding: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 0.125rem 0;
+    min-height: 70px;
+  }
+  
+  .progress-stats {
+    gap: 0.4rem;
+  }
+  
+  .progress-stat {
+    padding: 0.5rem;
+    /* iOS touch feedback */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .stat-number {
+    font-size: 0.9rem;
+  }
+  
+  .stat-label {
+    font-size: 0.55rem;
+  }
+  
+  .main-progress-bar {
+    margin: 0.5rem 0;
+  }
+  
+  .main-progress-bar .progress-bar-bg {
+    height: 5px;
   }
   
   .welcome-title {
@@ -602,10 +832,6 @@
   
   .welcome-sub {
     font-size: 0.8rem;
-  }
-  
-  .progress-tracker {
-    padding: 0.5rem;
   }
   
   .coach-message p {
@@ -622,12 +848,19 @@
     padding: 0.3rem;
   }
   
-  .progress-stats {
-    gap: 0.5rem;
+  .progress-actions {
+    margin-top: 0.6rem;
   }
   
-  .stat-number {
-    font-size: var(--font-size-h4);
+  .action-button {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 0.85rem;
+    min-height: 48px; /* iOS/Android touch target */
+    /* iOS touch feedback */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    /* Android touch feedback */
+    touch-action: manipulation;
   }
   
   .study-reminder {
