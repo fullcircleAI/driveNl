@@ -175,13 +175,20 @@ export const Dashboard: React.FC = () => {
                   </div>
                 </div>
                 <div className="progress-stat">
-                  <div className="stat-number">{progress?.percentage || 0}%</div>
-                  <div className="stat-label">Study Progress</div>
+                  <div className="stat-number">{formatTime(tracker?.remainingTime || 120)}</div>
+                  <div className="stat-label">2HR TIMER COUNTDOWN</div>
                   <div className="progress-indicator">
                     <div className="progress-bar-bg">
-                      <div className="progress-bar-fill main" style={{ width: `${progress?.percentage || 0}%` }}></div>
+                      <div className="progress-bar-fill" style={{ width: `${Math.min(((tracker?.remainingTime || 120) / 120) * 100, 100)}%` }}></div>
                     </div>
                   </div>
+                </div>
+              </div>
+              
+              {/* Progress bar below title */}
+              <div className="main-progress-bar">
+                <div className="progress-bar-bg">
+                  <div className="progress-bar-fill orange" style={{ width: `${Math.min(((tracker?.totalStudyTime || 0) / 120) * 100, 100)}%` }}></div>
                 </div>
               </div>
 
@@ -212,18 +219,6 @@ export const Dashboard: React.FC = () => {
                     ? "Resume"
                     : (isStudyActive ? "Continue" : "Start")
                   }
-                </button>
-                <button 
-                  className="action-button secondary"
-                  onClick={() => navigate('/practice')}
-                >
-                  Practice
-                </button>
-                <button 
-                  className="action-button secondary"
-                  onClick={() => navigate('/quiz-selection')}
-                >
-                  Mock Exam
                 </button>
               </div>
 
