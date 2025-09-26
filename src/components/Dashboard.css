@@ -11,16 +11,16 @@
   padding: var(--spacing-xl);
   background: var(--background-gradient);
   font-family: 'Nunito', system-ui, -apple-system, sans-serif;
-  overflow: visible;
-  min-height: 100vh;
+  overflow: hidden;
+  height: 100vh;
 }
 
 .dashboard {
   padding: 0.5rem 0.3rem;
-  min-height: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .dashboard-header {
@@ -60,7 +60,7 @@
   max-width: 540px;
   margin: 0 auto;
   overflow: hidden;
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
   margin-bottom: 0;
 }
 

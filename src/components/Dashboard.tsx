@@ -176,7 +176,7 @@ export const Dashboard: React.FC = () => {
                 </div>
                 <div className="progress-stat">
                   <div className="stat-number">{formatTime(tracker?.remainingTime || 120)}</div>
-                  <div className="stat-label">2HR TIMER COUNTDOWN</div>
+                  <div className="stat-label">TIME LEFT</div>
                   <div className="progress-indicator">
                     <div className="progress-bar-bg">
                       <div className="progress-bar-fill" style={{ width: `${Math.min(((tracker?.remainingTime || 120) / 120) * 100, 100)}%` }}></div>
