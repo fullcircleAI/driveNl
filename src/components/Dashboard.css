@@ -396,8 +396,21 @@
 
 
 
-/* Tablet and Mobile responsive design */
-@media (max-width: 768px) {
+/* Tablet responsive design */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .dashboard-welcome {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .progress-tracker {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Mobile responsive design - only for actual mobile devices */
+@media (max-width: 480px) {
   .main-content {
     margin-left: 0;
     padding: 1rem;
@@ -543,127 +556,6 @@
 .progress-stat:nth-child(3) { animation-delay: 0.5s; }
 
 
-/* Small Mobile Devices (iPhone SE, etc.) */
-@media (max-width: 480px) {
-  .main-content {
-    padding: 0.5rem;
-    height: 100vh;
-    overflow: hidden;
-    /* iOS Safari viewport fix */
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  .dashboard {
-    padding: 0.25rem;
-    height: 100%;
-    overflow: hidden;
-  }
-  
-  .dashboard-welcome {
-    padding: 0.75rem;
-    border-radius: 16px;
-    flex-direction: column;
-    gap: 0.4rem;
-    width: 100%;
-    max-width: 100%;
-    margin: 0.25rem 0;
-    min-height: 80px;
-  }
-  
-  .progress-tracker {
-    padding: 0.75rem;
-    border-radius: 16px;
-    width: 100%;
-    max-width: 100%;
-    margin: 0.25rem 0;
-    min-height: 80px;
-  }
-  
-  .progress-stats {
-    grid-template-columns: 1fr;
-    gap: 0.6rem;
-  }
-  
-  .progress-stat {
-    padding: 0.6rem;
-    /* iOS touch feedback */
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
-  }
-  
-  .stat-number {
-    font-size: 1rem;
-  }
-  
-  .stat-label {
-    font-size: 0.6rem;
-  }
-  
-  .main-progress-bar {
-    margin: 0.6rem 0;
-  }
-  
-  .main-progress-bar .progress-bar-bg {
-    height: 6px;
-  }
-  
-  .welcome-title {
-    font-size: var(--font-size-h2);
-  }
-  
-  .welcome-sub {
-    font-size: var(--font-size-small);
-  }
-  
-  .primary-cta {
-    padding: 0.875rem 1.5rem;
-    font-size: var(--font-size-small);
-    min-height: 48px; /* iOS/Android touch target */
-  }
-  
-  .coach-message p {
-    font-size: 1rem;
-  }
-  
-  .next-topic {
-    font-size: 0.85rem;
-  }
-  
-  .weak-areas,
-  .strong-areas {
-    font-size: 0.85rem;
-    padding: 0.4rem;
-  }
-  
-  .progress-actions {
-    margin-top: 0.8rem;
-  }
-  
-  .action-button {
-    width: 100%;
-    padding: 0.7rem;
-    font-size: 0.9rem;
-    min-height: 48px; /* iOS/Android touch target */
-    /* iOS touch feedback */
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
-    /* Android touch feedback */
-    touch-action: manipulation;
-  }
-  
-  .study-reminder {
-    margin-top: 0.5rem;
-    padding: 0.875rem;
-    border-radius: 10px;
-    min-height: 48px; /* Larger touch target on mobile */
-  }
-  
-  .study-reminder-text {
-    font-size: var(--font-size-small);
-  }
-  
-  .study-reminder-label {
-    font-size: var(--font-size-xsmall);
-  }
-}
 
 /* Very Small Mobile Devices (iPhone 5, etc.) */
 @media (max-width: 360px) {
