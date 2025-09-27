@@ -91,13 +91,13 @@ export const mandatorySignQuestions: Question[] = [
     options: [
       { id: 'q-mand-sign-7o1', text: 'Compulsory direction ahead' },
       { id: 'q-mand-sign-7o2', text: 'Compulsory direction right' },
-      { id: 'q-mand-sign-7o3', text: 'One-way street' },
+      { id: 'q-mand-sign-7o3', text: 'Compulsory diagonal direction' },
     ],
-    correctAnswerId: 'q-mand-sign-7o2',
-    explanation: 'This blue circular sign with a white arrow pointing right indicates a compulsory right turn. Drivers must turn right.',
+    correctAnswerId: 'q-mand-sign-7o3',
+    explanation: 'This blue circular sign with a white diagonal arrow pointing down-right indicates a compulsory diagonal direction. Drivers must follow the direction shown by the arrow.',
     subject: 'Mandatory Signs',
     imageUrl: '/images/signs/mandatorysigns/q-mand-sign-7.png',
-    imageHint: 'compulsory right turn',
+    imageHint: 'compulsory diagonal direction',
   },
   {
     id: 'q-mand-sign-8',
