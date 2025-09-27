@@ -18,9 +18,7 @@ class AuthService {
 
   // Create a new anonymous user
   async createAnonymousUser(username: string, email: string, language: 'en' | 'nl' = 'en'): Promise<AuthUser> {
-    console.log('AuthService: createAnonymousUser started');
     const userId = this.generateUserId();
-    console.log('AuthService: Generated userId:', userId);
     
     const user: AuthUser = {
       id: userId,
@@ -30,14 +28,11 @@ class AuthService {
       isPremium: true // Free premium for now
     };
 
-    console.log('AuthService: Created user object:', user);
 
     // Set user ID in data persistence service
-    console.log('AuthService: Setting user ID in data persistence');
     dataPersistence.setUserId(userId);
 
     // Save user profile to database
-    console.log('AuthService: Saving user profile to database...');
     try {
       await dataPersistence.saveUserProfile({
         username,
@@ -49,14 +44,12 @@ class AuthService {
         totalTestsCompleted: 0,
         averageScore: 0
       });
-      console.log('AuthService: User profile saved successfully');
     } catch (error) {
       console.error('AuthService: Error saving user profile:', error);
       // Don't throw error - continue with local storage
     }
 
     // Save default settings
-    console.log('AuthService: Saving user settings...');
     try {
       await dataPersistence.saveUserSettings({
         language,
@@ -64,20 +57,13 @@ class AuthService {
         notificationsEnabled: true,
         theme: 'light'
       });
-      console.log('AuthService: User settings saved successfully');
     } catch (error) {
       console.error('AuthService: Error saving user settings:', error);
       // Don't throw error - continue with local storage
     }
 
     this.currentUser = user;
-    console.log('AuthService: Set current user');
-    
-    // Store in localStorage for persistence
     localStorage.setItem('currentUser', JSON.stringify(user));
-    console.log('AuthService: Saved user to localStorage');
-    
-    console.log('AuthService: createAnonymousUser completed successfully');
     return user;
   }
 

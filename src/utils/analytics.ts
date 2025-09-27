@@ -33,7 +33,6 @@ class Analytics {
   trackPageView(page: string): void {
     if (!this.isEnabled) return;
     
-    console.log('📊 Page View:', page);
     this.sendEvent({
       action: 'page_view',
       category: 'navigation',
@@ -45,7 +44,6 @@ class Analytics {
   trackEvent(event: AnalyticsEvent): void {
     if (!this.isEnabled) return;
     
-    console.log('📊 Event:', event);
     this.sendEvent(event);
   }
 

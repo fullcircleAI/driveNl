@@ -151,7 +151,6 @@ export const useAuthStore = create<AuthState>()(
 
           await new Promise(resolve => setTimeout(resolve, 500));
           set({ user: newUser, loading: false });
-          console.log('AuthStore: User converted successfully:', newUser);
         } catch (error) {
           set({ 
             error: error instanceof Error ? error.message : 'Conversion failed', 
@@ -174,7 +173,6 @@ export const useAuthStore = create<AuthState>()(
           
           // Update localStorage (simulating cloud storage)
           localStorage.setItem(`user_progress_${user.id}`, JSON.stringify(updatedProgress));
-          console.log('AuthStore: Progress updated:', updatedProgress);
         }
       },
     }),

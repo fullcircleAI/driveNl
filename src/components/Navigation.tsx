@@ -10,8 +10,6 @@ export function Navigation() {
     /^\/practice\/[^/]+$/.test(location.pathname) ||
     (/^\/mock-exam(\/|$)/.test(location.pathname) && location.pathname !== '/mock-exam');
   
-  // Debug: log current path and hideFooter status
-  console.log('Current path:', location.pathname, 'Hide footer:', hideFooter);
 
   const menuItems = [
     { label: 'Dashboard', path: '/dashboard', icon: <FiUser size={20} /> },

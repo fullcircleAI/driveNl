@@ -55,9 +55,6 @@ class DataPersistenceService {
 
     try {
       this.cloudData = await cloudStorage.loadUserData(this.userId);
-      if (this.cloudData) {
-        console.log('DataPersistence: Cloud data loaded successfully');
-      }
     } catch (error) {
       console.error('DataPersistence: Error loading cloud data:', error);
     }
@@ -69,7 +66,6 @@ class DataPersistenceService {
 
     try {
       await cloudStorage.saveUserData(this.cloudData);
-      console.log('DataPersistence: Cloud data saved successfully');
     } catch (error) {
       console.error('DataPersistence: Error saving cloud data:', error);
     }
@@ -81,7 +77,6 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    console.log('DataPersistence: Saving test result');
     const resultId = 'result_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
     
     const fullResult: UserProgress = {
@@ -139,7 +134,6 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    console.log('DataPersistence: Saving user profile');
     const fullProfile: UserProfile = {
       ...profile,
       id: this.userId
@@ -181,7 +175,6 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    console.log('DataPersistence: Saving user settings');
     const fullSettings: UserSettings = {
       ...settings,
       userId: this.userId
@@ -219,7 +212,6 @@ class DataPersistenceService {
 
   // Update user statistics
   private async updateUserStats(): Promise<void> {
-    console.log('DataPersistence: Updating user stats locally');
     // This would update the user profile with new stats
     // For now, just log that it's working
   }
@@ -230,7 +222,6 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    console.log('DataPersistence: Marking test as completed locally');
     const completedTests = this.getLocalCompletedTests();
     if (!completedTests.includes(testId)) {
       completedTests.push(testId);
@@ -253,7 +244,6 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    console.log('DataPersistence: Setting up local progress subscription');
     // For now, just call the callback with current results
     const results = this.getLocalTestResults();
     callback(results);
@@ -268,7 +258,6 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    console.log('DataPersistence: Syncing local data to cloud');
     
     // Load all local data
     const profile = await this.getUserProfile();
@@ -294,7 +283,6 @@ class DataPersistenceService {
       throw new Error('User ID not set');
     }
 
-    console.log('DataPersistence: Deleting user data locally');
     localStorage.removeItem(`testResults_${this.userId}`);
     localStorage.removeItem(`userProfile_${this.userId}`);
     localStorage.removeItem(`userSettings_${this.userId}`);

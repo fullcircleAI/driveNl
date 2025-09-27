@@ -2,7 +2,6 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import type { Language } from '../types';
 import { authService, type AuthUser } from '../services/authService';
-import { dataPersistence } from '../services/dataPersistence';
 
 interface AuthContextType {
   user: AuthUser | null;
@@ -21,31 +20,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  console.log('AuthProvider: Initial state - user:', user, 'loading:', loading);
 
   useEffect(() => {
     // Check for existing user on app start
     const initializeUser = async () => {
       try {
-        console.log('AuthProvider: Starting user initialization');
         setLoading(true);
         
         // Simple synchronous check for existing user
         const currentUser = authService.getCurrentUser();
-        console.log('AuthProvider: Current user from auth service:', currentUser);
         
         if (currentUser) {
-          console.log('AuthProvider: Setting user from auth service');
           setUser(currentUser);
         } else {
-          console.log('AuthProvider: No current user found - user can login later');
         }
         
         // Don't block on cloud sync - do it in background
         setTimeout(async () => {
           try {
             if (currentUser) {
-              console.log('AuthProvider: Syncing data to cloud in background');
               await authService.syncData();
             }
           } catch (syncError) {
@@ -57,7 +50,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         console.error('AuthProvider: Error initializing user:', err);
         setError('Failed to initialize user session');
       } finally {
-        console.log('AuthProvider: Finished initialization, setting loading to false');
         setLoading(false);
       }
     };
@@ -93,10 +85,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (user) {
       try {
         // Use 'en' as default since auth service doesn't support Arabic yet
-        const authLanguage = language === 'ar' ? 'en' : language;
+        const authLanguage = language === 'ar' ? 'en' : language as 'en' | 'nl';
         await authService.updateUserProfile({ language: authLanguage });
         await authService.updateUserSettings({ language: authLanguage });
-        setUser({ ...user, language });
+        setUser({ ...user, language: authLanguage });
       } catch (err) {
         // Error updating language
       }

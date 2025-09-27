@@ -51,7 +51,6 @@ class CloudStorageService {
   private setupOnlineListener(): void {
     window.addEventListener('online', () => {
       this.isOnline = true;
-      console.log('CloudStorage: Back online, syncing data...');
       this.syncPendingData();
     });
 
