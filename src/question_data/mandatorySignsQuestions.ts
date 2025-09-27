@@ -76,14 +76,14 @@ export const mandatorySignQuestions: Question[] = [
     text: 'Identify the road sign:',
     options: [
       { id: 'q-mand-sign-6o1', text: 'Compulsory path for pedestrians' },
-      { id: 'q-mand-sign-6o2', text: 'Pedestrians give way to vehicles' },
+      { id: 'q-mand-sign-6o2', text: 'Pedestrians may choose left or right' },
       { id: 'q-mand-sign-6o3', text: 'No pedestrians allowed' },
     ],
     correctAnswerId: 'q-mand-sign-6o1',
-    explanation: 'This blue circular sign with a pedestrian symbol indicates a path that must be used by pedestrians.',
+    explanation: 'This blue circular sign with a pedestrian symbol and branching arrows indicates a compulsory path for pedestrians. The arrows show that pedestrians must use this path and can choose to go left or right.',
     subject: 'Mandatory Signs',
     imageUrl: '/images/signs/mandatorysigns/q-mand-sign-6.png',
-    imageHint: 'pedestrian path',
+    imageHint: 'pedestrian path with directional choice',
   },
   {
     id: 'q-mand-sign-7',
