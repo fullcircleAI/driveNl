@@ -20,7 +20,7 @@ export const mandatorySignQuestions: Question[] = [
     text: 'Identify the road sign:',
     options: [
       { id: 'q-mand-sign-2o1', text: 'Compulsory cycle track' },
-      { id: 'q-mand-sign-2o2', text: 'No entry for bicycles' },
+      { id: 'q-mand-sign-2o2', text: 'Cycle route ahead' },
       { id: 'q-mand-sign-2o3', text: 'Cycles may use road' },
     ],
     correctAnswerId: 'q-mand-sign-2o1',
