@@ -1,4 +1,4 @@
-// Analytics utility for DriveNL app
+// Analytics utility for Theory24 app
 // Tracks user behavior and app performance
 
 interface AnalyticsEvent {

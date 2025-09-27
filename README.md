@@ -1,6 +1,6 @@
-# 🚗 DriveNL
+# 🚗 Theory24
 
-A comprehensive bilingual (English/Dutch) Dutch driving theory learning application with practice tests, mock exams, progress tracking, and voice support.
+AI-powered Dutch driving theory in 24 hours - A comprehensive bilingual (English/Dutch) Dutch driving theory learning application with practice tests, mock exams, progress tracking, and voice support.
 
 ## ✨ Features
 
