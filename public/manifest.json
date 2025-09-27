@@ -1,7 +1,7 @@
 {
   "name": "Theory24",
   "short_name": "Theory24",
-  "description": "AI-powered Dutch driving theory in 24 hours",
+  "description": "Learn Dutch driving theory with AI in 24 hours",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
