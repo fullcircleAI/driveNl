@@ -74,6 +74,7 @@ export const PracticeTest: React.FC = () => {
 
   // Get test data based on testType
   const getTestData = (testType: string) => {
+        console.log('Loading questions for testType:', testType); // Debug log
         const questionMap: Record<string, { questions: Question[], name: string }> = {
           'traffic-rules-signs': { 
             questions: [...mandatorySignQuestions, ...warningSignsQuestions, ...prohibitorySignsQuestions, ...trafficLightsSignalsQuestions], 
@@ -157,7 +158,16 @@ export const PracticeTest: React.FC = () => {
           }
         };
         
-    return questionMap[testType] || {
+    console.log('Available test types:', Object.keys(questionMap)); // Debug log
+    console.log('Requested testType:', testType); // Debug log
+    const result = questionMap[testType];
+    if (!result) {
+      console.log('TestType not found, using fallback'); // Debug log
+    } else {
+      console.log('Found test with', result.questions.length, 'questions'); // Debug log
+    }
+    
+    return result || {
       questions: [
         {
           id: "1",
