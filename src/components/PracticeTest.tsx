@@ -490,7 +490,7 @@ export const PracticeTest: React.FC = () => {
             </button>
             <button 
               className="practice-nav-btn result-btn-emotional" 
-              onClick={() => navigate('/dashboard')}
+              onClick={() => navigate('/')}
             >
               Back to Dashboard
             </button>

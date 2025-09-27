@@ -1,12 +1,20 @@
 /* Mock Exam Styles - Official Format */
 .mock-exam-container {
-  min-height: 100vh;
+  height: 100vh;
+  max-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow-y: auto;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  z-index: 1000;
 }
 
 .mock-exam-loading,
@@ -417,34 +425,44 @@
 
 .retake-btn,
 .dashboard-btn {
-  padding: 1rem 2rem;
-  border: none;
+  padding: 16px 32px;
+  border: 3px solid #1A3E7A;
   border-radius: 12px;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
+  min-width: 160px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .retake-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1A3E7A 0%, #002868 100%);
   color: white;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 6px 20px rgba(26, 62, 122, 0.4);
 }
 
 .retake-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #002868 0%, #1A3E7A 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(26, 62, 122, 0.5);
+  border-color: #002868;
 }
 
 .dashboard-btn {
-  background: #e2e8f0;
-  color: #4a5568;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: #1A3E7A;
+  border: 3px solid #1A3E7A;
 }
 
 .dashboard-btn:hover {
-  background: #cbd5e0;
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, #1A3E7A 0%, #002868 100%);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(26, 62, 122, 0.4);
+  border-color: #002868;
 }
 
 /* Responsive Design */
@@ -485,6 +503,9 @@
   .retake-btn,
   .dashboard-btn {
     width: 100%;
+    font-size: 1rem;
+    padding: 14px 28px;
+    min-width: 140px;
   }
 }
 

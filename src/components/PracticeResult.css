@@ -7,6 +7,13 @@
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  z-index: 1000;
 }
 
 .result-content-row {
@@ -130,41 +137,46 @@
 }
 
 .action-btn {
-  padding: 12px 24px;
+  padding: 16px 32px;
   border-radius: 12px;
   border: none;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s ease;
-  min-width: 120px;
+  transition: all 0.3s ease;
+  min-width: 160px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .action-btn.primary {
   background: linear-gradient(135deg, #1A3E7A 0%, #002868 100%);
   color: #fff;
-  border: 2px solid #1A3E7A;
-  box-shadow: 0 4px 12px rgba(26, 62, 122, 0.3);
+  border: 3px solid #1A3E7A;
+  box-shadow: 0 6px 20px rgba(26, 62, 122, 0.4);
 }
 
 .action-btn.primary:hover {
   background: linear-gradient(135deg, #002868 0%, #1A3E7A 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(26, 62, 122, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(26, 62, 122, 0.5);
+  border-color: #002868;
 }
 
 .action-btn.secondary {
-  background: #f8f9fa;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   color: #1A3E7A;
-  border: 2px solid #1A3E7A;
-  font-weight: 600;
+  border: 3px solid #1A3E7A;
+  font-weight: 700;
 }
 
 .action-btn.secondary:hover {
-  background: #1A3E7A;
+  background: linear-gradient(135deg, #1A3E7A 0%, #002868 100%);
   color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(26, 62, 122, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(26, 62, 122, 0.4);
+  border-color: #002868;
 }
 
 @keyframes fadeIn {
@@ -214,9 +226,9 @@
   }
   
   .action-btn {
-    font-size: 0.9rem;
-    padding: 10px 20px;
-    min-width: 100px;
+    font-size: 1rem;
+    padding: 14px 28px;
+    min-width: 140px;
   }
 }
 
@@ -249,13 +261,13 @@
   }
   
   .action-btn {
-    font-size: 0.85rem;
-    padding: 8px 16px;
-    min-width: 80px;
+    font-size: 0.95rem;
+    padding: 12px 24px;
+    min-width: 120px;
   }
   
   .result-actions {
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
   }
 } 

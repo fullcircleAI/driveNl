@@ -62,15 +62,15 @@ export function PracticeResult() {
             <div className="result-actions">
               <button 
                 className="action-btn primary"
-                onClick={() => navigate('/practice')}
+                onClick={() => navigate('/')}
               >
-                {t_nested('results.backToPractice')}
+                Back to Dashboard
               </button>
               <button 
                 className="action-btn secondary"
                 onClick={() => navigate(`/practice/${test}`)}
               >
-                {t_nested('results.tryAgain')}
+                Retake Test
               </button>
             </div>
           </div>

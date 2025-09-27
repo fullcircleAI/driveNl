@@ -1053,12 +1053,20 @@
 
 /* --- Emotional Results Page --- */
 .practice-test-result-emotional {
-  min-height: 60vh;
+  height: 100vh;
+  max-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: none;
+  background: #f4f6fa;
   overflow: hidden !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  z-index: 1000;
 }
 .result-card-emotional {
   background: linear-gradient(135deg, #fff 0%, #e6eaf3 100%);
@@ -1114,21 +1122,26 @@
 }
 .result-btn-emotional {
   margin-top: 0;
-  font-size: 1.08rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  background: #002868;
+  background: linear-gradient(135deg, #1A3E7A 0%, #002868 100%);
   color: #fff;
-  border: none;
+  border: 3px solid #1A3E7A;
   border-radius: 1.1rem;
-  padding: 0.95rem 2.1rem;
-  min-width: 120px;
-  box-shadow: 0 2px 8px rgba(75,108,183,0.08);
-  transition: background 0.2s, box-shadow 0.2s;
+  padding: 16px 32px;
+  min-width: 160px;
+  box-shadow: 0 6px 20px rgba(26, 62, 122, 0.4);
+  transition: all 0.3s ease;
   cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 .result-btn-emotional:hover, .result-btn-emotional:focus {
-  background: #00194a;
+  background: linear-gradient(135deg, #002868 0%, #1A3E7A 100%);
   color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(26, 62, 122, 0.5);
+  border-color: #002868;
 }
 @media (max-width: 700px) {
   .result-card-emotional {
@@ -1155,9 +1168,10 @@
     min-height: 2.2rem;
   }
   .result-btn-emotional {
-    font-size: 0.98rem;
-    padding: 0.7rem 1.1rem;
+    font-size: 1rem;
+    padding: 14px 28px;
     border-radius: 0.7rem;
+    min-width: 140px;
   }
 } 
 

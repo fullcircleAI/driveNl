@@ -372,13 +372,13 @@ export const MockExam: React.FC = () => {
               className="retake-btn"
               onClick={() => window.location.reload()}
             >
-              Retake Exam
+              Retake Test
             </button>
             <button 
               className="dashboard-btn"
-              onClick={() => navigate('/quiz-selection')}
+              onClick={() => navigate('/')}
             >
-              Back to Mock Exams
+              Back to Dashboard
             </button>
           </div>
         </div>
