@@ -125,7 +125,6 @@ export const Dashboard: React.FC = () => {
           </div>
           <div className="dashboard-content">
             <div className="progress-tracker">
-              <h3>Theory24</h3>
               <div className="main-progress-bar">
                 <div className="progress-bar-bg">
                   <div className="progress-bar-fill orange" style={{ width: `${Math.min(((tracker?.totalStudyTime || 0) / 120) * 100, 100)}%` }}></div>
