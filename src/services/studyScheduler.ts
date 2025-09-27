@@ -259,7 +259,7 @@ class StudyScheduler {
       return "Keep going! Every minute counts toward your 24-hour prep";
     }
     
-    return "Ready to begin your study session";
+    return "";
   }
 
   // Progress: Update progress after session
