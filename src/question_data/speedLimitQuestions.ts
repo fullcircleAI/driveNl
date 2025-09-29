@@ -10,8 +10,8 @@ export const speedLimitQuestions: Question[] = [
       { id: 'q-sl-1o3', text: '130 km/h' },
       { id: 'q-sl-1o4', text: '140 km/h' }
     ],
-    correctAnswerId: 'q-sl-1o3',
-    explanation: 'The maximum speed limit for cars on Dutch motorways is 130 km/h during good weather conditions. This was reduced from 130 km/h to 100 km/h in 2020, but increased back to 130 km/h in 2021.',
+    correctAnswerId: 'q-sl-1o1',
+    explanation: 'The maximum speed limit for cars on Dutch motorways is 100 km/h during good weather conditions. This was reduced from 130 km/h to 100 km/h in 2020 and remains at 100 km/h.',
     subject: 'Speed Limits'
   },
   {
