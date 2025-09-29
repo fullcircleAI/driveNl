@@ -23,11 +23,11 @@ export const signIdentificationQuestions: Question[] = [
       { id: 'q-sign-2o2', text: 'Warning sign' },
       { id: 'q-sign-2o3', text: 'Mandatory sign' }
     ],
-    correctAnswerId: 'q-sign-2o1',
-    explanation: 'This is a prohibitory sign, indicated by its circular shape and red border.',
+    correctAnswerId: 'q-sign-2o2',
+    explanation: 'This is a warning sign (St. Andrew\'s Cross), indicating a railroad crossing ahead.',
     subject: 'Sign Identification',
     imageUrl: '/images/signs/sign identification/q-identify-sign-2.png',
-    imageHint: 'prohibitory sign'
+    imageHint: 'warning sign railroad crossing'
   },
   {
     id: 'q-identify-sign-3',
