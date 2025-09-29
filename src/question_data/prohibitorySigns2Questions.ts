@@ -19,15 +19,15 @@ export const prohibitorySigns2Questions: Question[] = [
     id: 'q-prohibit2-2',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-prohibit2-2o1', text: 'No entry for lorries' },
-      { id: 'q-prohibit2-2o2', text: 'Lorries must use this lane' },
-      { id: 'q-prohibit2-2o3', text: 'Lorry parking area' }
+      { id: 'q-prohibit2-2o1', text: 'No entry for all vehicles' },
+      { id: 'q-prohibit2-2o2', text: 'No entry for motor vehicles' },
+      { id: 'q-prohibit2-2o3', text: 'No entry for cars' }
     ],
     correctAnswerId: 'q-prohibit2-2o1',
-    explanation: 'This sign indicates that lorries (trucks) are prohibited from using this road or area.',
+    explanation: 'This red circular sign with horizontal bar prohibits entry for ALL vehicles, including cars, motorcycles, bicycles, and pedestrians.',
     subject: 'Prohibitory Signs 2',
     imageUrl: '/images/signs/prohibitory signs 2/q-prohibit2-2.png',
-    imageHint: 'no lorries'
+    imageHint: 'no entry all vehicles'
   },
   {
     id: 'q-prohibit2-3',
