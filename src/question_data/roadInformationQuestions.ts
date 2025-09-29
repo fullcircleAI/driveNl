@@ -89,15 +89,15 @@ export const roadInformationQuestions: Question[] = [
     id: 'q-park-lane-7',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-park-lane-7o1', text: 'Bridge' },
-      { id: 'q-park-lane-7o2', text: 'Tunnel' },
-      { id: 'q-park-lane-7o3', text: 'Underpass' }
+      { id: 'q-park-lane-7o1', text: 'Lanes merging from the left' },
+      { id: 'q-park-lane-7o2', text: 'Lane reduction' },
+      { id: 'q-park-lane-7o3', text: 'Merge lanes' }
     ],
     correctAnswerId: 'q-park-lane-7o1',
-    explanation: 'This sign indicates the beginning of a bridge.',
+    explanation: 'This blue square sign with three arrows indicates that lanes are merging from the left, requiring drivers to be cautious and allow merging traffic.',
     subject: 'Road Information',
     imageUrl: '/images/signs/road information/q-park-lane-7.png',
-    imageHint: 'bridge'
+    imageHint: 'lanes merging left'
   },
   {
     id: 'q-park-lane-8',
