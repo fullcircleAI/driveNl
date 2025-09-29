@@ -47,15 +47,15 @@ export const roadInformationQuestions: Question[] = [
     id: 'q-park-lane-4',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-park-lane-4o1', text: 'End of expressway' },
-      { id: 'q-park-lane-4o2', text: 'Expressway ahead' },
-      { id: 'q-park-lane-4o3', text: 'Expressway junction' }
+      { id: 'q-park-lane-4o1', text: 'Priority over oncoming traffic' },
+      { id: 'q-park-lane-4o2', text: 'Right of way over oncoming traffic' },
+      { id: 'q-park-lane-4o3', text: 'Priority for oncoming traffic' }
     ],
     correctAnswerId: 'q-park-lane-4o1',
-    explanation: 'This sign indicates the end of an expressway section.',
+    explanation: 'This blue square sign with red arrow down and white arrow up indicates that you have priority over oncoming traffic in narrow sections.',
     subject: 'Road Information',
     imageUrl: '/images/signs/road information/q-park-lane-4.png',
-    imageHint: 'end expressway'
+    imageHint: 'priority oncoming traffic'
   },
   {
     id: 'q-park-lane-5',
