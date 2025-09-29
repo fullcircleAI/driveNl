@@ -131,14 +131,14 @@ export const roadInformationQuestions: Question[] = [
     id: 'q-park-lane-10',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-park-lane-10o1', text: 'End of underpass' },
-      { id: 'q-park-lane-10o2', text: 'Underpass ahead' },
-      { id: 'q-park-lane-10o3', text: 'Underpass junction' }
+      { id: 'q-park-lane-10o1', text: 'End of no entry for motor vehicles' },
+      { id: 'q-park-lane-10o2', text: 'End of motor vehicle prohibition' },
+      { id: 'q-park-lane-10o3', text: 'Motor vehicles allowed' }
     ],
     correctAnswerId: 'q-park-lane-10o1',
-    explanation: 'This sign indicates the end of an underpass section.',
+    explanation: 'This blue square sign with white car and red diagonal line indicates the end of a zone where motor vehicles were prohibited.',
     subject: 'Road Information',
     imageUrl: '/images/signs/road information/q-park-lane-10.png',
-    imageHint: 'end underpass'
+    imageHint: 'end no entry motor vehicles'
   }
 ]; 
