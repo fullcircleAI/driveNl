@@ -61,15 +61,15 @@ export const roadInformationQuestions: Question[] = [
     id: 'q-park-lane-5',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-park-lane-5o1', text: 'Tunnel' },
-      { id: 'q-park-lane-5o2', text: 'Bridge' },
-      { id: 'q-park-lane-5o3', text: 'Underpass' }
+      { id: 'q-park-lane-5o1', text: 'Priority road' },
+      { id: 'q-park-lane-5o2', text: 'Main road' },
+      { id: 'q-park-lane-5o3', text: 'Priority route' }
     ],
     correctAnswerId: 'q-park-lane-5o1',
-    explanation: 'This sign indicates the beginning of a tunnel.',
+    explanation: 'This white diamond sign with yellow square and three black lines indicates a priority road where you have right of way over other traffic.',
     subject: 'Road Information',
     imageUrl: '/images/signs/road information/q-park-lane-5.png',
-    imageHint: 'tunnel'
+    imageHint: 'priority road'
   },
   {
     id: 'q-park-lane-6',
