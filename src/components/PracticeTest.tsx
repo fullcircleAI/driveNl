@@ -473,7 +473,7 @@ export const PracticeTest: React.FC = () => {
           
           <div className="progress-details">
             <div className="weak-areas">
-              Next Topic: <strong>{nextTestName}</strong>
+              Next Topic: <strong>{nextTestName}</strong> {studyScheduler.getTopicTimeEstimate(nextTestName)}
             </div>
           </div>
           
