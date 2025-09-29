@@ -19,15 +19,15 @@ export const roadInformationQuestions: Question[] = [
     id: 'q-park-lane-2',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-park-lane-2o1', text: 'End of motorway' },
-      { id: 'q-park-lane-2o2', text: 'Motorway ahead' },
-      { id: 'q-park-lane-2o3', text: 'Motorway junction' }
+      { id: 'q-park-lane-2o1', text: 'Parking' },
+      { id: 'q-park-lane-2o2', text: 'Parking area' },
+      { id: 'q-park-lane-2o3', text: 'Parking permitted' }
     ],
     correctAnswerId: 'q-park-lane-2o1',
-    explanation: 'This sign indicates the end of a motorway section.',
+    explanation: 'This blue square sign with white "P" indicates a parking area where vehicles are allowed to park.',
     subject: 'Road Information',
     imageUrl: '/images/signs/road information/q-park-lane-2.png',
-    imageHint: 'end motorway'
+    imageHint: 'parking'
   },
   {
     id: 'q-park-lane-3',
