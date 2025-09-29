@@ -173,7 +173,7 @@ export const PracticeTest: React.FC = () => {
           correctAnswerId: "C",
           explanation: "This is a 'No Entry' sign, indicating that vehicles are not allowed to enter this road or area.",
           subject: "Traffic Signs",
-          image: null
+          imageUrl: "/images/signs/prohibitory signs 2/q-prohibit2-1.png"
         }
       ],
       name: 'Practice Test'
