@@ -47,15 +47,15 @@ export const prohibitorySigns2Questions: Question[] = [
     id: 'q-prohibit2-4',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-prohibit2-4o1', text: 'No entry for vehicles with trailers' },
-      { id: 'q-prohibit2-4o2', text: 'Trailer parking area' },
-      { id: 'q-prohibit2-4o3', text: 'Trailer route' }
+      { id: 'q-prohibit2-4o1', text: 'No entry for vehicles exceeding 3.1m in height' },
+      { id: 'q-prohibit2-4o2', text: 'Height limit 3.1m' },
+      { id: 'q-prohibit2-4o3', text: 'Low bridge ahead' }
     ],
     correctAnswerId: 'q-prohibit2-4o1',
-    explanation: 'This sign prohibits vehicles with trailers from using this road or area.',
+    explanation: 'This sign prohibits vehicles exceeding 3.1 meters in height from using this road or area.',
     subject: 'Prohibitory Signs 2',
     imageUrl: '/images/signs/prohibitory signs 2/q-prohibit2-4.png',
-    imageHint: 'no trailers'
+    imageHint: 'height limit 3.1m'
   },
   {
     id: 'q-prohibit2-5',
