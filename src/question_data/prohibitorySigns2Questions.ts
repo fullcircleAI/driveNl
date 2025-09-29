@@ -61,15 +61,15 @@ export const prohibitorySigns2Questions: Question[] = [
     id: 'q-prohibit2-5',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-prohibit2-5o1', text: 'No U-turn' },
-      { id: 'q-prohibit2-5o2', text: 'U-turn permitted' },
+      { id: 'q-prohibit2-5o1', text: 'U-turn permitted' },
+      { id: 'q-prohibit2-5o2', text: 'No U-turn' },
       { id: 'q-prohibit2-5o3', text: 'Turn around ahead' }
     ],
     correctAnswerId: 'q-prohibit2-5o1',
-    explanation: 'This red circular sign with a U-turn arrow crossed by a diagonal line prohibits U-turns at this location.',
+    explanation: 'This blue circular sign with a white U-turn arrow indicates that U-turns are permitted at this location.',
     subject: 'Prohibitory Signs 2',
     imageUrl: '/images/signs/prohibitory signs 2/q-prohibit2-5.png',
-    imageHint: 'no u-turn'
+    imageHint: 'u-turn permitted'
   },
   {
     id: 'q-prohibit2-6',
