@@ -185,6 +185,16 @@ export const PracticeTest: React.FC = () => {
     const testData = getTestData(testType || 'traffic-rules-signs');
     setQuestions(testData.questions);
     
+    // Reset test state when changing tests
+    setCurrentQuestionIndex(0);
+    setSelectedAnswer(null);
+    setShowExplanation(false);
+    setScore(0);
+    setIsAnswered(false);
+    setIsCorrect(null);
+    setIsFinished(false);
+    setMotivationWord('');
+    
     // Start study session tracking
     const topicName = testData.name;
     const newSessionId = studyScheduler.startPracticeSession(topicName, testData.questions.length);
