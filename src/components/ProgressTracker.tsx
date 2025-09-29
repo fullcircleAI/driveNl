@@ -136,9 +136,9 @@ export const ProgressTracker: React.FC = () => {
       const validResults = results.filter(result => 
         result && 
         typeof result === 'object' && 
-        typeof result.score === 'number' &&
-        result.score >= 0 && 
-        result.score <= 100
+        typeof result.percentage === 'number' &&
+        result.percentage >= 0 && 
+        result.percentage <= 100
       );
 
       if (validResults.length === 0) {
@@ -146,12 +146,12 @@ export const ProgressTracker: React.FC = () => {
       }
 
       const totalTests = validResults.length;
-      const totalScore = validResults.reduce((sum, result) => sum + (result.score || 0), 0);
+      const totalScore = validResults.reduce((sum, result) => sum + (result.percentage || 0), 0);
       const averageScore = Math.round(totalScore / totalTests);
-      const recentScore = validResults[validResults.length - 1]?.score || 0;
+      const recentScore = validResults[validResults.length - 1]?.percentage || 0;
 
       // Calculate trend
-      const recentScores = validResults.slice(-3).map(r => r.score || 0);
+      const recentScores = validResults.slice(-3).map(r => r.percentage || 0);
       const trend = recentScores.length >= 2 
         ? recentScores[recentScores.length - 1] > recentScores[0] ? 'improving' : 'declining'
         : 'stable';
