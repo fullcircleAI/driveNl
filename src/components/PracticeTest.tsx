@@ -303,7 +303,7 @@ export const PracticeTest: React.FC = () => {
     setIsCorrect(correct);
     
     if (correct) {
-      setScore(score + 1);
+      setScore(prevScore => prevScore + 1);
       setMotivationWord(correctWords[Math.floor(Math.random() * correctWords.length)]);
     } else {
       setMotivationWord(wrongWords[Math.floor(Math.random() * wrongWords.length)]);
