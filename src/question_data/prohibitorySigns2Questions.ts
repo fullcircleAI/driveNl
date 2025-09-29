@@ -75,15 +75,15 @@ export const prohibitorySigns2Questions: Question[] = [
     id: 'q-prohibit2-6',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-prohibit2-6o1', text: 'No entry for horse riders' },
-      { id: 'q-prohibit2-6o2', text: 'Horse route' },
-      { id: 'q-prohibit2-6o3', text: 'Horse parking area' }
+      { id: 'q-prohibit2-6o1', text: 'No entry for motor vehicles' },
+      { id: 'q-prohibit2-6o2', text: 'No entry for cars' },
+      { id: 'q-prohibit2-6o3', text: 'Motor vehicle route' }
     ],
     correctAnswerId: 'q-prohibit2-6o1',
-    explanation: 'This sign prohibits horse riders from using this road or area.',
+    explanation: 'This red circular sign with a car silhouette prohibits entry for motor vehicles.',
     subject: 'Prohibitory Signs 2',
     imageUrl: '/images/signs/prohibitory signs 2/q-prohibit2-6.png',
-    imageHint: 'no horse riders'
+    imageHint: 'no motor vehicles'
   },
   {
     id: 'q-prohibit2-7',
