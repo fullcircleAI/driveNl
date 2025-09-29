@@ -170,8 +170,8 @@ export const PracticeTest: React.FC = () => {
             { id: "C", text: "No Entry" },
             { id: "D", text: "Speed Limit" }
           ],
-          correctAnswerId: "A",
-          explanation: "This is a stop sign.",
+          correctAnswerId: "C",
+          explanation: "This is a 'No Entry' sign, indicating that vehicles are not allowed to enter this road or area.",
           subject: "Traffic Signs",
           image: null
         }
