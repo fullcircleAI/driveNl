@@ -61,15 +61,15 @@ export const prohibitorySigns2Questions: Question[] = [
     id: 'q-prohibit2-5',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-prohibit2-5o1', text: 'No entry for vehicles carrying dangerous goods' },
-      { id: 'q-prohibit2-5o2', text: 'Dangerous goods route' },
-      { id: 'q-prohibit2-5o3', text: 'Dangerous goods parking' }
+      { id: 'q-prohibit2-5o1', text: 'No U-turn' },
+      { id: 'q-prohibit2-5o2', text: 'U-turn permitted' },
+      { id: 'q-prohibit2-5o3', text: 'Turn around ahead' }
     ],
     correctAnswerId: 'q-prohibit2-5o1',
-    explanation: 'This sign prohibits vehicles carrying dangerous goods from using this road or area.',
+    explanation: 'This red circular sign with a U-turn arrow crossed by a diagonal line prohibits U-turns at this location.',
     subject: 'Prohibitory Signs 2',
     imageUrl: '/images/signs/prohibitory signs 2/q-prohibit2-5.png',
-    imageHint: 'no dangerous goods'
+    imageHint: 'no u-turn'
   },
   {
     id: 'q-prohibit2-6',
