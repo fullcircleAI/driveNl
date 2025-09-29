@@ -33,15 +33,15 @@ export const prohibitorySigns2Questions: Question[] = [
     id: 'q-prohibit2-3',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-prohibit2-3o1', text: 'No entry for buses' },
-      { id: 'q-prohibit2-3o2', text: 'Bus lane' },
-      { id: 'q-prohibit2-3o3', text: 'Bus stop ahead' }
+      { id: 'q-prohibit2-3o1', text: 'No entry for vehicles' },
+      { id: 'q-prohibit2-3o2', text: 'No entry for motor vehicles' },
+      { id: 'q-prohibit2-3o3', text: 'No entry for cars' }
     ],
     correctAnswerId: 'q-prohibit2-3o1',
-    explanation: 'This sign indicates that buses are prohibited from using this road or area.',
+    explanation: 'This red circular sign with two vehicles facing each other prohibits entry for all vehicles.',
     subject: 'Prohibitory Signs 2',
     imageUrl: '/images/signs/prohibitory signs 2/q-prohibit2-3.png',
-    imageHint: 'no buses'
+    imageHint: 'no entry vehicles'
   },
   {
     id: 'q-prohibit2-4',
