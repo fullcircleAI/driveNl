@@ -470,6 +470,14 @@ class StudyScheduler {
           ...s,
           startTime: new Date(s.startTime)
         })) || [];
+        
+        // Migration: Fix old 2-hour tracker data to 24-hour
+        if (this.tracker.remainingTime === 120) {
+          this.tracker.remainingTime = 1440;
+        }
+        if (this.tracker.totalStudyTime > 0 && this.tracker.remainingTime < 1440) {
+          this.tracker.remainingTime = Math.max(0, 1440 - this.tracker.totalStudyTime);
+        }
       }
         } catch (error) {
           // Error loading study scheduler data
