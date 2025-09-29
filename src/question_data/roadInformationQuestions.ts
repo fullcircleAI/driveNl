@@ -103,15 +103,15 @@ export const roadInformationQuestions: Question[] = [
     id: 'q-park-lane-8',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-park-lane-8o1', text: 'End of bridge' },
-      { id: 'q-park-lane-8o2', text: 'Bridge ahead' },
-      { id: 'q-park-lane-8o3', text: 'Bridge junction' }
+      { id: 'q-park-lane-8o1', text: 'Compulsory direction' },
+      { id: 'q-park-lane-8o2', text: 'Turn right' },
+      { id: 'q-park-lane-8o3', text: 'Direction arrow' }
     ],
     correctAnswerId: 'q-park-lane-8o1',
-    explanation: 'This sign indicates the end of a bridge section.',
+    explanation: 'This blue rectangular sign with white arrow indicates a compulsory direction that traffic must follow.',
     subject: 'Road Information',
     imageUrl: '/images/signs/road information/q-park-lane-8.png',
-    imageHint: 'end bridge'
+    imageHint: 'compulsory direction'
   },
   {
     id: 'q-park-lane-9',
