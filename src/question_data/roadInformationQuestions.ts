@@ -33,15 +33,15 @@ export const roadInformationQuestions: Question[] = [
     id: 'q-park-lane-3',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-park-lane-3o1', text: 'Expressway' },
-      { id: 'q-park-lane-3o2', text: 'Highway' },
-      { id: 'q-park-lane-3o3', text: 'Main road' }
+      { id: 'q-park-lane-3o1', text: 'End of built-up area' },
+      { id: 'q-park-lane-3o2', text: 'End of residential area' },
+      { id: 'q-park-lane-3o3', text: 'End of town' }
     ],
     correctAnswerId: 'q-park-lane-3o1',
-    explanation: 'This sign indicates the beginning of an expressway, which has specific rules and restrictions.',
+    explanation: 'This blue rectangular sign with red diagonal line indicates the end of a built-up area, where different speed limits and rules apply.',
     subject: 'Road Information',
     imageUrl: '/images/signs/road information/q-park-lane-3.png',
-    imageHint: 'expressway'
+    imageHint: 'end built-up area'
   },
   {
     id: 'q-park-lane-4',
