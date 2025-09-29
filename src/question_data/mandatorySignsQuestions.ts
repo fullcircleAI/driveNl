@@ -5,15 +5,15 @@ export const mandatorySignQuestions: Question[] = [
     id: 'q-mand-sign-1',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-mand-sign-1o1', text: 'Compulsory route for bicycles' },
+      { id: 'q-mand-sign-1o1', text: 'No entry for bicycles' },
       { id: 'q-mand-sign-1o2', text: 'Bicycle route ahead' },
       { id: 'q-mand-sign-1o3', text: 'Bicycle parking area' },
     ],
     correctAnswerId: 'q-mand-sign-1o1',
-    explanation: 'This blue circular sign with a bicycle symbol indicates a compulsory route for bicycles. Cyclists must use this designated route.',
+    explanation: 'This red circular sign with a bicycle symbol and diagonal line indicates that bicycles are prohibited from entering this road or area. Cyclists must find an alternative route.',
     subject: 'Mandatory Signs',
     imageUrl: '/images/signs/mandatorysigns/q-mand-sign-1.png',
-    imageHint: 'compulsory bicycle route',
+    imageHint: 'no entry for bicycles',
   },
   {
     id: 'q-mand-sign-2',
