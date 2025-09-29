@@ -273,7 +273,7 @@ class StudyScheduler {
     }
 
     // Calculate progress based on time completion (24-hour prep)
-    this.progress.percentage = Math.round((this.tracker.totalStudyTime / 1440) * 100);
+    this.progress.percentage = Math.round((this.tracker.totalStudyTime / 120) * 100);
     
     // Update weak and strong areas
     this.updateTopicAnalysis();
