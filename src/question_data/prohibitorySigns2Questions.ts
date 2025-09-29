@@ -89,15 +89,15 @@ export const prohibitorySigns2Questions: Question[] = [
     id: 'q-prohibit2-7',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-prohibit2-7o1', text: 'No entry for pedestrians' },
-      { id: 'q-prohibit2-7o2', text: 'Pedestrian route' },
-      { id: 'q-prohibit2-7o3', text: 'Pedestrian crossing' }
+      { id: 'q-prohibit2-7o1', text: 'Speed limit 50 km/h' },
+      { id: 'q-prohibit2-7o2', text: 'Maximum speed 50 km/h' },
+      { id: 'q-prohibit2-7o3', text: 'Speed limit ends' }
     ],
     correctAnswerId: 'q-prohibit2-7o1',
-    explanation: 'This sign prohibits pedestrians from using this road or area.',
+    explanation: 'This red circular sign with "50" indicates a speed limit of 50 km/h.',
     subject: 'Prohibitory Signs 2',
     imageUrl: '/images/signs/prohibitory signs 2/q-prohibit2-7.png',
-    imageHint: 'no pedestrians'
+    imageHint: 'speed limit 50'
   },
   {
     id: 'q-prohibit2-8',
