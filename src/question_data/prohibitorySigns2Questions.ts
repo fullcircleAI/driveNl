@@ -75,70 +75,70 @@ export const prohibitorySigns2Questions: Question[] = [
     id: 'q-prohibit2-6',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-prohibit2-6o1', text: 'No entry for vehicles exceeding 3.5m in height' },
-      { id: 'q-prohibit2-6o2', text: 'Height limit 3.5m' },
-      { id: 'q-prohibit2-6o3', text: 'Low bridge ahead' }
+      { id: 'q-prohibit2-6o1', text: 'No entry for horse riders' },
+      { id: 'q-prohibit2-6o2', text: 'Horse route' },
+      { id: 'q-prohibit2-6o3', text: 'Horse parking area' }
     ],
     correctAnswerId: 'q-prohibit2-6o1',
-    explanation: 'This sign prohibits vehicles exceeding 3.5 meters in height from using this road or area.',
+    explanation: 'This sign prohibits horse riders from using this road or area.',
     subject: 'Prohibitory Signs 2',
     imageUrl: '/images/signs/prohibitory signs 2/q-prohibit2-6.png',
-    imageHint: 'height limit 3.5m'
+    imageHint: 'no horse riders'
   },
   {
     id: 'q-prohibit2-7',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-prohibit2-7o1', text: 'No entry for vehicles exceeding 2.2m in width' },
-      { id: 'q-prohibit2-7o2', text: 'Width limit 2.2m' },
-      { id: 'q-prohibit2-7o3', text: 'Narrow road ahead' }
+      { id: 'q-prohibit2-7o1', text: 'No entry for pedestrians' },
+      { id: 'q-prohibit2-7o2', text: 'Pedestrian route' },
+      { id: 'q-prohibit2-7o3', text: 'Pedestrian crossing' }
     ],
     correctAnswerId: 'q-prohibit2-7o1',
-    explanation: 'This sign prohibits vehicles exceeding 2.2 meters in width from using this road or area.',
+    explanation: 'This sign prohibits pedestrians from using this road or area.',
     subject: 'Prohibitory Signs 2',
     imageUrl: '/images/signs/prohibitory signs 2/q-prohibit2-7.png',
-    imageHint: 'width limit 2.2m'
+    imageHint: 'no pedestrians'
   },
   {
     id: 'q-prohibit2-8',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-prohibit2-8o1', text: 'No entry for vehicles exceeding 10m in length' },
-      { id: 'q-prohibit2-8o2', text: 'Length limit 10m' },
-      { id: 'q-prohibit2-8o3', text: 'Long vehicle route' }
+      { id: 'q-prohibit2-8o1', text: 'No entry for bicycles' },
+      { id: 'q-prohibit2-8o2', text: 'Bicycle route' },
+      { id: 'q-prohibit2-8o3', text: 'Bicycle parking area' }
     ],
     correctAnswerId: 'q-prohibit2-8o1',
-    explanation: 'This sign prohibits vehicles exceeding 10 meters in length from using this road or area.',
+    explanation: 'This sign prohibits bicycles from using this road or area.',
     subject: 'Prohibitory Signs 2',
     imageUrl: '/images/signs/prohibitory signs 2/q-prohibit2-8.png',
-    imageHint: 'length limit 10m'
+    imageHint: 'no bicycles'
   },
   {
     id: 'q-prohibit2-9',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-prohibit2-9o1', text: 'No entry for vehicles exceeding 3.5t in weight' },
-      { id: 'q-prohibit2-9o2', text: 'Weight limit 3.5t' },
-      { id: 'q-prohibit2-9o3', text: 'Heavy vehicle route' }
+      { id: 'q-prohibit2-9o1', text: 'No entry for motorcycles' },
+      { id: 'q-prohibit2-9o2', text: 'Motorcycle route' },
+      { id: 'q-prohibit2-9o3', text: 'Motorcycle parking area' }
     ],
     correctAnswerId: 'q-prohibit2-9o1',
-    explanation: 'This sign prohibits vehicles exceeding 3.5 tonnes in weight from using this road or area.',
+    explanation: 'This sign prohibits motorcycles from using this road or area.',
     subject: 'Prohibitory Signs 2',
     imageUrl: '/images/signs/prohibitory signs 2/q-prohibit2-9.png',
-    imageHint: 'weight limit 3.5t'
+    imageHint: 'no motorcycles'
   },
   {
     id: 'q-prohibit2-10',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-prohibit2-10o1', text: 'No entry for vehicles exceeding 5t per axle' },
-      { id: 'q-prohibit2-10o2', text: 'Axle weight limit 5t' },
-      { id: 'q-prohibit2-10o3', text: 'Heavy axle route' }
+      { id: 'q-prohibit2-10o1', text: 'No entry for mopeds' },
+      { id: 'q-prohibit2-10o2', text: 'Moped route' },
+      { id: 'q-prohibit2-10o3', text: 'Moped parking area' }
     ],
     correctAnswerId: 'q-prohibit2-10o1',
-    explanation: 'This sign prohibits vehicles with an axle weight exceeding 5 tonnes from using this road or area.',
+    explanation: 'This sign prohibits mopeds from using this road or area.',
     subject: 'Prohibitory Signs 2',
     imageUrl: '/images/signs/prohibitory signs 2/q-prohibit2-10.png',
-    imageHint: 'axle weight limit 5t'
+    imageHint: 'no mopeds'
   }
 ]; 
