@@ -75,15 +75,15 @@ export const roadInformationQuestions: Question[] = [
     id: 'q-park-lane-6',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-park-lane-6o1', text: 'End of tunnel' },
-      { id: 'q-park-lane-6o2', text: 'Tunnel ahead' },
-      { id: 'q-park-lane-6o3', text: 'Tunnel junction' }
+      { id: 'q-park-lane-6o1', text: 'Destination' },
+      { id: 'q-park-lane-6o2', text: 'Place name' },
+      { id: 'q-park-lane-6o3', text: 'Direction sign' }
     ],
     correctAnswerId: 'q-park-lane-6o1',
-    explanation: 'This sign indicates the end of a tunnel section.',
+    explanation: 'This blue rectangular sign with white text indicates a destination or place name, helping drivers navigate to their intended location.',
     subject: 'Road Information',
     imageUrl: '/images/signs/road information/q-park-lane-6.png',
-    imageHint: 'end tunnel'
+    imageHint: 'destination'
   },
   {
     id: 'q-park-lane-7',
