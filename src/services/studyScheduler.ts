@@ -75,7 +75,7 @@ class StudyScheduler {
   };
   private tracker: StudyTracker = {
     totalStudyTime: 0,
-    remainingTime: 120, // 2 hours in minutes (simplified)
+    remainingTime: 1440, // 24 hours in minutes
     isActive: false
   };
   private progress: StudyProgress = {
@@ -273,7 +273,7 @@ class StudyScheduler {
     }
 
     // Calculate progress based on time completion (24-hour prep)
-    this.progress.percentage = Math.round((this.tracker.totalStudyTime / 120) * 100);
+    this.progress.percentage = Math.round((this.tracker.totalStudyTime / 1440) * 100);
     
     // Update weak and strong areas
     this.updateTopicAnalysis();
@@ -379,10 +379,10 @@ class StudyScheduler {
     
     this.sessions.push(newSession);
     
-    // Update tracker with session time (simplified)
+    // Update tracker with session time
     const sessionDuration = Math.round((new Date(session.endTime).getTime() - new Date(session.startTime).getTime()) / (1000 * 60));
     this.tracker.totalStudyTime += sessionDuration;
-    this.tracker.remainingTime = Math.max(0, 120 - this.tracker.totalStudyTime);
+    this.tracker.remainingTime = Math.max(0, 1440 - this.tracker.totalStudyTime);
     
     // Update progress
     this.updateProgress();

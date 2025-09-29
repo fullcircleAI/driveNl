@@ -142,16 +142,16 @@ export const Dashboard: React.FC = () => {
                   <div className="stat-label">Time Studied</div>
                   <div className="progress-indicator">
                     <div className="progress-bar-bg">
-                      <div className="progress-bar-fill" style={{ width: `${Math.min(((tracker?.totalStudyTime || 0) / 120) * 100, 100)}%` }}></div>
+                      <div className="progress-bar-fill" style={{ width: `${Math.min(((tracker?.totalStudyTime || 0) / 1440) * 100, 100)}%` }}></div>
                     </div>
                   </div>
                 </div>
                 <div className="progress-stat">
-                  <div className="stat-number">{formatTime(tracker?.remainingTime || 120)}</div>
+                  <div className="stat-number">{formatTime(tracker?.remainingTime || 1440)}</div>
                   <div className="stat-label">TIME LEFT</div>
                   <div className="progress-indicator">
                     <div className="progress-bar-bg">
-                      <div className="progress-bar-fill" style={{ width: `${Math.min(((tracker?.remainingTime || 120) / 120) * 100, 100)}%` }}></div>
+                      <div className="progress-bar-fill" style={{ width: `${Math.min(((tracker?.remainingTime || 1440) / 1440) * 100, 100)}%` }}></div>
                     </div>
                   </div>
                 </div>
