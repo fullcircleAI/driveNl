@@ -103,15 +103,15 @@ export const prohibitorySigns2Questions: Question[] = [
     id: 'q-prohibit2-8',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-prohibit2-8o1', text: 'No entry for bicycles' },
-      { id: 'q-prohibit2-8o2', text: 'Bicycle route' },
-      { id: 'q-prohibit2-8o3', text: 'Bicycle parking area' }
+      { id: 'q-prohibit2-8o1', text: 'No entry for lorries' },
+      { id: 'q-prohibit2-8o2', text: 'Lorry route' },
+      { id: 'q-prohibit2-8o3', text: 'Lorry parking area' }
     ],
     correctAnswerId: 'q-prohibit2-8o1',
-    explanation: 'This sign prohibits bicycles from using this road or area.',
+    explanation: 'This red circular sign with a lorry symbol prohibits entry for lorries and heavy goods vehicles.',
     subject: 'Prohibitory Signs 2',
     imageUrl: '/images/signs/prohibitory signs 2/q-prohibit2-8.png',
-    imageHint: 'no bicycles'
+    imageHint: 'no lorries'
   },
   {
     id: 'q-prohibit2-9',
