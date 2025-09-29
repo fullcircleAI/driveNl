@@ -117,15 +117,15 @@ export const prohibitorySigns2Questions: Question[] = [
     id: 'q-prohibit2-9',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-prohibit2-9o1', text: 'No entry for motorcycles' },
-      { id: 'q-prohibit2-9o2', text: 'Motorcycle route' },
-      { id: 'q-prohibit2-9o3', text: 'Motorcycle parking area' }
+      { id: 'q-prohibit2-9o1', text: 'No entry for motor vehicles' },
+      { id: 'q-prohibit2-9o2', text: 'Motor vehicle route' },
+      { id: 'q-prohibit2-9o3', text: 'Motor vehicle parking area' }
     ],
     correctAnswerId: 'q-prohibit2-9o1',
-    explanation: 'This sign prohibits motorcycles from using this road or area.',
+    explanation: 'This red circular sign with diagonal bar prohibits entry for all motor vehicles (cars, motorcycles, lorries, etc.).',
     subject: 'Prohibitory Signs 2',
     imageUrl: '/images/signs/prohibitory signs 2/q-prohibit2-9.png',
-    imageHint: 'no motorcycles'
+    imageHint: 'no motor vehicles'
   },
   {
     id: 'q-prohibit2-10',
