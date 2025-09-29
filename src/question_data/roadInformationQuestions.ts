@@ -33,15 +33,15 @@ export const roadInformationQuestions: Question[] = [
     id: 'q-park-lane-3',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-park-lane-3o1', text: 'End of built-up area' },
-      { id: 'q-park-lane-3o2', text: 'End of residential area' },
-      { id: 'q-park-lane-3o3', text: 'End of town' }
+      { id: 'q-park-lane-3o1', text: 'Playground' },
+      { id: 'q-park-lane-3o2', text: 'Children at play' },
+      { id: 'q-park-lane-3o3', text: 'Play area' }
     ],
     correctAnswerId: 'q-park-lane-3o1',
-    explanation: 'This blue rectangular sign with red diagonal line indicates the end of a built-up area, where different speed limits and rules apply.',
+    explanation: 'This blue rectangular sign with red diagonal line warns drivers of a playground area where children may be playing. Drivers should reduce speed and be extra cautious.',
     subject: 'Road Information',
     imageUrl: '/images/signs/road information/q-park-lane-3.png',
-    imageHint: 'end built-up area'
+    imageHint: 'playground'
   },
   {
     id: 'q-park-lane-4',
