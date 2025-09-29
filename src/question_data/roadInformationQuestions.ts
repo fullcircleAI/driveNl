@@ -117,15 +117,15 @@ export const roadInformationQuestions: Question[] = [
     id: 'q-park-lane-9',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-park-lane-9o1', text: 'Underpass' },
-      { id: 'q-park-lane-9o2', text: 'Tunnel' },
-      { id: 'q-park-lane-9o3', text: 'Bridge' }
+      { id: 'q-park-lane-9o1', text: 'Height restriction' },
+      { id: 'q-park-lane-9o2', text: 'Maximum height 2m' },
+      { id: 'q-park-lane-9o3', text: 'Height limit' }
     ],
     correctAnswerId: 'q-park-lane-9o1',
-    explanation: 'This sign indicates the beginning of an underpass.',
+    explanation: 'This blue rectangular sign with red circle and "2m" indicates a height restriction of 2 meters maximum.',
     subject: 'Road Information',
     imageUrl: '/images/signs/road information/q-park-lane-9.png',
-    imageHint: 'underpass'
+    imageHint: 'height restriction'
   },
   {
     id: 'q-park-lane-10',
