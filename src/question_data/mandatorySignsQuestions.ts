@@ -47,15 +47,15 @@ export const mandatorySignQuestions: Question[] = [
     id: 'q-mand-sign-4',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-mand-sign-4o1', text: 'Compulsory route for trams' },
+      { id: 'q-mand-sign-4o1', text: 'No entry for trams' },
       { id: 'q-mand-sign-4o2', text: 'Tram route ahead' },
       { id: 'q-mand-sign-4o3', text: 'Tram stop ahead' },
     ],
     correctAnswerId: 'q-mand-sign-4o1',
-    explanation: 'This blue circular sign with a tram symbol indicates a compulsory route for trams. Trams must use this designated route.',
+    explanation: 'This red circular sign with a tram symbol and diagonal line indicates that trams are prohibited from entering this road or area. Trams must find an alternative route.',
     subject: 'Mandatory Signs',
     imageUrl: '/images/signs/mandatorysigns/q-mand-sign-4.png',
-    imageHint: 'compulsory tram route',
+    imageHint: 'no entry for trams',
   },
   {
     id: 'q-mand-sign-5',
