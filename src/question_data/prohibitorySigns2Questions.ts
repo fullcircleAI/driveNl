@@ -5,15 +5,15 @@ export const prohibitorySigns2Questions: Question[] = [
     id: 'q-prohibit2-1',
     text: 'Identify the road sign:',
     options: [
-      { id: 'q-prohibit2-1o1', text: 'No entry for vehicles' },
+      { id: 'q-prohibit2-1o1', text: 'No entry for all vehicles' },
       { id: 'q-prohibit2-1o2', text: 'No entry for motor vehicles' },
       { id: 'q-prohibit2-1o3', text: 'No entry for cars' }
     ],
-    correctAnswerId: 'q-prohibit2-1o2',
-    explanation: 'This sign prohibits entry for all motor vehicles, including cars, motorcycles, and other motorized vehicles.',
+    correctAnswerId: 'q-prohibit2-1o1',
+    explanation: 'This red circular sign with blue inner circle and diagonal line prohibits entry for ALL vehicles, including cars, motorcycles, bicycles, and pedestrians.',
     subject: 'Prohibitory Signs 2',
     imageUrl: '/images/signs/prohibitory signs 2/q-prohibit2-1.png',
-    imageHint: 'no motor vehicles'
+    imageHint: 'no entry all vehicles'
   },
   {
     id: 'q-prohibit2-2',
