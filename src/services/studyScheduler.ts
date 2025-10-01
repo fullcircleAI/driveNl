@@ -190,6 +190,10 @@ class StudyScheduler {
   completePracticeSession(sessionId: string, performance?: number): void {
     const session = this.activeSessions.find(s => s.sessionId === sessionId);
     if (session) {
+      // Prevent double-crediting if already completed
+      if (session.isComplete) {
+        return;
+      }
       session.isComplete = true;
       
       // Update study time based on performance and topic estimate
@@ -220,7 +224,8 @@ class StudyScheduler {
         const est = estimateMap[topic] ?? 20;
         return sum + Math.round(est * (perf / 100));
       }, 0);
-      this.tracker.totalStudyTime += creditedMinutes;
+      // Apply credit and clamp to 24h target
+      this.tracker.totalStudyTime = Math.min(1440, Math.max(0, this.tracker.totalStudyTime + creditedMinutes));
       this.tracker.remainingTime = Math.max(0, 1440 - this.tracker.totalStudyTime);
       
       // Create a study session record with performance data
@@ -434,7 +439,8 @@ class StudyScheduler {
       const est = estimateMap[topic] ?? 20;
       return sum + Math.round(est * (averagePerformance / 100));
     }, 0);
-    this.tracker.totalStudyTime += creditedMinutes;
+    // Apply credit and clamp to 24h target
+    this.tracker.totalStudyTime = Math.min(1440, Math.max(0, this.tracker.totalStudyTime + creditedMinutes));
     this.tracker.remainingTime = Math.max(0, 1440 - this.tracker.totalStudyTime);
     
     // Update progress
