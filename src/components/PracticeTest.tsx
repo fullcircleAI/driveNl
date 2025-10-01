@@ -401,6 +401,25 @@ export const PracticeTest: React.FC = () => {
     navigate(`/practice/${nextTest}`);
   };
 
+  // Debug and force safe background when results open
+  useEffect(() => {
+    if (isFinished) {
+      try {
+        const nextTestRoute = getNextTest(testType || 'traffic-rules-signs');
+        const nextTestName = getTestDisplayName(nextTestRoute);
+        console.log('[PracticeTest][Results] render', {
+          score,
+          total: questions.length,
+          percentage: Math.round((score / questions.length) * 100),
+          nextTestRoute,
+          nextTestName
+        });
+        document.body.style.background = '#f4f6fa';
+        document.documentElement.style.background = '#f4f6fa';
+      } catch {}
+    }
+  }, [isFinished, score, questions.length, testType]);
+
   // Save results when finished
   useEffect(() => {
     if (isFinished && sessionId) {
