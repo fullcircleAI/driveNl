@@ -202,13 +202,17 @@ export const PracticeTest: React.FC = () => {
     setSessionStartTime(new Date());
   }, [testType]);
   
-  // Add practice-page class to body for white background
+  // Add practice-page class to body for white background; remove on results to prevent overrides
   useEffect(() => {
-    document.body.classList.add('practice-page');
+    if (!isFinished) {
+      document.body.classList.add('practice-page');
+    } else {
+      document.body.classList.remove('practice-page');
+    }
     return () => {
       document.body.classList.remove('practice-page');
     };
-  }, []);
+  }, [isFinished]);
 
 
   // Load voices for speech synthesis
