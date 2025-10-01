@@ -447,7 +447,21 @@ export const PracticeTest: React.FC = () => {
     const nextTestName = getTestDisplayName(nextTestRoute);
     
     return (
-      <div className="practice-test-result-emotional">
+      <div
+        className="practice-test-result-emotional"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          width: '100vw',
+          height: '100vh',
+          background: '#f4f6fa',
+          zIndex: 9999,
+          overflow: 'hidden'
+        }}
+      >
         <div className="result-card-emotional">
           <div className="result-title-emotional">Test Complete!</div>
           <div className="result-score-emotional">
