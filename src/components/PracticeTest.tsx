@@ -326,6 +326,7 @@ export const PracticeTest: React.FC = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
+      console.log('[PracticeTest] Finishing test');
       setIsFinished(true);
     }
   };
@@ -463,8 +464,8 @@ export const PracticeTest: React.FC = () => {
     }
   }, [isFinished, user, testType, score, questions.length, sessionId, sessionStartTime, recordStudySession]);
 
-  // Results page
-  if (isFinished) {
+  // Results page (guarded against empty questions and loading states)
+  if (isFinished && questions.length > 0) {
     const percentage = Math.round((score / questions.length) * 100);
     const nextTestRoute = getNextTest(testType || 'traffic-rules-signs');
     const nextTestName = getTestDisplayName(nextTestRoute);
@@ -494,6 +495,13 @@ export const PracticeTest: React.FC = () => {
             <button className="practice-nav-btn result-btn-emotional" onClick={() => navigate('/')}>Back to Dashboard</button>
           </div>
         </div>
+      </div>
+    );
+  }
+  if (isFinished && questions.length === 0) {
+    return (
+      <div style={{ position: 'fixed', inset: 0, background: '#fff', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div>Loading results…</div>
       </div>
     );
   }
