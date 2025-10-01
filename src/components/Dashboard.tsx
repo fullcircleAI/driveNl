@@ -102,9 +102,11 @@ export const Dashboard: React.FC = () => {
   };
 
   const formatTime = (minutes: number) => {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    return `${hours}h ${mins}m`;
+    const safeMinutes = Math.max(0, Math.round(minutes || 0));
+    const hours = Math.floor(safeMinutes / 60);
+    const mins = safeMinutes % 60;
+    const paddedMins = String(mins).padStart(2, '0');
+    return `${hours}h ${paddedMins}m`;
   };
 
   if (!user) {

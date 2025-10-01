@@ -192,10 +192,36 @@ class StudyScheduler {
     if (session) {
       session.isComplete = true;
       
-      // Update study time
-      const sessionDuration = (Date.now() - new Date(session.startTime).getTime()) / (1000 * 60);
-      this.tracker.totalStudyTime += sessionDuration;
-      this.tracker.remainingTime = Math.max(0, this.tracker.remainingTime - sessionDuration);
+      // Update study time based on performance and topic estimate
+      const estimateMap: Record<string, number> = {
+        "Traffic Signs": 20,
+        "Priority Rules": 15,
+        "Hazard Perception": 20,
+        "Speed & Safety": 20,
+        "Road Signs": 20,
+        "Parking Rules": 30,
+        "Motorway Rules": 30,
+        "Roundabout Rules": 30,
+        "Vehicle Knowledge": 44,
+        "Environmental Zones": 15,
+        "Technology & Safety": 20,
+        "Alcohol & Drugs": 24,
+        "Fatigue & Rest": 24,
+        "Emergency Procedures": 24,
+        "Insight Practice": 20,
+        "Bicycle Interactions": 40,
+        "Tram Interactions": 20,
+        "Pedestrian Crossings": 10,
+        "Construction Zones": 16,
+        "Weather Conditions": 8
+      };
+      const perf = performance ?? 0;
+      const creditedMinutes = session.topics.reduce((sum, topic) => {
+        const est = estimateMap[topic] ?? 20;
+        return sum + Math.round(est * (perf / 100));
+      }, 0);
+      this.tracker.totalStudyTime += creditedMinutes;
+      this.tracker.remainingTime = Math.max(0, 1440 - this.tracker.totalStudyTime);
       
       // Create a study session record with performance data
       if (performance !== undefined) {
@@ -379,9 +405,36 @@ class StudyScheduler {
     
     this.sessions.push(newSession);
     
-    // Update tracker with session time
-    const sessionDuration = Math.round((new Date(session.endTime).getTime() - new Date(session.startTime).getTime()) / (1000 * 60));
-    this.tracker.totalStudyTime += sessionDuration;
+    // Update tracker with performance-based time credit
+    // Credit minutes based on topic time estimates scaled by performance (0-100%)
+    const estimateMap: Record<string, number> = {
+      "Traffic Signs": 20,
+      "Priority Rules": 15,
+      "Hazard Perception": 20,
+      "Speed & Safety": 20,
+      "Road Signs": 20,
+      "Parking Rules": 30,
+      "Motorway Rules": 30,
+      "Roundabout Rules": 30,
+      "Vehicle Knowledge": 44,
+      "Environmental Zones": 15,
+      "Technology & Safety": 20,
+      "Alcohol & Drugs": 24,
+      "Fatigue & Rest": 24,
+      "Emergency Procedures": 24,
+      "Insight Practice": 20,
+      "Bicycle Interactions": 40,
+      "Tram Interactions": 20,
+      "Pedestrian Crossings": 10,
+      "Construction Zones": 16,
+      "Weather Conditions": 8
+    };
+    const averagePerformance = session.performance || 0; // 0-100
+    const creditedMinutes = session.topics.reduce((sum, topic) => {
+      const est = estimateMap[topic] ?? 20;
+      return sum + Math.round(est * (averagePerformance / 100));
+    }, 0);
+    this.tracker.totalStudyTime += creditedMinutes;
     this.tracker.remainingTime = Math.max(0, 1440 - this.tracker.totalStudyTime);
     
     // Update progress
