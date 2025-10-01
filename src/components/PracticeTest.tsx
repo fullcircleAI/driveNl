@@ -464,71 +464,30 @@ export const PracticeTest: React.FC = () => {
     const percentage = Math.round((score / questions.length) * 100);
     const nextTestRoute = getNextTest(testType || 'traffic-rules-signs');
     const nextTestName = getTestDisplayName(nextTestRoute);
-    
+
     return (
-      <div
-        className="practice-test-result-emotional"
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          width: '100vw',
-          height: '100vh',
-          background: '#f4f6fa',
-          zIndex: 9999,
-          overflow: 'hidden'
-        }}
-      >
-        <div className="result-card-emotional">
-          <div className="result-title-emotional">Test Complete!</div>
+      <div className="practice-test-result-emotional" style={{ position: 'fixed', inset: 0, background: '#f4f6fa', zIndex: 9999 }}>
+        <div className="result-card-emotional" role="dialog" aria-modal="true">
+          <h2 className="result-title-emotional">Test Complete!</h2>
           <div className="result-score-emotional">
             Score: <span>{score} / {questions.length}</span>
             <div className="result-percentage">({percentage}%)</div>
           </div>
-          
-          {percentage >= 80 && (
-            <div className="result-message success">
-              Excellent
-            </div>
-          )}
-          {percentage >= 60 && percentage < 80 && (
-            <div className="result-message good">
-              Good Job
-            </div>
-          )}
-          {percentage < 60 && (
-            <div className="result-message practice">
-              Keep Practicing
-            </div>
-          )}
-          
+
+          <div className={`result-message ${percentage >= 80 ? 'success' : percentage >= 60 ? 'good' : 'practice'}`}>
+            {percentage >= 80 ? 'Excellent' : percentage >= 60 ? 'Good Job' : 'Keep Practicing'}
+          </div>
+
           <div className="progress-details">
             <div className="weak-areas">
               Next: <strong>{nextTestName}</strong> {studyScheduler.getTopicTimeEstimate(nextTestName)}
             </div>
           </div>
-          
+
           <div className="result-actions-row">
-            <button 
-              className="practice-nav-btn result-btn-emotional primary" 
-              onClick={handleNextTest}
-            >
-              Start {nextTestName}
-            </button>
-            <button 
-              className="practice-nav-btn result-btn-emotional" 
-              onClick={() => window.location.reload()}
-            >
-              Retake Test
-            </button>
-            <button 
-              className="practice-nav-btn result-btn-emotional" 
-              onClick={() => navigate('/')}
-            >
-              Back to Dashboard
-            </button>
+            <button className="practice-nav-btn result-btn-emotional primary" onClick={handleNextTest}>Start {nextTestName}</button>
+            <button className="practice-nav-btn result-btn-emotional" onClick={() => window.location.reload()}>Retake Test</button>
+            <button className="practice-nav-btn result-btn-emotional" onClick={() => navigate('/')}>Back to Dashboard</button>
           </div>
         </div>
       </div>
