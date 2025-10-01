@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
 import { dataPersistence } from '../services/dataPersistence';
@@ -470,25 +471,20 @@ export const PracticeTest: React.FC = () => {
     const nextTestRoute = getNextTest(testType || 'traffic-rules-signs');
     const nextTestName = getTestDisplayName(nextTestRoute);
 
-    return (
-      <div className="practice-test-result-emotional" style={{ position: 'fixed', inset: 0, background: '#f4f6fa', zIndex: 9999 }}>
+    const overlay = (
+      <div className="practice-test-result-emotional" style={{ position: 'fixed', inset: 0, background: '#f4f6fa', zIndex: 2147483647 }}>
         <div className="result-card-emotional" role="dialog" aria-modal="true">
           <h2 className="result-title-emotional">Test Complete!</h2>
           <div className="result-score-emotional">
             Score: <span>{score} / {questions.length}</span>
             <div className="result-percentage">({percentage}%)</div>
           </div>
-
           <div className={`result-message ${percentage >= 80 ? 'success' : percentage >= 60 ? 'good' : 'practice'}`}>
             {percentage >= 80 ? 'Excellent' : percentage >= 60 ? 'Good Job' : 'Keep Practicing'}
           </div>
-
           <div className="progress-details">
-            <div className="weak-areas">
-              Next: <strong>{nextTestName}</strong> {studyScheduler.getTopicTimeEstimate(nextTestName)}
-            </div>
+            <div className="weak-areas">Next: <strong>{nextTestName}</strong> {studyScheduler.getTopicTimeEstimate(nextTestName)}</div>
           </div>
-
           <div className="result-actions-row">
             <button className="practice-nav-btn result-btn-emotional primary" onClick={handleNextTest}>Start {nextTestName}</button>
             <button className="practice-nav-btn result-btn-emotional" onClick={() => window.location.reload()}>Retake Test</button>
@@ -497,6 +493,15 @@ export const PracticeTest: React.FC = () => {
         </div>
       </div>
     );
+
+    const containerId = 'results-portal-container';
+    let container = document.getElementById(containerId);
+    if (!container) {
+      container = document.createElement('div');
+      container.id = containerId;
+      document.body.appendChild(container);
+    }
+    return ReactDOM.createPortal(overlay, container);
   }
   if (isFinished && questions.length === 0) {
     return (
